@@ -260,7 +260,7 @@ function HorizontalPortfolio() {
   const targetRef = useRef(null);
   const scrollerRef = useRef(null);
   const productionCases = [
-    { num: "01", name: "The Nordics Integration", img: "public/banner5.png", desc: "A sovereign logistics matrix transition across three maritime territories." },
+    { num: "01", name: "The Nordics Integration", img: "public/banner10.png", desc: "A sovereign logistics matrix transition across three maritime territories." },
     { num: "02", name: "Apex Venture Lab", img: "public/banner6.png", desc: "Infrastructural system architecture overhaul for global capital assets." },
     { num: "03", name: "Aether Cryptographic", img: "public/banner2.png", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
   ];
