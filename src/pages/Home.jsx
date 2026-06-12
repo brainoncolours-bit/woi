@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { Menu, MessageSquare, ArrowRight, ArrowLeft, Layers, Compass, Cpu, TrendingUp, Globe, ArrowUpRight } from 'lucide-react';
 
@@ -41,7 +41,7 @@ export default function CorporateLanding() {
       <HeroSection />
       <ParallaxPhilosophy />
       <ServicesBento />
-      <AsymmetricalSplitShowcase />
+      <HorizontalPortfolio />
       <MetricsSection />
       <CTASection />
       <Footer />
@@ -310,145 +310,57 @@ function ServicesBento() {
 }
 
 /* ==========================================================================
-   5. ASYMMETRIC PORTFOLIO SCROLLER (REWRITTEN LAYER CLIPPED SURFACE)
+   5. PORTFOLIO SHOWCASE (CRITICAL TIMING LOCKED SCROLLER BLOCK)
    ========================================================================== */
-function AsymmetricalSplitShowcase() {
+function HorizontalPortfolio() {
   const targetRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const productionCases = [
     { num: "01", name: "The Nordics Integration", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200", desc: "A sovereign logistics matrix transition across three maritime territories." },
     { num: "02", name: "Apex Venture Lab", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200", desc: "Infrastructural system architecture overhaul for global capital assets." },
     { num: "03", name: "Aether Cryptographic", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
   ];
 
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"]
-  });
+  // Make the section height proportional to the number of slides so vertical scroll maps to horizontal motion
+  const sectionHeightVh = productionCases.length * 100; // e.g., 3 slides -> 300vh
 
-  // Calculate distinct image scales along the viewport progression tracks
-  const imgScale1 = useTransform(scrollYProgress, [0, 0.33], [1.1, 1]);
-  const imgScale2 = useTransform(scrollYProgress, [0.33, 0.66], [1.2, 1]);
-  const imgScale3 = useTransform(scrollYProgress, [0.66, 1], [1.2, 1]);
-
-  // Handle intersection masking to build the asymmetrical stacking transition smoothly
-  const clipPath2 = useTransform(scrollYProgress, [0.25, 0.45], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);
-  const clipPath3 = useTransform(scrollYProgress, [0.55, 0.75], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);
-
-  // Calculate active index indicators dynamically based on scroll timeline
-  useTransform(scrollYProgress, (value) => {
-    if (value < 0.33) {
-      if (activeIndex !== 0) setActiveIndex(0);
-    } else if (value >= 0.33 && value < 0.66) {
-      if (activeIndex !== 1) setActiveIndex(1);
-    } else {
-      if (activeIndex !== 2) setActiveIndex(2);
-    }
-    return value;
-  });
+  // Create a scroll-linked transform that moves from 0 to negative (N-1)*100vw
+  const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(productionCases.length - 1) * 100}vw`]);
 
   return (
-    <div ref={targetRef} className="relative h-[300vh] bg-[#0c0c0e]">
-      <div className="sticky top-0 h-screen w-full grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
-        
-        {/* LEFT COLUMN: EDITORIAL SPECIFICATION LOG (5 Columns) */}
-        <div className="lg:col-span-5 p-8 md:p-16 lg:p-24 flex flex-col justify-between relative z-20 bg-[#0c0c0e]">
-          <div className="space-y-2">
-            <span className="text-[10px] font-mono tracking-[0.4em] text-white/30 uppercase block">// CASE EXHIBITS</span>
-            <h2 className="text-sm font-mono uppercase text-white/60 tracking-wider">Selected Implementations</h2>
-          </div>
+    <div ref={targetRef} className="relative bg-[#121214]" style={{ height: `${sectionHeightVh}vh` }}>
+      <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
 
-          <div className="space-y-6 max-w-sm py-12 lg:py-0">
-            <div className="overflow-hidden h-8 font-mono text-xs text-[#bfa36c] font-semibold">
-              <motion.div
-                animate={{ y: -activeIndex * 32 }}
-                transition={{ duration: 0.6, ease: EASE_CUBIC }}
-                className="space-y-4"
-              >
-                {productionCases.map((p) => (
-                  <span key={p.num} className="block h-4 uppercase tracking-[0.2em]">Exhibit {p.num}</span>
-                ))}
-              </motion.div>
-            </div>
+        {/* Absolute Header Anchors */}
+        <div className="absolute left-6 md:left-12 top-12 z-20 pointer-events-none">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Case Exhibits</div>
+          <h2 className="text-2xl font-serif text-white">Selected Implementations</h2>
+        </div>
 
-            <div className="overflow-hidden min-h-[90px]">
-              <motion.h3 
-                key={activeIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: EASE_CUBIC }}
-                className="text-3xl md:text-4xl font-serif text-white tracking-tight leading-tight uppercase"
-              >
-                {productionCases[activeIndex].name}
-              </motion.h3>
-            </div>
-
-            <div className="overflow-hidden min-h-[60px]">
-              <motion.p 
-                key={activeIndex}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.5 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-xs text-white leading-relaxed font-light font-sans"
-              >
-                {productionCases[activeIndex].desc}
-              </motion.p>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-4 font-mono text-[11px] text-white/20">
-            {productionCases.map((p, idx) => (
-              <div key={p.num} className="flex items-center space-x-2">
-                <span className={`transition-colors duration-300 ${activeIndex === idx ? 'text-white' : ''}`}>
-                  {p.num}
-                </span>
-                {idx < productionCases.length - 1 && <div className="w-6 h-[1px] bg-white/10" />}
+        {/* Horizontal scroller driven by `x` */}
+        <motion.div
+          style={{ x }}
+          className="flex items-center gap-12 pl-6 md:pl-12 pr-[20vw] will-change-transform"
+        >
+          {productionCases.map((project, idx) => (
+            <div key={idx} className="w-[85vw] sm:w-[65vw] md:w-[45vw] flex-shrink-0 flex flex-col justify-center space-y-6">
+              <div className="aspect-[16/10] bg-neutral-900 overflow-hidden relative rounded-sm group shadow-xl">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ duration: 0.6, ease: EASE_CUBIC }}
+                  className="absolute inset-0 bg-cover bg-center filter grayscale contrast-115"
+                  style={{ backgroundImage: `url(${project.img})` }}
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:opacity-10 transition-opacity pointer-events-none" />
+                <span className="absolute bottom-4 left-4 font-serif text-3xl text-white/80">{project.num}</span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN: IMMERSIVE CLIPPED MASK CANVAS (7 Columns) */}
-        <div className="hidden lg:block lg:col-span-7 relative h-full bg-neutral-950 overflow-hidden border-l border-white/5">
-          {/* Base Layer */}
-          <motion.div className="absolute inset-0 z-10 overflow-hidden">
-            <motion.img 
-              style={{ scale: imgScale1 }}
-              src={productionCases[0].img} 
-              className="w-full h-full object-cover filter grayscale contrast-115 brightness-90"
-              alt=""
-            />
-          </motion.div>
-
-          {/* Overlapping Stacking Layer 2 */}
-          <motion.div style={{ clipPath: clipPath2 }} className="absolute inset-0 z-10 overflow-hidden will-change-[clip-path]">
-            <motion.img 
-              style={{ scale: imgScale2 }}
-              src={productionCases[1].img} 
-              className="w-full h-full object-cover filter grayscale contrast-115 brightness-90"
-              alt=""
-            />
-          </motion.div>
-
-          {/* Overlapping Stacking Layer 3 */}
-          <motion.div style={{ clipPath: clipPath3 }} className="absolute inset-0 z-10 overflow-hidden will-change-[clip-path]">
-            <motion.img 
-              style={{ scale: imgScale3 }}
-              src={productionCases[2].img} 
-              className="w-full h-full object-cover filter grayscale contrast-115 brightness-90"
-              alt=""
-            />
-          </motion.div>
-
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/20 z-20 pointer-events-none" />
-          
-          <div className="absolute bottom-16 right-16 z-30 mix-blend-difference">
-            <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white/40 hover:text-white hover:border-white transition-colors cursor-pointer">
-              <ArrowUpRight size={18} />
+              <div className="space-y-2">
+                <h3 className="text-xl font-serif text-white">{project.name}</h3>
+                <p className="text-sm text-white/50 font-light max-w-md">{project.desc}</p>
+              </div>
             </div>
-          </div>
-        </div>
+          ))}
+        </motion.div>
 
       </div>
     </div>
