@@ -1,505 +1,625 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Sun, Moon, ArrowRight, Layers, Users, Rocket, Target, Cpu, ShieldCheck, Zap } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { Menu, MessageSquare, ArrowRight, ArrowLeft, Layers, Compass, Cpu, TrendingUp, Globe, ArrowUpRight } from 'lucide-react';
 
-const CombinedLandingPage = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const containerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+/* ==========================================================================
+   ANIMATION CONFIGURATIONS (ELEGANT CURVES)
+   ========================================================================== */
+const EASE_CUBIC = [0.16, 1, 0.3, 1];
 
-  // New states for interactive element tracking in the newly added sections
-  const [activeFeature, setActiveFeature] = useState(0);
+const fadeInUpVariant = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: EASE_CUBIC } 
+  }
+};
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+const staggerContainer = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12 }
+  }
+};
 
-  // Slide data referencing your screenshots
-  const slides = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80", 
-      label: "Aerial View"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1920&q=80", 
-      label: "Interior"
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1920&q=80", 
-      label: "Master Suite"
-    }
-  ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      
-      const rect = containerRef.current.getBoundingClientRect();
-      const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
-      
-      const progress = -rect.top / totalHeight;
-      setScrollProgress(Math.min(Math.max(progress, 0), 1));
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+export default function CorporateLanding() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 25 });
 
   return (
-    <div className={`w-full font-sans transition-colors duration-500 overflow-clip ${isDarkMode ? 'bg-stone-950 text-white' : 'bg-stone-50 text-stone-900'}`}>
+    <div className="bg-[#0b0b0c] text-[#f5f5f7] font-sans antialiased selection:bg-[#ffffff] selection:text-[#0b0b0c] overflow-x-hidden">
+      {/* Premium Minimal Progress Bar */}
+      <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-neutral-500 via-white to-neutral-500 origin-left z-50" style={{ scaleX }} />
       
-      {/* FIXED HEADER / NAVIGATION */}
-      <header className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12 backdrop-blur-md transition-colors duration-300 ${isDarkMode ? 'bg-black/20 border-b border-white/5' : 'bg-white/40 border-b border-black/5'}`}>
+      {/* Fixed UI Layer Elements */}
+      <FixedSidebar />
+      <FloatingContact />
+
+      <Navbar />
+      <HeroSection />
+      <ParallaxPhilosophy />
+      <ServicesBento />
+      <AsymmetricalSplitShowcase />
+      <MetricsSection />
+      <CTASection />
+      <Footer />
+    </div>
+  );
+}
+
+/* ==========================================================================
+   INTERACTIVE FIXED DECORATIVE LAYOUT ELEMENTS
+   ========================================================================== */
+function FixedSidebar() {
+  return (
+    <div className="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center space-y-12 mix-blend-difference">
+      {['.linkedin', '.twitter', '.journal'].map((link, idx) => (
+        <motion.span 
+          key={idx}
+          whileHover={{ y: -3, scale: 1.05 }}
+          className="text-[10px] uppercase tracking-[0.25em] font-medium text-white/40 rotate-270 origin-center whitespace-nowrap cursor-pointer hover:text-white transition-colors"
+        >
+          {link}
+        </motion.span>
+      ))}
+    </div>
+  );
+}
+
+function FloatingContact() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }) {
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = clientX - left - width / 2;
+    const y = clientY - top - height / 2;
+    mouseX.set(x * 0.35);
+    mouseY.set(y * 0.35);
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
+  return (
+    <motion.div 
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: mouseX, y: mouseY }}
+      transition={{ type: "spring", stiffness: 150, damping: 15 }}
+      className="fixed bottom-8 right-8 z-40 flex items-center space-x-3 bg-white text-black pl-5 pr-4 py-2.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer group"
+    >
+      <span className="text-xs font-semibold tracking-wide">Initiate Briefing</span>
+      <motion.div 
+        variants={{ hover: { scale: 1.1, rotate: 15 } }}
+        className="w-6 h-6 rounded-full bg-black flex items-center justify-center text-white"
+      >
+        <MessageSquare size={12} className="fill-white" />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ==========================================================================
+   1. NAVBAR
+   ========================================================================== */
+function Navbar() {
+  return (
+    <motion.nav 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: EASE_CUBIC }}
+      className="absolute top-0 left-0 right-0 z-40 h-24 max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between"
+    >
+      <div className="text-white tracking-tighter text-2xl font-black lowercase select-none group cursor-pointer">
+        world of ique<span className="text-[9px] tracking-[0.3em] block text-right font-light uppercase opacity-50 -mt-1 transition-all group-hover:tracking-wider">global syndicate</span>
+      </div>
+      <motion.button 
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black shadow-md focus:outline-none"
+      >
+        <Menu size={16} strokeWidth={2.5} />
+      </motion.button>
+    </motion.nav>
+  );
+}
+
+/* ==========================================================================
+   2. HERO SECTION
+   ========================================================================== */
+function HeroSection() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+
+  return (
+    <section ref={containerRef} className="relative h-screen flex items-center justify-between px-6 md:px-16 lg:px-24 overflow-hidden bg-[#070708]">
+      <motion.div 
+        className="absolute inset-0 z-0 bg-cover bg-center opacity-25 pointer-events-none scale-105"
+        style={{ 
+          backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1800')`,
+          y: bgY
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0c] via-transparent to-[#0b0b0c]/80" />
+      </motion.div>
+
+      <motion.div 
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+        style={{ y: textY }} 
+        className="z-10 max-w-4xl mt-12 space-y-6"
+      >
+        <motion.div 
+          variants={fadeInUpVariant}
+          className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/50 border-l-2 border-white/40 pl-3"
+        >
+          Institutional Architecture
+        </motion.div>
         
-        {/* Left: Branding Footprint */}
-        <div className="flex items-center space-x-2 text-sm tracking-wider">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="font-medium opacity-90 uppercase">WORLD OF IQUE</span>
-          <span className={`hidden sm:inline text-xs ${isDarkMode ? 'text-stone-400' : 'text-stone-500'}`}>| Innovation Hub</span>
-        </div>
-
-        {/* Absolute Center Logo Layout */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center pointer-events-none">
-          <span className="text-3xl font-serif tracking-tighter italic font-bold">IQue</span>
-          <span className={`text-[9px] uppercase tracking-[0.3em] mt-1 ${isDarkMode ? 'text-stone-300' : 'text-stone-600'}`}>World of IQue</span>
-        </div>
-
-        {/* Right: Theme Selector, Language & Menu */}
-        <div className="flex items-center space-x-4">
-          <button 
-            onClick={toggleTheme}
-            className={`p-2 rounded-full border transition-all ${isDarkMode ? 'border-white/20 hover:bg-white/10 text-amber-400' : 'border-black/20 hover:bg-black/5 text-indigo-600'}`}
-            aria-label="Toggle Theme"
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-normal font-serif text-white leading-[1.05] tracking-tight overflow-hidden">
+          {["Sovereign Scale.", "Built for"].map((text, i) => (
+            <motion.span 
+              key={i} 
+              custom={i}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: i * 0.15, ease: EASE_CUBIC }}
+              className="block"
+            >
+              {text}
+            </motion.span>
+          ))}
+          <motion.span 
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4, ease: EASE_CUBIC }}
+            className="block italic font-light text-neutral-300"
           >
-            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
+            permanence.
+          </motion.span>
+        </h1>
+        
+        <motion.p variants={fadeInUpVariant} className="text-sm md:text-base text-white/60 font-light leading-relaxed max-w-md pt-2">
+          World of Ique operates a global enterprise framework, engineered to provide{' '}
+          <span className="underline underline-offset-4 decoration-white/40 text-white font-normal">
+            international grade
+          </span>{' '}
+          structural engineering and asset management optimization models.
+        </motion.p>
+      </motion.div>
 
-          <button className={`flex items-center space-x-1 border rounded-full px-3 py-1 text-xs uppercase tracking-wider transition-all ${isDarkMode ? 'border-white/30 hover:bg-white/10' : 'border-black/30 hover:bg-black/5'}`}>
-            <span>EN</span>
-            <span className="text-[10px] opacity-60">▼</span>
-          </button>
-          
-          <button className="p-1 opacity-80 hover:opacity-100 transition-opacity" aria-label="Toggle Menu">
-            <Menu className="w-6 h-6 stroke-[1.5]" />
-          </button>
-        </div>
-      </header>
-
-      {/* PARALLAX HERO SECTION */}
-      <div className="relative h-screen w-full overflow-hidden flex items-end perspective-container">
-        <div 
-          className={`absolute inset-0 bg-cover bg-center transition-all duration-500 ${
-            isDarkMode 
-              ? 'mix-blend-lighten opacity-40 md:opacity-60 scale-110' 
-              : 'mix-blend-multiply opacity-20 md:opacity-30 scale-110'
-          }`}
-          style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80')`,
-            transform: 'translateZ(-1px) scale(2)' 
-          }}
-        />
-
-        <div className={`absolute inset-0 transition-opacity duration-500 ${
-          isDarkMode 
-            ? 'bg-gradient-to-t from-stone-950 via-stone-950/40 to-stone-950/70' 
-            : 'bg-gradient-to-t from-stone-50 via-stone-50/20 to-stone-100/40'
-        }`} />
-
-        <main className="relative z-10 w-full px-6 pb-20 md:pb-24 md:px-12 max-w-6xl mx-auto text-center md:text-left">
-          <div className="space-y-6 max-w-4xl">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-light tracking-tight leading-none">
-              Join us in building a <span className="font-serif italic font-normal">Better</span>
-              <span className="block mt-2">
-                and more <span className="font-serif italic font-normal">Efficient</span> startup ecosystem!
-              </span>
-            </h1>
-
-            <h2 className={`text-lg md:text-2xl font-light tracking-wide max-w-2xl mt-4 leading-relaxed ${isDarkMode ? 'text-stone-300' : 'text-stone-600'}`}>
-              By fostering collaboration, providing mentorship, and offering resources, we’re empowering startups to grow and thrive. Together, we can create a future where innovation knows no limits.
-            </h2>
-          </div>
-        </main>
+      <div className="absolute right-12 bottom-36 hidden md:flex items-center space-x-6 text-xs text-white/40">
+        <button className="hover:text-white flex items-center space-x-1 transition-colors group">
+          <ArrowLeft size={12} className="transform group-hover:-translate-x-1 transition-transform" /> <span>prev</span>
+        </button>
+        <div className="w-12 h-[1px] bg-white/20" />
+        <button className="hover:text-white flex items-center space-x-1 transition-colors group">
+          <span>next</span> <ArrowRight size={12} className="transform group-hover:translate-x-1 transition-transform" />
+        </button>
       </div>
 
+      <div className="absolute bottom-12 left-6 md:left-24 z-10 flex items-baseline font-light text-white/30">
+        <span className="text-3xl md:text-4xl font-serif text-white font-normal">01</span>
+        <span className="text-xs px-2">/</span>
+        <span className="text-xs">03</span>
+      </div>
 
-      {/* NEWLY ADDED SECTION 1: DYNAMIC ECOSYSTEM TRACKS (Interactive Tabs + Live Preview) */}
-      <section className={`relative py-28 px-6 md:px-12 border-t ${isDarkMode ? 'border-white/5 bg-stone-950' : 'border-black/5 bg-stone-100/40'}`}>
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="space-y-4 max-w-xl">
-              <span className={`text-xs font-bold tracking-[0.25em] uppercase ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>01 // Core Accelerators</span>
-              <h2 className="text-3xl md:text-5xl font-light tracking-tight">Tailored Ecosystem Frameworks</h2>
-            </div>
-            <p className={`text-sm md:text-base max-w-md ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-              We optimize cross-functional development vectors through custom resource deployment and sandbox sandboxing methodologies.
-            </p>
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-white/20" />
+    </section>
+  );
+}
+
+/* ==========================================================================
+   3. PARALLAX PHILOSOPHY SECTION (STAYS DARK)
+   ========================================================================== */
+function ParallaxPhilosophy() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.92, 1]);
+  const textLeft = useTransform(scrollYProgress, [0, 1], ["-15%", "10%"]);
+
+  return (
+    <section ref={containerRef} className="py-32 md:py-48 bg-[#0f0f11] relative overflow-hidden">
+      <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 text-center space-y-8">
+        <h2 className="text-[11px] uppercase tracking-[0.3em] text-white/40 font-semibold">Corporate Manifesto</h2>
+        <p className="text-2xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 leading-snug max-w-4xl mx-auto">
+          "We reject volatile, shifting systems. To command market longevity, capital infrastructure must synchronize seamlessly with elegant system logic."
+        </p>
+        <div className="w-8 h-[1px] bg-white/30 mx-auto mt-4" />
+        <p className="text-xs text-white/40 tracking-wider font-mono">IQUE STRUCTURAL ARCHITECTURE — 2026</p>
+      </motion.div>
+
+      <motion.div 
+        style={{ x: textLeft }} 
+        className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none whitespace-nowrap"
+      >
+        WORLD OF IQUE
+      </motion.div>
+    </section>
+  );
+}
+
+/* ==========================================================================
+   4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
+   ========================================================================== */
+function ServicesBento() {
+  const serviceItems = [
+    { icon: <Layers size={20} />, title: "Structural Scaling", desc: "Formulating enterprise scaling metrics designed to endure modern macroeconomic volatility." },
+    { icon: <Compass size={20} />, title: "Brand Identity Design", desc: "Premium high-grade narratives that elevate standard operations into global identities." },
+    { icon: <Cpu size={20} />, title: "Technical Architecture", desc: "Enterprise cloud arrays and computational engineering deployed with absolute data integrity." },
+    { icon: <TrendingUp size={20} />, title: "Capital Optimization", desc: "Eliminating operational friction to reposition layout deployment overhead into active velocity." }
+  ];
+
+  return (
+    <section className="py-32 bg-[#f4f4f3] text-[#121214] transition-colors duration-500">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: EASE_CUBIC }}
+          className="mb-20 max-w-xl space-y-4"
+        >
+          <div className="text-[10px] font-bold uppercase tracking-widest text-black/40">Core Vectors</div>
+          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">Delivering global reach without asset bloat.</h2>
+        </motion.div>
+
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {serviceItems.map((item, index) => (
+            <motion.div 
+              key={index}
+              variants={fadeInUpVariant}
+              whileHover={{ y: -6, boxShadow: "0px 30px 60px rgba(0,0,0,0.06)" }}
+              className="p-10 bg-white rounded-md border border-black/5 hover:border-black/10 transition-all duration-300 flex flex-col justify-between h-72 group relative overflow-hidden"
+            >
+              <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors duration-300">
+                {item.icon}
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-serif text-black group-hover:text-neutral-700 transition-colors">{item.title}</h3>
+                <p className="text-sm text-black/60 font-light leading-relaxed">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================================================
+   5. ASYMMETRIC PORTFOLIO SCROLLER (REWRITTEN LAYER CLIPPED SURFACE)
+   ========================================================================== */
+function AsymmetricalSplitShowcase() {
+  const targetRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const productionCases = [
+    { num: "01", name: "The Nordics Integration", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200", desc: "A sovereign logistics matrix transition across three maritime territories." },
+    { num: "02", name: "Apex Venture Lab", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200", desc: "Infrastructural system architecture overhaul for global capital assets." },
+    { num: "03", name: "Aether Cryptographic", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
+  ];
+
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Calculate distinct image scales along the viewport progression tracks
+  const imgScale1 = useTransform(scrollYProgress, [0, 0.33], [1.1, 1]);
+  const imgScale2 = useTransform(scrollYProgress, [0.33, 0.66], [1.2, 1]);
+  const imgScale3 = useTransform(scrollYProgress, [0.66, 1], [1.2, 1]);
+
+  // Handle intersection masking to build the asymmetrical stacking transition smoothly
+  const clipPath2 = useTransform(scrollYProgress, [0.25, 0.45], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);
+  const clipPath3 = useTransform(scrollYProgress, [0.55, 0.75], ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"]);
+
+  // Calculate active index indicators dynamically based on scroll timeline
+  useTransform(scrollYProgress, (value) => {
+    if (value < 0.33) {
+      if (activeIndex !== 0) setActiveIndex(0);
+    } else if (value >= 0.33 && value < 0.66) {
+      if (activeIndex !== 1) setActiveIndex(1);
+    } else {
+      if (activeIndex !== 2) setActiveIndex(2);
+    }
+    return value;
+  });
+
+  return (
+    <div ref={targetRef} className="relative h-[300vh] bg-[#0c0c0e]">
+      <div className="sticky top-0 h-screen w-full grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
+        
+        {/* LEFT COLUMN: EDITORIAL SPECIFICATION LOG (5 Columns) */}
+        <div className="lg:col-span-5 p-8 md:p-16 lg:p-24 flex flex-col justify-between relative z-20 bg-[#0c0c0e]">
+          <div className="space-y-2">
+            <span className="text-[10px] font-mono tracking-[0.4em] text-white/30 uppercase block">// CASE EXHIBITS</span>
+            <h2 className="text-sm font-mono uppercase text-white/60 tracking-wider">Selected Implementations</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Interactive Tab Controls */}
-            <div className="lg:col-span-5 space-y-4">
-              {[
-                { title: "Strategic Mentorship Network", desc: "Instantly link scaling projects with global subject-matter architects.", icon: Users },
-                { title: "Algorithmic Resource Mapping", desc: "Automate raw resource routing and localized scaling pipelines.", icon: Cpu },
-                { title: "Frictionless Capital Integration", desc: "Direct execution structures providing streamlined investor compatibility.", icon: Zap }
-              ].map((item, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveFeature(idx)}
-                  className={`w-full text-left p-6 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
-                    activeFeature === idx
-                      ? isDarkMode ? 'bg-stone-900 border-white/10 shadow-lg shadow-black/40' : 'bg-white border-black/10 shadow-lg shadow-stone-200'
-                      : 'bg-transparent border-transparent opacity-60 hover:opacity-100'
-                  }`}
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className={`p-2.5 rounded-lg transition-colors ${activeFeature === idx ? (isDarkMode ? 'bg-amber-400/10 text-amber-400' : 'bg-indigo-600/10 text-indigo-600') : (isDarkMode ? 'bg-stone-800 text-stone-400' : 'bg-stone-200 text-stone-600')}`}>
-                      <item.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-base tracking-tight mb-1">{item.title}</h4>
-                      <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>{item.desc}</p>
-                    </div>
-                  </div>
-                  {activeFeature === idx && (
-                    <div className={`absolute left-0 top-0 bottom-0 w-1 ${isDarkMode ? 'bg-amber-400' : 'bg-indigo-600'}`} />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            {/* Live Changing Graphic Area */}
-            <div className="lg:col-span-7 h-[380px] rounded-2xl relative overflow-hidden group border border-white/5 shadow-2xl">
-              <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-                {[
-                  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-                  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-                  "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80"
-                ].map((bgUrl, idx) => (
-                  <div
-                    key={idx}
-                    className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${activeFeature === idx ? 'opacity-30 mix-blend-luminosity' : 'opacity-0'}`}
-                    style={{ backgroundImage: `url('${bgUrl}')` }}
-                  />
-                ))}
-              </div>
-              <div className={`absolute inset-0 bg-gradient-to-tr ${isDarkMode ? 'from-stone-950 via-stone-950/80 to-stone-900/40' : 'from-stone-100 via-stone-100/90 to-white/40'}`} />
-              
-              <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
-                <div className="flex justify-between items-center">
-                  <span className={`text-[10px] font-mono tracking-widest uppercase px-3 py-1 rounded-full border ${isDarkMode ? 'border-white/10 bg-white/5 text-stone-400' : 'border-black/10 bg-black/5 text-stone-600'}`}>
-                    Active Sandbox Matrix
-                  </span>
-                  <div className="flex space-x-1.5">
-                    <span className="w-2 h-2 rounded-full bg-red-500" />
-                    <span className="w-2 h-2 rounded-full bg-yellow-500" />
-                    <span className="w-2 h-2 rounded-full bg-green-500" />
-                  </div>
-                </div>
-
-                <div className="space-y-4 max-w-md">
-                  <div className={`text-4xl font-serif italic ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>
-                    {activeFeature === 0 && "01 / Connective"}
-                    {activeFeature === 1 && "02 / Systematic"}
-                    {activeFeature === 2 && "03 / Exponential"}
-                  </div>
-                  <p className={`text-sm leading-relaxed tracking-wide font-light ${isDarkMode ? 'text-stone-300' : 'text-stone-700'}`}>
-                    {activeFeature === 0 && "Transform architectural milestones through high-impact communication pipelines, forging instantaneous alignment between teams and scaling requirements."}
-                    {activeFeature === 1 && "A dynamic infrastructure ecosystem layer ensuring modern telemetry and stateful asset distributions are managed fluidly across execution parameters."}
-                    {activeFeature === 2 && "Remove systemic friction within institutional venture channels to bypass archaic onboarding stages and advance liquidity readiness."}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* NEWLY ADDED SECTION 2: THE CO-WORKING & LABORATORY SANDBOX (Visual Splendor Showcase) */}
-      <section className={`py-24 px-6 md:px-12 ${isDarkMode ? 'bg-stone-900/20' : 'bg-stone-200/20'}`}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
-            <span className={`text-xs font-bold tracking-[0.25em] uppercase ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>02 // Structural Infrastructure</span>
-            <h3 className="text-3xl md:text-5xl font-light tracking-tight leading-tight">
-              Where pure innovation takes physical form.
-            </h3>
-            <p className={`text-sm md:text-base font-light leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-              Beyond typical acceleration strategies, we provide specialized technological physical sandboxes. Founders leverage advanced production facilities designed exclusively to experiment, benchmark, and deploy modern applications.
-            </p>
-            <div className="pt-4 flex flex-wrap gap-4">
-              <div className={`px-4 py-2.5 rounded-lg border text-xs font-medium ${isDarkMode ? 'bg-stone-900/60 border-white/5' : 'bg-white border-black/5'}`}>
-                ✦ 24/7 Deep Tech Sandboxes
-              </div>
-              <div className={`px-4 py-2.5 rounded-lg border text-xs font-medium ${isDarkMode ? 'bg-stone-900/60 border-white/5' : 'bg-white border-black/5'}`}>
-                ✦ Immersive Telepresence Suites
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 grid grid-cols-12 gap-4 order-1 lg:order-2">
-            <div className="col-span-8 h-80 rounded-2xl overflow-hidden relative group border border-white/5">
-              <img 
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" 
-                alt="Workspace Collaboration" 
-                className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-            </div>
-            <div className="col-span-4 h-80 rounded-2xl overflow-hidden relative group border border-white/5 flex items-center justify-center bg-stone-900">
-              <div className={`absolute inset-0 bg-cover bg-center opacity-20`} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80')" }} />
-              <div className="text-center z-10 p-4 space-y-1">
-                <div className="text-3xl font-serif italic text-amber-400">99.4%</div>
-                <div className="text-[9px] uppercase tracking-wider text-stone-400">Sandbox Uptime</div>
-              </div>
-            </div>
-            <div className="col-span-4 h-56 rounded-2xl overflow-hidden relative group border border-white/5 flex items-center justify-center bg-stone-900">
-              <div className={`absolute inset-0 bg-cover bg-center opacity-20`} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80')" }} />
-              <div className="text-center z-10 p-4 space-y-1">
-                <div className="text-3xl font-serif italic text-stone-200">12Gbp/s</div>
-                <div className="text-[9px] uppercase tracking-wider text-stone-400">Ecosystem Pipeline</div>
-              </div>
-            </div>
-            <div className="col-span-8 h-56 rounded-2xl overflow-hidden relative group border border-white/5">
-              <img 
-                src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80" 
-                alt="Ecosystem Innovation Lab" 
-                className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* NEWLY ADDED SECTION 3: ECOSYSTEM INTEGRITY ACCORD (Trust & Alignment Grid) */}
-      <section className={`py-28 px-6 md:px-12 border-b ${isDarkMode ? 'border-white/5 bg-stone-950' : 'border-black/5 bg-white'}`}>
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-            <span className={`text-xs font-bold tracking-[0.25em] uppercase ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>03 // Operational Principles</span>
-            <h2 className="text-3xl md:text-5xl font-light tracking-tight">Structured for Maximum Impact</h2>
-            <p className={`text-sm md:text-base ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-              We guarantee transparent acceleration models designed to support long-term startup integrity.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { status: "Radical Transparency", subtitle: "Zero Hidden Traps", desc: "No complex fine-print clauses or manipulative restructuring systems. Funding provisions and resource costs remain completely open and audited.", badge: "Guaranteed" },
-              { status: "Sovereign Frameworks", subtitle: "Founder IP Protection", desc: "We protect your technological intellectual properties. Founders retain complete product sovereignty throughout all strategic acceleration iterations.", badge: "Secured" },
-              { status: "Global Portability", subtitle: "Frictionless Relocation", desc: "Instantly translate scaling structures across cross-border markets using standardized international landing parameters.", badge: "Universal" }
-            ].map((accord, idx) => (
-              <div 
-                key={idx} 
-                className={`p-8 rounded-2xl border flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 ${
-                  isDarkMode 
-                    ? 'bg-stone-900/30 border-white/5 hover:border-white/10 hover:bg-stone-900/60' 
-                    : 'bg-stone-50 border-black/5 hover:border-black/10 hover:bg-stone-100/50'
-                }`}
+          <div className="space-y-6 max-w-sm py-12 lg:py-0">
+            <div className="overflow-hidden h-8 font-mono text-xs text-[#bfa36c] font-semibold">
+              <motion.div
+                animate={{ y: -activeIndex * 32 }}
+                transition={{ duration: 0.6, ease: EASE_CUBIC }}
+                className="space-y-4"
               >
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className={`text-[10px] font-mono tracking-widest uppercase ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>
-                      [ 0{idx + 1} System ]
-                    </span>
-                    <span className={`text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-md font-medium ${isDarkMode ? 'bg-stone-800 text-stone-300' : 'bg-stone-200 text-stone-700'}`}>
-                      {accord.badge}
-                    </span>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-medium tracking-tight mb-1">{accord.status}</h4>
-                    <span className={`text-xs block mb-4 opacity-60 font-mono`}>{accord.subtitle}</span>
-                    <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>{accord.desc}</p>
-                  </div>
-                </div>
+                {productionCases.map((p) => (
+                  <span key={p.num} className="block h-4 uppercase tracking-[0.2em]">Exhibit {p.num}</span>
+                ))}
+              </motion.div>
+            </div>
+
+            <div className="overflow-hidden min-h-[90px]">
+              <motion.h3 
+                key={activeIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: EASE_CUBIC }}
+                className="text-3xl md:text-4xl font-serif text-white tracking-tight leading-tight uppercase"
+              >
+                {productionCases[activeIndex].name}
+              </motion.h3>
+            </div>
+
+            <div className="overflow-hidden min-h-[60px]">
+              <motion.p 
+                key={activeIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="text-xs text-white leading-relaxed font-light font-sans"
+              >
+                {productionCases[activeIndex].desc}
+              </motion.p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4 font-mono text-[11px] text-white/20">
+            {productionCases.map((p, idx) => (
+              <div key={p.num} className="flex items-center space-x-2">
+                <span className={`transition-colors duration-300 ${activeIndex === idx ? 'text-white' : ''}`}>
+                  {p.num}
+                </span>
+                {idx < productionCases.length - 1 && <div className="w-6 h-[1px] bg-white/10" />}
               </div>
             ))}
           </div>
         </div>
-      </section>
 
+        {/* RIGHT COLUMN: IMMERSIVE CLIPPED MASK CANVAS (7 Columns) */}
+        <div className="hidden lg:block lg:col-span-7 relative h-full bg-neutral-950 overflow-hidden border-l border-white/5">
+          {/* Base Layer */}
+          <motion.div className="absolute inset-0 z-10 overflow-hidden">
+            <motion.img 
+              style={{ scale: imgScale1 }}
+              src={productionCases[0].img} 
+              className="w-full h-full object-cover filter grayscale contrast-115 brightness-90"
+              alt=""
+            />
+          </motion.div>
 
-      {/* SECTION 2: SMOOTH IMAGE SLIDER ON SCROLL */}
-      <div ref={containerRef} className={`relative h-[300vh] w-full ${isDarkMode ? 'bg-stone-950' : 'bg-stone-50'}`}>
-        
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          {/* Overlapping Stacking Layer 2 */}
+          <motion.div style={{ clipPath: clipPath2 }} className="absolute inset-0 z-10 overflow-hidden will-change-[clip-path]">
+            <motion.img 
+              style={{ scale: imgScale2 }}
+              src={productionCases[1].img} 
+              className="w-full h-full object-cover filter grayscale contrast-115 brightness-90"
+              alt=""
+            />
+          </motion.div>
+
+          {/* Overlapping Stacking Layer 3 */}
+          <motion.div style={{ clipPath: clipPath3 }} className="absolute inset-0 z-10 overflow-hidden will-change-[clip-path]">
+            <motion.img 
+              style={{ scale: imgScale3 }}
+              src={productionCases[2].img} 
+              className="w-full h-full object-cover filter grayscale contrast-115 brightness-90"
+              alt=""
+            />
+          </motion.div>
+
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/20 z-20 pointer-events-none" />
           
-          {slides.map((slide, index) => {
-            const totalSlides = slides.length;
-            const segmentFactor = 1 / (totalSlides - 1); 
-            
-            let translateY = 100; 
-
-            if (index === 0) {
-              translateY = 0; 
-            }
-            
-            const startActivation = (index - 1) * segmentFactor;
-            const endActivation = index * segmentFactor;
-
-            if (index > 0 && scrollProgress >= startActivation) {
-              const segmentProgress = (scrollProgress - startActivation) / (endActivation - startActivation);
-              translateY = Math.max(0, 100 - (Math.min(segmentProgress, 1) * 100));
-            }
-
-            return (
-              <div
-                key={slide.id}
-                className="absolute inset-0 w-full h-full will-change-transform"
-                style={{
-                  transform: `translate3d(0, ${translateY}%, 0)`,
-                  zIndex: index + 10,
-                }}
-              >
-                <img
-                  src={slide.image}
-                  alt={slide.label}
-                  className="w-full h-full object-cover"
-                />
-
-                <div className="absolute top-28 left-6 md:left-12 z-30">
-                  <span className={`inline-block backdrop-blur-md text-xs font-semibold tracking-[0.2em] uppercase px-6 py-3 shadow-md rounded-sm border ${
-                    isDarkMode 
-                      ? 'bg-amber-200/90 text-stone-950 border-amber-300/20' 
-                      : 'bg-stone-900/90 text-stone-50 border-stone-800/20'
-                  }`}>
-                    {slide.label}
-                  </span>
-                </div>
-                
-                <div className={`absolute inset-0 pointer-events-none ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-t from-stone-950/50 via-transparent to-stone-950/20' 
-                    : 'bg-gradient-to-t from-stone-50/30 via-transparent to-stone-50/10'
-                }`} />
-              </div>
-            );
-          })}
-          
-          <div className="absolute bottom-24 right-6 md:right-12 z-40 flex flex-col space-y-2">
-            <button 
-              onClick={() => window.scrollTo({ top: containerRef.current.offsetTop, behavior: 'smooth' })}
-              className={`backdrop-blur-md p-3 transition-colors border text-xs shadow-md ${
-                isDarkMode ? 'bg-black/40 border-white/10 text-white hover:bg-white/10' : 'bg-white/60 border-black/10 text-stone-900 hover:bg-black/5'
-              }`}
-              aria-label="Scroll to top of slider"
-            >
-              ▲
-            </button>
-            <button 
-              onClick={() => window.scrollTo({ top: containerRef.current.offsetTop + containerRef.current.scrollHeight, behavior: 'smooth' })}
-              className={`backdrop-blur-md p-3 transition-colors border text-xs shadow-md ${
-                isDarkMode ? 'bg-black/40 border-white/10 text-white hover:bg-white/10' : 'bg-white/60 border-black/10 text-stone-900 hover:bg-black/5'
-              }`}
-              aria-label="Scroll past slider"
-            >
-              ▼
-            </button>
+          <div className="absolute bottom-16 right-16 z-30 mix-blend-difference">
+            <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white/40 hover:text-white hover:border-white transition-colors cursor-pointer">
+              <ArrowUpRight size={18} />
+            </div>
           </div>
-
         </div>
+
       </div>
-
-
-      {/* SECTION 3: THE CORE PILLARS (Grid Layout) */}
-      <section className={`relative z-20 py-24 px-6 md:px-12 max-w-7xl mx-auto border-t ${isDarkMode ? 'border-white/5' : 'border-black/5'}`}>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {[
-            { icon: Users, title: "Empowering Founders", desc: "Providing hands-on architectural validation and strategic positioning for early-stage visionaries." },
-            { icon: Rocket, title: "Accelerating Startups", desc: "Injecting operational momentum through custom resources, frameworks, and targeted launch strategies." },
-            { icon: Target, title: "Cultivating Investors", desc: "Curating verified investment pipelines to bridge continuous growth capital to structural breakthroughs." },
-            { icon: Layers, title: "Corporate Alliances", desc: "Forging dynamic enterprise and government connections to unlock large-scale infrastructure sandbox deployment." }
-          ].map((pillar, idx) => (
-            <div key={idx} className={`p-8 rounded-2xl transition-all duration-300 border ${isDarkMode ? 'bg-stone-900/40 border-white/5 hover:bg-stone-900' : 'bg-white border-black/5 hover:shadow-xl'}`}>
-              <pillar.icon className={`w-8 h-8 mb-6 ${isDarkMode ? 'text-stone-400' : 'text-stone-700'}`} strokeWidth={1.5} />
-              <h3 className="text-xl font-medium mb-3 tracking-tight">{pillar.title}</h3>
-              <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>{pillar.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-
-      {/* SECTION 4: VISION MISSION */}
-      <section className={`py-24 ${isDarkMode ? 'bg-stone-900/30' : 'bg-stone-100'}`}>
-        <div className="px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-5 space-y-6">
-            <span className={`text-xs font-semibold tracking-[0.2em] uppercase ${isDarkMode ? 'text-stone-400' : 'text-stone-500'}`}>Our Shared Mission</span>
-            <h2 className="text-3xl md:text-5xl font-light font-serif italic tracking-tight">
-              Driving solutions that <span className="font-sans not-italic font-light">benefit global society.</span>
-            </h2>
-          </div>
-          <div className="md:col-span-7">
-            <p className={`text-lg md:text-xl font-light leading-relaxed tracking-wide ${isDarkMode ? 'text-stone-300' : 'text-stone-700'}`}>
-              IQue Ventures is dedicated to building a dynamic and sustainable startup ecosystem that fosters 
-              innovation, entrepreneurship, and growth. We focus on empowering entrepreneurs, supporting startups, 
-              cultivating investors, and bridging the gap between startups and government or private organizations. 
-              By creating impactful projects and programs, we enable startups to drive positive change.
-            </p>
-          </div>
-        </div>
-      </section>
-
-
-      {/* SECTION 5: METRIC ANALYSIS STATS */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto text-center">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-          {[
-            { metric: "250+", label: "Startups Scaled" },
-            { metric: "$40M+", label: "Capital Deployed" },
-            { metric: "15+", label: "Cross-border Programs" },
-            { metric: "94%", label: "Founder Success Rate" }
-          ].map((stat, idx) => (
-            <div key={idx} className="space-y-2">
-              <div className="text-4xl md:text-6xl font-light font-serif tracking-tight">{stat.metric}</div>
-              <div className={`text-xs uppercase tracking-[0.15em] font-medium ${isDarkMode ? 'text-stone-400' : 'text-stone-500'}`}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-
-      {/* SECTION 6: CALL TO ACTION */}
-      <section className={`py-24 text-center relative overflow-hidden ${isDarkMode ? 'bg-stone-900/60' : 'bg-stone-200/50'}`}>
-        <div className="max-w-3xl mx-auto px-6 space-y-8 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight">
-            Ready to break the limits of <span className="font-serif italic">innovation?</span>
-          </h2>
-          <p className={`text-sm md:text-base max-w-xl mx-auto leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-            Whether you are a scaling founder seeking ecosystem acceleration or an enterprise partner searching for disruptive sandbox innovations, let's co-create the roadmap.
-          </p>
-          <div>
-            <button className={`inline-flex items-center space-x-3 text-xs uppercase tracking-[0.2em] font-medium px-8 py-4 rounded-full border transition-all ${isDarkMode ? 'bg-white text-stone-950 border-white hover:bg-transparent hover:text-white' : 'bg-stone-950 text-white border-stone-950 hover:bg-transparent hover:text-stone-900'}`}>
-              <span>Apply for Ecosystem Entry</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </section>
-
-
-      {/* FOOTER */}
-      <footer className={`py-12 px-6 md:px-12 text-center text-xs tracking-wider border-t ${isDarkMode ? 'border-white/5 text-stone-500' : 'border-black/5 text-stone-400'}`}>
-        <p>© 2026 World of IQue Ecosystem. Crafted with pristine structural design.</p>
-      </footer>
-
-
-      {/* FLOATING ACTION BUTTON */}
-      <a 
-        href="#contact" 
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white p-3.5 rounded-full shadow-lg transition-transform hover:scale-110 active:scale-95"
-        aria-label="Connect"
-      >
-        <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.447 5.41 1.448 5.4 0 9.788-4.39 9.791-9.794.002-2.618-1.01-5.08-2.857-6.93C17.096 2.03 14.64 1.01 12.004 1.01c-5.405 0-9.792 4.39-9.795 9.796-.001 2.106.546 4.167 1.583 5.974l-1.04 3.8 3.893-1.02zM17.01 14.8c-.274-.138-1.62-.8-1.872-.892-.253-.093-.437-.138-.62.138-.184.276-.712.893-.873 1.077-.16.184-.323.207-.597.069-.273-.138-1.156-.426-2.202-1.36-.815-.727-1.36-1.624-1.52-1.9-.162-.276-.017-.424.12-.561.124-.124.274-.322.412-.483.137-.161.183-.276.274-.459.092-.184.046-.344-.023-.482-.069-.138-.62-1.492-.849-2.043-.224-.54-.449-.467-.62-.476-.16-.008-.344-.01-.528-.01-.184 0-.482.069-.735.344-.253.276-.964.943-.964 2.3 0 1.355.986 2.66 1.124 2.844.138.184 1.94 2.962 4.7 4.153.656.283 1.17.452 1.568.579.66.21 1.26.18 1.733.11.528-.08 1.62-.663 1.85-1.302.23-.64.23-1.186.16-1.302-.07-.115-.253-.184-.527-.322z" />
-        </svg>
-      </a>
-
     </div>
   );
-};
+}
 
-export default CombinedLandingPage;
+/* ==========================================================================
+   6. METRICS SECTION (TRANSITIONS INTO CRISP OFF-WHITE CANVAS CONTRAST)
+   ========================================================================== */
+function MetricsSection() {
+  const metrics = [
+    { rate: "124%", label: "Average Capital Return Rate" },
+    { rate: "$1.4B", label: "Managed Enterprise Assets" },
+    { rate: "03", label: "Global Institutional Hubs" }
+  ];
+
+  return (
+    <section className="py-32 bg-[#f4f4f3] text-[#121214] border-t border-black/5">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-12">
+        {metrics.map((metric, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: i * 0.15, ease: EASE_CUBIC }}
+            className="space-y-2 border-t border-black/10 pt-6 group"
+          >
+            <motion.div className="text-4xl md:text-6xl font-serif font-light tracking-tight text-black overflow-hidden">
+              <motion.span className="inline-block" whileInView={{ y: ["20%", "0%"] }}>
+                {metric.rate}
+              </motion.span>
+            </motion.div>
+            <div className="text-[10px] uppercase tracking-widest text-black/40 font-mono">
+              {metric.label}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ==========================================================================
+   7. CTA & FOOTER SECTIONS (CLOSES RICH DARK CANVAS)
+   ========================================================================== */
+function CTASection() {
+  return (
+    <section className="py-40 bg-gradient-to-b from-[#0b0b0c] to-[#080809] text-center px-6 relative">
+      <div className="max-w-2xl mx-auto space-y-8">
+        <motion.h2 
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: EASE_CUBIC }}
+          className="text-4xl md:text-6xl font-serif font-light text-white tracking-tight"
+        >
+          Let’s build something <br /><span className="italic text-neutral-400">timeless</span>.
+        </motion.h2>
+        <p className="text-white/50 text-sm font-light max-w-sm mx-auto leading-relaxed">
+          Inquiries regarding institutional structural orchestration, global deployment blueprints, or enterprise scaling.
+        </p>
+        <div className="pt-4">
+          <motion.button 
+            whileHover={{ scale: 1.03, backgroundColor: "#e4e4e5" }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-white text-black text-xs uppercase tracking-widest font-semibold px-9 py-4.5 rounded-none transition-colors shadow-2xl"
+          >
+            Initiate Consultation Brief
+          </motion.button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  const footerLinks = {
+    expeditions: ['Selected Artifacts', 'Strategic Blueprint', 'Operational Matrix', 'Media Archives'],
+    governance: ['Privacy Charter', 'Terms of Engagement', 'Environmental Mandate', 'Institutional Framework'],
+    hubs: ['Zurich Office', 'Tokyo Nexus', 'London Studio']
+  };
+
+  return (
+    <footer className="bg-[#080809] text-white/40 text-[11px] pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-12 pb-20 border-b border-white/5">
+          
+          <div className="col-span-2 md:col-span-5 space-y-6">
+            <div className="text-white tracking-tighter text-3xl font-black lowercase select-none group cursor-pointer">
+              world of ique
+              <span className="text-[9px] tracking-[0.3em] block font-light uppercase opacity-40 mt-1 transition-all group-hover:text-white">
+                global architectural syndicate
+              </span>
+            </div>
+            <p className="text-white/40 font-light leading-relaxed max-w-sm text-xs font-serif italic">
+              "Synchronizing physical scale, raw material logic, and operational architecture to construct legacy corporate networks."
+            </p>
+            <div className="flex items-center space-x-2 text-[10px] text-white/30 font-mono">
+              <Globe size={11} className="text-white/50" />
+              <span>HQ Coordinates: 47.3769° N, 8.5417° E</span>
+            </div>
+          </div>
+
+          <div className="col-span-1 md:col-span-2 md:col-start-7 space-y-4">
+            <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/60">Expeditions</div>
+            <ul className="space-y-2.5 font-light">
+              {footerLinks.expeditions.map((item, idx) => (
+                <li key={idx}>
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ x: 4, color: '#ffffff' }}
+                    transition={{ duration: 0.3, ease: EASE_CUBIC }}
+                    className="hover:text-white transition-colors block"
+                  >
+                    {item}
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-span-1 md:col-span-2 space-y-4">
+            <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/60">Governance</div>
+            <ul className="space-y-2.5 font-light">
+              {footerLinks.governance.map((item, idx) => (
+                <li key={idx}>
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ x: 4, color: '#ffffff' }}
+                    transition={{ duration: 0.3, ease: EASE_CUBIC }}
+                    className="hover:text-white transition-colors block"
+                  >
+                    {item}
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-span-2 md:col-span-2 space-y-4">
+            <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/60">Global Hubs</div>
+            <ul className="space-y-2.5 font-light">
+              {footerLinks.hubs.map((item, idx) => (
+                <li key={idx} className="flex items-center space-x-1.5 group cursor-pointer text-white/40 hover:text-white transition-colors">
+                  <span>{item}</span>
+                  <ArrowUpRight size={10} className="opacity-0 group-hover:opacity-100 transform translate-y-0.5 group-hover:-translate-y-0 group-hover:translate-x-0.5 transition-all" />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left font-mono text-[10px] text-white/20">
+          <div className="tracking-wide">
+            © 2026 World of Ique Inc. All operational rights reserved. 
+          </div>
+          <div className="flex space-x-6 tracking-wider">
+            <span>INDEX REVISION: 26.4.0</span>
+            <span className="text-white/40 animate-pulse">● ALL SYSTEMS OPERATIONAL</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="absolute -bottom-16 -right-10 text-[15vw] font-serif font-black text-white/[0.01] select-none pointer-events-none whitespace-nowrap leading-none tracking-tighter">
+        IQUE
+      </div>
+    </footer>
+  );
+}

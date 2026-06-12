@@ -103,7 +103,7 @@ const AboutUsPage = () => {
             Ecosystem <span className="font-serif italic font-normal">Sovereignty</span>
           </h1>
           <p className={`text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed tracking-wide ${isDarkMode ? 'text-stone-300' : 'text-stone-600'}`}>
-            We construct cross-border deployment loops that integrate raw technical products straight into audited growth capital networks.
+            WOI is a global ecosystem development company headquartered in Dubai, focused on creating, developing, and managing entrepreneurial, innovation, investment, and industry ecosystems. We build infrastructure, communities, platforms and partnerships that enable sustainable economic growth and innovation.
           </p>
           <div className="pt-4 animate-bounce [animation-duration:2.5s]">
             <span className="text-[10px] uppercase tracking-[0.3em] opacity-40">Scroll Down</span>
@@ -121,20 +121,20 @@ const AboutUsPage = () => {
             {[
               {
                 icon: Eye,
-                title: "Our Vision",
-                desc: "Operating global structural sandboxes. We envision integrated ecosystems where complex early-stage innovation transitions flawlessly into societal models without institutional friction.",
+                title: "Vision",
+                desc: "To become a global leader in ecosystem development by building innovation-driven economies, industries, and communities across the world.",
                 speed: 15
               },
               {
                 icon: Globe,
-                title: "Our Mission",
-                desc: "Empowering visionary teams, securing continuous capital, and engineering public-private sandboxes to insulate and support development trajectories.",
+                title: "Mission",
+                desc: "Develop world-class entrepreneurial ecosystems, support innovation and venture creation, build infrastructure and connect founders, investors, institutions and governments.",
                 speed: -25
               },
               {
                 icon: Landmark,
-                title: "Our Governance",
-                desc: "Total absolute operational tracking. No secondary back-room agreements. Founder intellectual assets remain fully isolated, structured, and protected.",
+                title: "Philosophy",
+                desc: "Great companies are built by great ecosystems — combining infrastructure, talent, capital, education and community to enable lasting impact.",
                 speed: 40
               }
             ].map((pillar, idx) => {

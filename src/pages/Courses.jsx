@@ -66,6 +66,25 @@ const OverloadMatrix = () => {
       </section>
 
       {/* 2. THE CONTENT GATE (Pinned & Unskippable) */}
+      {/* WOI EDUCATION & TALENT */}
+      <section className="py-20 px-6 md:px-12 max-w-6xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <h2 className="text-3xl md:text-4xl font-serif font-normal">Education & Talent Development</h2>
+          <p className="text-sm text-black/60 mt-3">Delivering entrepreneurship, innovation, leadership and future-skills programs — including the WOI Startup School and tailored corporate learning modules.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 rounded-xl border bg-white text-black">
+            <h3 className="text-xl font-medium mb-2">Startup School</h3>
+            <p className="text-sm text-black/60">Cohort-based programs that equip founders with product, go-to-market, fundraising and scaling playbooks.</p>
+          </div>
+
+          <div className="p-6 rounded-xl border bg-white text-black">
+            <h3 className="text-xl font-medium mb-2">Talent & Leadership</h3>
+            <p className="text-sm text-black/60">Leadership and future-skills courses to prepare talent for roles across innovation ecosystems and growth-stage ventures.</p>
+          </div>
+        </div>
+      </section>
       <div className="relative">
         <ExtremeRow 
           num="01" 

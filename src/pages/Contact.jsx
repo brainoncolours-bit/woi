@@ -50,6 +50,9 @@ export default function LuxuryEditorialContactOnly() {
               Initialize <br />
               <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-stone-400 via-stone-300 to-stone-600 lowercase">alignment</span>
             </h1>
+            <p className="text-xs md:text-sm font-light leading-relaxed opacity-60 mt-2">
+              WOI — Building Better Worlds Through Better Ecosystems. Headquartered in Dubai, we connect founders, investors, institutions and governments to build sustainable innovation ecosystems.
+            </p>
           </div>
           <div className="lg:col-span-4 border-t lg:border-t-0 lg:border-l pt-6 lg:pt-0 lg:pl-8 border-stone-800">
             <p className="text-xs md:text-sm font-light leading-relaxed opacity-60">
