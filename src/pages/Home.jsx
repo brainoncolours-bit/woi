@@ -104,7 +104,7 @@ function HeroSection({ isDarkMode }) {
       <motion.div 
         className="absolute inset-0 z-0 bg-cover bg-center opacity-25 pointer-events-none scale-105"
         style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1800')`,
+          backgroundImage: "url(public/banner.png)",  
           y: bgY
         }}
       >
