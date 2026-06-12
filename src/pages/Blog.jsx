@@ -81,7 +81,8 @@ export default function MinimalPortfolio() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-7xl mx-auto px-6 pt-12 pb-20 md:py-20"
       >
-        <div className="bg-gradient-to-br from-orange-600 via-[#140b05] to-[#0A0A0A] rounded-[40px] p-8 md:p-20 h-[80vh] min-h-[550px] flex flex-col justify-between border border-neutral-900/40">
+        <div className="bg-gradient-to-br  rounded-[40px] p-8 md:p-20 h-[80vh] min-h-[550px] flex flex-col justify-between border border-neutral-900/40"
+        style={{ backgroundImage: "url(public/banner4.png)" }}>
           <div className="flex justify-between items-center">
             <span className="font-bold tracking-tighter text-xl">STUDIO_M.</span>
             <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase border border-neutral-800 rounded-full px-4 py-1.5 bg-black/20">
