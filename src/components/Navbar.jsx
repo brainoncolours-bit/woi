@@ -19,7 +19,7 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
       
       {/* Left: Branding Footprint */}
       <Link to="/" className="flex items-center space-x-4 text-sm tracking-wider group">
-        <img src="/logo.png" alt="WOI Logo" className="h-8 w-auto group-hover:scale-105 transition-transform" />
+        <img src="/logo.png" alt="WOI Logo" className="h-17 w-auto group-hover:scale-105 transition-transform" />
        
       </Link>
 
