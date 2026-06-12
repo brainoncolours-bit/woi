@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, Sun, Moon, ArrowRight, Globe, Eye, Landmark } from 'lucide-react';
 
-const AboutUsPage = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+const AboutUsPage = ({ isDarkMode }) => {
   const [scrollY, setScrollY] = useState(0);
   
   // Ref tracking for parallax sections
@@ -13,10 +12,6 @@ const AboutUsPage = () => {
   // Intersection visibility states
   const [coreVisible, setCoreVisible] = useState(false);
   const [trackVisible, setTrackVisible] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,37 +43,8 @@ const AboutUsPage = () => {
   }, []);
 
   return (
-    <div className={`w-full font-sans transition-colors duration-700 overflow-clip relative ${isDarkMode ? 'bg-stone-950 text-white' : 'bg-stone-50 text-stone-900'}`}>
+    <div className={`w-full font-sans transition-colors duration-700 overflow-clip relative`}>
       
-      {/* FIXED HEADER / NAVIGATION */}
-      <header className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12 backdrop-blur-md transition-colors duration-500 ${isDarkMode ? 'bg-black/20 border-b border-white/5' : 'bg-white/40 border-b border-black/5'}`}>
-        {/* Left: Branding Footprint */}
-        <div className="flex items-center space-x-2 text-sm tracking-wider">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="font-medium opacity-90 uppercase">WORLD OF IQUE</span>
-          <span className={`hidden sm:inline text-xs ${isDarkMode ? 'text-stone-400' : 'text-stone-500'}`}>| Ecosystem Labs</span>
-        </div>
-
-        {/* Absolute Center Logo Layout */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center pointer-events-none">
-          <span className="text-3xl font-serif tracking-tighter italic font-bold">IQue</span>
-          <span className={`text-[9px] uppercase tracking-[0.3em] mt-1 ${isDarkMode ? 'text-stone-300' : 'text-stone-600'}`}>World of IQue</span>
-        </div>
-
-        {/* Right: Theme Controls */}
-        <div className="flex items-center space-x-4">
-          <button 
-            onClick={toggleTheme}
-            className={`p-2 rounded-full border transition-all duration-300 ${isDarkMode ? 'border-white/20 hover:bg-white/10 text-amber-400' : 'border-black/20 hover:bg-black/5 text-indigo-600'}`}
-          >
-            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
-          <button className="p-1 opacity-80 hover:opacity-100 transition-opacity">
-            <Menu className="w-6 h-6 stroke-[1.5]" />
-          </button>
-        </div>
-      </header>
-
       {/* 1. CINEMATIC SCROLL PARALLAX HERO */}
       <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <div 

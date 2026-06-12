@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Building2, GraduationCap, Lightbulb, MessageSquare } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, CheckCircle2, Building2, GraduationCap, Lightbulb } from 'lucide-react';
 
 // Reframed into highly readable, real-world professional data
 const ecosystemServices = [
@@ -65,7 +65,7 @@ const featuredProperties = [
   }
 ];
 
-export default function CleanCorporateEcosystem() {
+export default function CleanCorporateEcosystem({ isDarkMode }) {
   const [activeService, setActiveService] = useState(0);
   const [propertyIndex, setPropertyIndex] = useState(0);
   const [activeInitiative, setActiveInitiative] = useState("PARK");
@@ -81,35 +81,6 @@ export default function CleanCorporateEcosystem() {
   return (
     <div className="w-full min-h-screen bg-white text-gray-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
       
-      {/* STANDARD CORPORATE HEADER */}
-      <header className="w-full border-b border-gray-100 bg-white/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto h-20 px-6 md:px-12 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-3 h-3 bg-blue-600 rounded-full" />
-            <span className="font-semibold text-sm tracking-wider uppercase text-gray-800">WORLD OF IQUE</span>
-          </div>
-          
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
-            <a href="#overview" className="hover:text-blue-600 transition-colors">Overview</a>
-            <a href="#initiatives" className="hover:text-blue-600 transition-colors">Initiatives</a>
-            <a href="#services" className="hover:text-blue-600 transition-colors">Services</a>
-            <a href="#properties" className="hover:text-blue-600 transition-colors">Developments</a>
-          </nav>
-
-          <div>
-            <a 
-              href="https://wa.me/#" 
-              target="_blank" 
-              rel="noreferrer"
-              className="inline-flex items-center space-x-2 text-xs font-semibold uppercase bg-gray-900 text-white px-5 py-2.5 rounded-full hover:bg-blue-600 transition-colors"
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Get in Touch</span>
-            </a>
-          </div>
-        </div>
-      </header>
-
       {/* SECTION 1: MODERN EDITORIAL HERO */}
       <section id="overview" className="max-w-7xl mx-auto pt-20 pb-16 px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 space-y-6">

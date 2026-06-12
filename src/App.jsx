@@ -9,32 +9,26 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 
 function AppContent() {
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const location = useLocation();
 
-  // Reset navbar visibility when route changes
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setShowNavbar(true);
-    } else {
-      setShowNavbar(false);
-    }
-  }, [location.pathname]);
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   return (
-    <div className="flex flex-col min-h-screen w-full">
-      <Navbar show={showNavbar} />
-      <main className="flex-1 w-full bg-gray-50">
+    <div className={`flex flex-col min-h-screen w-full transition-colors duration-500 ${isDarkMode ? 'bg-stone-950 text-white' : 'bg-stone-50 text-stone-900'}`}>
+      <Navbar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+      <main className="flex-1 w-full">
           <Routes>
-            <Route path="/" element={<Home onNavbarShow={setShowNavbar} />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/work" element={<Blog />} />
-
+            <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
+            <Route path="/about" element={<About isDarkMode={isDarkMode} />} />
+            <Route path="/courses" element={<Courses isDarkMode={isDarkMode} />} />
+            <Route path="/contact" element={<Contact isDarkMode={isDarkMode} />} />
+            <Route path="/work" element={<Blog isDarkMode={isDarkMode} />} />
           </Routes>
         </main>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
       </div>
   );
 }

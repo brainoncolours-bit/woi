@@ -24,27 +24,25 @@ const staggerContainer = {
   }
 };
 
-export default function CorporateLanding() {
+export default function CorporateLanding({ isDarkMode }) {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 25 });
 
   return (
-    <div className="bg-[#0b0b0c] text-[#f5f5f7] font-sans antialiased selection:bg-[#ffffff] selection:text-[#0b0b0c] overflow-x-hidden">
+    <div className={`font-sans antialiased selection:bg-[#ffffff] selection:text-[#0b0b0c] overflow-x-hidden ${isDarkMode ? 'bg-[#0b0b0c] text-[#f5f5f7]' : 'bg-stone-50 text-stone-900'}`}>
       {/* Premium Minimal Progress Bar */}
       <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-neutral-500 via-white to-neutral-500 origin-left z-50" style={{ scaleX }} />
       
       {/* Fixed UI Layer Elements */}
-      <FixedSidebar />
       <FloatingContact />
 
-      <Navbar />
-      <HeroSection />
-      <ParallaxPhilosophy />
-      <ServicesBento />
-      <HorizontalPortfolio />
-      <MetricsSection />
-      <CTASection />
-      <Footer />
+      <HeroSection isDarkMode={isDarkMode} />
+      <ParallaxPhilosophy isDarkMode={isDarkMode} />
+      <ServicesBento isDarkMode={isDarkMode} />
+      <HorizontalPortfolio isDarkMode={isDarkMode} />
+      <MetricsSection isDarkMode={isDarkMode} />
+      <CTASection isDarkMode={isDarkMode} />
+      <Footer isDarkMode={isDarkMode} />
     </div>
   );
 }
@@ -52,22 +50,6 @@ export default function CorporateLanding() {
 /* ==========================================================================
    INTERACTIVE FIXED DECORATIVE LAYOUT ELEMENTS
    ========================================================================== */
-function FixedSidebar() {
-  return (
-    <div className="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center space-y-12 mix-blend-difference">
-      {['.linkedin', '.twitter', '.journal'].map((link, idx) => (
-        <motion.span 
-          key={idx}
-          whileHover={{ y: -3, scale: 1.05 }}
-          className="text-[10px] uppercase tracking-[0.25em] font-medium text-white/40 rotate-270 origin-center whitespace-nowrap cursor-pointer hover:text-white transition-colors"
-        >
-          {link}
-        </motion.span>
-      ))}
-    </div>
-  );
-}
-
 function FloatingContact() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -105,34 +87,9 @@ function FloatingContact() {
 }
 
 /* ==========================================================================
-   1. NAVBAR
-   ========================================================================== */
-function Navbar() {
-  return (
-    <motion.nav 
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: EASE_CUBIC }}
-      className="absolute top-0 left-0 right-0 z-40 h-24 max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between"
-    >
-      <div className="text-white tracking-tighter text-2xl font-black lowercase select-none group cursor-pointer">
-        world of ique<span className="text-[9px] tracking-[0.3em] block text-right font-light uppercase opacity-50 -mt-1 transition-all group-hover:tracking-wider">global syndicate</span>
-      </div>
-      <motion.button 
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black shadow-md focus:outline-none"
-      >
-        <Menu size={16} strokeWidth={2.5} />
-      </motion.button>
-    </motion.nav>
-  );
-}
-
-/* ==========================================================================
    2. HERO SECTION
    ========================================================================== */
-function HeroSection() {
+function HeroSection({ isDarkMode }) {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,

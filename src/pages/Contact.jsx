@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, ArrowRight, CornerDownRight, MessageCircle, Globe, Shield, Radio, CheckCircle } from 'lucide-react';
+import { ArrowRight, CornerDownRight, MessageCircle, Globe, Shield, Radio, CheckCircle } from 'lucide-react';
 
-export default function LuxuryEditorialContactOnly() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+export default function LuxuryEditorialContactOnly({ isDarkMode }) {
   const [ambientProgress, setAmbientProgress] = useState(0);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
-
-  const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,21 +22,6 @@ export default function LuxuryEditorialContactOnly() {
         <div className={`absolute left-[30%] top-0 bottom-0 w-[1px] ${isDarkMode ? 'bg-stone-800' : 'bg-stone-300'}`} />
         <div className={`absolute left-[70%] top-0 bottom-0 w-[1px] ${isDarkMode ? 'bg-stone-800' : 'bg-stone-300'}`} />
       </div>
-
-      {/* FIXED HEADER */}
-      <header className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12 backdrop-blur-md border-b ${isDarkMode ? 'border-white/5 bg-transparent' : 'border-black/5 bg-transparent'}`}>
-        <div className="flex items-center space-x-3 text-xs tracking-[0.25em] font-mono">
-          <div className="w-1.5 h-1.5 rounded-full bg-stone-400 animate-pulse" />
-          <span className="font-semibold uppercase opacity-80">IQUE.LABS</span>
-        </div>
-        <span className="text-2xl font-serif italic tracking-tighter absolute left-1/2 -translate-x-1/2">IQue</span>
-        <div className="flex items-center space-x-6">
-          <button onClick={toggleTheme} className="text-xs font-mono tracking-widest uppercase opacity-60 hover:opacity-100 transition-opacity">
-            {isDarkMode ? "[ Light_Mode ]" : "[ Dark_Mode ]"}
-          </button>
-          <Menu className="w-5 h-5 stroke-[1.2] cursor-pointer opacity-80" />
-        </div>
-      </header>
 
       {/* EDITORIAL HERO TITLE */}
       <section className="relative pt-44 pb-12 px-6 md:px-12 max-w-7xl mx-auto z-10">
