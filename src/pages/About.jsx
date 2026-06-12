@@ -50,7 +50,7 @@ const AboutUsPage = ({ isDarkMode }) => {
         <div 
           className={`absolute inset-0 bg-cover bg-center will-change-transform transition-all duration-300 ${isDarkMode ? 'mix-blend-lighten' : 'mix-blend-multiply'}`}
           style={{ 
-            backgroundImage: `url('public/banner2.png')`,
+            backgroundImage: `url('/banner2.png')`,
             transform: `translate3d(0, ${scrollY * 0.35}px, 0) scale(${1 + scrollY * 0.0005})`,
             filter: `blur(${Math.min(scrollY * 0.02, 8)}px)`,
             opacity: Math.max(1 - scrollY * 0.002, 0.15)

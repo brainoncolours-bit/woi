@@ -104,7 +104,7 @@ function HeroSection({ isDarkMode }) {
       <motion.div 
         className="absolute inset-0 z-0 bg-cover bg-center opacity-25 pointer-events-none scale-105"
         style={{ 
-          backgroundImage: "url(public/banner.png)",  
+          backgroundImage: "url(/banner.png)",  
           y: bgY
         }}
       >
@@ -260,9 +260,9 @@ function HorizontalPortfolio() {
   const targetRef = useRef(null);
   const scrollerRef = useRef(null);
   const productionCases = [
-    { num: "01", name: "The Nordics Integration", img: "public/banner10.png", desc: "A sovereign logistics matrix transition across three maritime territories." },
-    { num: "02", name: "Apex Venture Lab", img: "public/banner6.png", desc: "Infrastructural system architecture overhaul for global capital assets." },
-    { num: "03", name: "Aether Cryptographic", img: "public/banner2.png", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
+    { num: "01", name: "The Nordics Integration", img: "/banner10.png", desc: "A sovereign logistics matrix transition across three maritime territories." },
+    { num: "02", name: "Apex Venture Lab", img: "/banner6.png", desc: "Infrastructural system architecture overhaul for global capital assets." },
+    { num: "03", name: "Aether Cryptographic", img: "/banner2.png", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
   ];
 
   const sectionHeightVh = productionCases.length * 100;

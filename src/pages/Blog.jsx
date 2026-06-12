@@ -59,10 +59,10 @@ export default function MinimalPortfolio() {
   const scaleX = useTransform(globalProgress, [0, 1], [0, 1]);
 
   const explicitProjects = [
-    { title: "Hyperion Ecosystem", tags: "Brand Strategy, Visual Architecture", imgUrl: "public/banner6.png" },
-    { title: "Aether Platform", tags: "Interactive Interface, Engine Design", imgUrl: "public/banner7.png" },
-    { title: "Chronos Editorial", tags: "Creative Direction, Spatial Design", imgUrl: "public/banner8.png" },
-    { title: "Vortex Lab", tags: "Product Positioning, Experiences", imgUrl: "public/banner9.png" }
+    { title: "Hyperion Ecosystem", tags: "Brand Strategy, Visual Architecture", imgUrl: "/banner6.png" },
+    { title: "Aether Platform", tags: "Interactive Interface, Engine Design", imgUrl: "/banner7.png" },
+    { title: "Chronos Editorial", tags: "Creative Direction, Spatial Design", imgUrl: "/banner8.png" },
+    { title: "Vortex Lab", tags: "Product Positioning, Experiences", imgUrl: "/banner9.png" }
   ];
 
   return (
@@ -82,7 +82,7 @@ export default function MinimalPortfolio() {
         className="max-w-7xl mx-auto px-6 pt-12 pb-20 md:py-20"
       >
         <div className="bg-gradient-to-br  rounded-[40px] p-8 md:p-20 h-[80vh] min-h-[550px] flex flex-col justify-between border border-neutral-900/40"
-        style={{ backgroundImage: "url(public/banner4.png)" }}>
+        style={{ backgroundImage: "url(/banner4.png)" }}>
           <div className="flex justify-between items-center">
             <span className="font-bold tracking-tighter text-xl">STUDIO_M.</span>
             <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase border border-neutral-800 rounded-full px-4 py-1.5 bg-black/20">
