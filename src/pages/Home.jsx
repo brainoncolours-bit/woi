@@ -260,9 +260,9 @@ function HorizontalPortfolio() {
   const targetRef = useRef(null);
   const scrollerRef = useRef(null);
   const productionCases = [
-    { num: "01", name: "The Nordics Integration", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200", desc: "A sovereign logistics matrix transition across three maritime territories." },
-    { num: "02", name: "Apex Venture Lab", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200", desc: "Infrastructural system architecture overhaul for global capital assets." },
-    { num: "03", name: "Aether Cryptographic", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
+    { num: "01", name: "The Nordics Integration", img: "public/banner5.png", desc: "A sovereign logistics matrix transition across three maritime territories." },
+    { num: "02", name: "Apex Venture Lab", img: "public/banner6.png", desc: "Infrastructural system architecture overhaul for global capital assets." },
+    { num: "03", name: "Aether Cryptographic", img: "public/banner2.png", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
   ];
 
   const sectionHeightVh = productionCases.length * 100;

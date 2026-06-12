@@ -59,10 +59,10 @@ export default function MinimalPortfolio() {
   const scaleX = useTransform(globalProgress, [0, 1], [0, 1]);
 
   const explicitProjects = [
-    { title: "Hyperion Ecosystem", tags: "Brand Strategy, Visual Architecture", imgUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe" },
-    { title: "Aether Platform", tags: "Interactive Interface, Engine Design", imgUrl: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4" },
-    { title: "Chronos Editorial", tags: "Creative Direction, Spatial Design", imgUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e" },
-    { title: "Vortex Lab", tags: "Product Positioning, Experiences", imgUrl: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853" }
+    { title: "Hyperion Ecosystem", tags: "Brand Strategy, Visual Architecture", imgUrl: "public/banner6.png" },
+    { title: "Aether Platform", tags: "Interactive Interface, Engine Design", imgUrl: "public/banner7.png" },
+    { title: "Chronos Editorial", tags: "Creative Direction, Spatial Design", imgUrl: "public/banner8.png" },
+    { title: "Vortex Lab", tags: "Product Positioning, Experiences", imgUrl: "public/banner9.png" }
   ];
 
   return (
