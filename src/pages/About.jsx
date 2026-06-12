@@ -71,6 +71,10 @@ const AboutUsPage = ({ isDarkMode }) => {
           <p className={`text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed tracking-wide ${isDarkMode ? 'text-stone-300' : 'text-stone-600'}`}>
             WOI is a global ecosystem development company headquartered in Dubai, focused on creating, developing, and managing entrepreneurial, innovation, investment, and industry ecosystems. We build infrastructure, communities, platforms and partnerships that enable sustainable economic growth and innovation.
           </p>
+          <div className="mt-6 text-sm font-mono text-stone-400">
+            <div>Headquarters: Dubai</div>
+            <div className="mt-1 italic">Building Better Worlds Through Better Ecosystems</div>
+          </div>
           <div className="pt-4 animate-bounce [animation-duration:2.5s]">
             <span className="text-[10px] uppercase tracking-[0.3em] opacity-40">Scroll Down</span>
           </div>

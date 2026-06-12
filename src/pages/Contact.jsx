@@ -1,110 +1,52 @@
 import React from 'react';
-import { ArrowRight, Layers, Zap, Database, Terminal } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-export default function WorldOfIQueMaster() {
+export default function GlassContactPage() {
   return (
-    <main className="w-full font-sans bg-[#0a0a0a] text-stone-200 min-h-screen">
+    // Background container with a moody red/dark gradient
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-red-900/40 via-[#0A0A0A] to-[#0A0A0A] text-white p-6 md:p-12 flex items-center justify-center">
       
-      {/* 1. HERO */}
-      <section className="relative pt-44 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <h1 className="text-5xl sm:text-8xl font-light leading-none uppercase tracking-tighter">
-          Initialize <br />
-          <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-stone-400 to-stone-600">alignment</span>
-        </h1>
-        <p className="max-w-xl text-xs md:text-sm font-light leading-relaxed opacity-60 mt-8">
-          WOI — Building Better Worlds Through Better Ecosystems. Connecting founders, investors, and institutions to build sustainable innovation grids.
-        </p>
-      </section>
-
-      {/* 2. CAPABILITIES */}
-      <section className="py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-stone-900/50">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-stone-900/20 border border-stone-900/20">
-          {[
-            { id: "01", icon: <Layers />, title: "Ecosystem Architecture" },
-            { id: "02", icon: <Zap />, title: "Operational Acceleration" },
-            { id: "03", icon: <Database />, title: "Structural Compliance" },
-            { id: "04", icon: <Terminal />, title: "Infrastructure Logic" }
-          ].map((item) => (
-            <div key={item.id} className="p-8 bg-[#0a0a0a]">
-              <div className="opacity-30 mb-8">{item.icon}</div>
-              <h4 className="text-sm font-semibold uppercase tracking-widest mb-3">{item.title}</h4>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. INGESTION FORM */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 py-24 border-t border-stone-900/50">
-        <div className="grid md:grid-cols-12 gap-16">
-          <div className="md:col-span-4">
-            <h2 className="text-3xl font-light uppercase tracking-tighter">Inbound<br/><span className="font-serif italic opacity-60">Handshake</span></h2>
+      {/* Glassmorphism Card */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        className="w-full max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[40px] p-8 md:p-16 flex flex-col md:flex-row gap-12 shadow-2xl"
+      >
+        
+        {/* Left Section: Info */}
+        <div className="flex-1 flex flex-col justify-center">
+          <h1 className="text-6xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.9]">
+            Let's talk <br/>
+            <span className="text-orange-500 italic">business.</span>
+          </h1>
+          <p className="text-gray-400 text-lg mb-12">
+            Have a project in mind? I’m currently accepting new collaborations and freelance inquiries.
+          </p>
+          
+          <div className="space-y-6">
+            <h4 className="font-bold text-sm uppercase tracking-widest text-orange-500">Reach Out</h4>
+            <a href="mailto:hello@folioblox.com" className="text-2xl hover:text-orange-400 transition">hello@folioblox.com</a>
           </div>
-          <form className="md:col-span-8 grid md:grid-cols-2 gap-8">
-            <input className="bg-transparent border-b border-stone-800 py-3 text-sm outline-none" placeholder="Entity Name" />
-            <input className="bg-transparent border-b border-stone-800 py-3 text-sm outline-none" placeholder="Protocol Address" />
-            <textarea className="md:col-span-2 bg-transparent border-b border-stone-800 py-3 text-sm outline-none" placeholder="Structural Brief" rows={3} />
-            <button className="text-[10px] font-mono uppercase tracking-widest border border-stone-800 py-4 hover:bg-white hover:text-black transition-colors">
-              Initialize Transmission
-            </button>
-          </form>
         </div>
-      </section>
 
-      {/* 4. KNOWLEDGE ARCHIVE */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-stone-900/50">
-        <div className="grid md:grid-cols-3 gap-12">
-          <div className="space-y-4">
-            <span className="text-[10px] font-mono tracking-[0.4em] uppercase opacity-40">// ARCHIVE_LOGS</span>
-            <h2 className="text-3xl font-light leading-tight">Insight<br/><span className="font-serif italic opacity-60">Streams</span></h2>
+        {/* Right Section: Links */}
+        <div className="flex-1 flex flex-col justify-center gap-8 bg-white/5 p-8 rounded-[32px] border border-white/5">
+          <h4 className="font-bold text-sm uppercase tracking-widest opacity-60">Find me online</h4>
+          <div className="grid grid-cols-1 gap-4">
+            {['Twitter', 'GitHub', 'LinkedIn', 'Dribbble'].map((social) => (
+              <a 
+                key={social}
+                href="#" 
+                className="flex justify-between items-center p-4 rounded-2xl bg-white/5 hover:bg-orange-500/20 hover:border-orange-500/50 border border-transparent transition-all group"
+              >
+                <span className="text-lg font-medium">{social}</span>
+                <span className="opacity-0 group-hover:opacity-100 transition">→</span>
+              </a>
+            ))}
           </div>
-          {[
-            { date: '06.12.26', title: 'Decentralized Governance Protocols' },
-            { date: '05.28.26', title: 'Sustainable Infrastructure Metrics' }
-          ].map((post, i) => (
-            <div key={i} className="group border-l border-stone-800 pl-6 cursor-pointer">
-              <span className="text-[9px] font-mono opacity-40 block mb-2">{post.date}</span>
-              <h4 className="text-lg font-light group-hover:text-stone-400 transition-colors">{post.title}</h4>
-            </div>
-          ))}
         </div>
-      </section>
-
-      {/* 5. LEADERSHIP CLUSTER */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-stone-900/50">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-          {['A. Wright', 'S. Kour', 'J. Varma', 'E. Chen'].map((name, i) => (
-            <div key={i} className="space-y-2">
-              <div className="w-full aspect-[4/5] bg-stone-900 mb-4" />
-              <h4 className="font-semibold text-sm tracking-wide">{name}</h4>
-              <p className="text-[10px] font-mono uppercase opacity-40">Governance Board</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. NODE MAP */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-stone-900/50">
-        <div className="relative h-[400px] w-full border border-stone-900 flex items-center justify-center bg-[#0d0d0d] overflow-hidden">
-          <span className="font-mono text-[10px] opacity-30 uppercase tracking-[0.5em]">Global Network Latency: 42ms</span>
-          <div className="absolute top-1/3 left-1/3 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-        </div>
-      </section>
-
-      {/* 7. SOCIAL DIRECTORY */}
-      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {['LinkedIn', 'X (Twitter)', 'Telegram', 'GitHub'].map((label) => (
-            <a key={label} href="#" className="flex flex-col space-y-2 border-l border-stone-800 pl-4 hover:border-stone-500 transition-colors">
-              <span className="text-[9px] font-mono opacity-40 uppercase tracking-widest">{label}</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* 8. FOOTER */}
-      <footer className="py-12 text-center text-[10px] font-mono tracking-widest opacity-40 border-t border-stone-900">
-        <p>© 2026 World of IQue Ecosystem. Crafted with structural intent.</p>
-      </footer>
-    </main>
+      </motion.div>
+    </div>
   );
 }

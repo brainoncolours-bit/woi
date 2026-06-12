@@ -26,41 +26,43 @@ export default function ContactPage() {
           <p className="text-gray-400 text-lg max-w-sm mb-12">
             Have a project in mind? I’m currently accepting new collaborations and freelance inquiries.
           </p>
-          
-          <div className="space-y-4">
-            <h4 className="font-bold text-sm uppercase tracking-widest opacity-50">Say Hello</h4>
-            <a href="mailto:hello@folioblox.com" className="text-2xl hover:text-orange-500 transition block">hello@folioblox.com</a>
-          </div>
         </motion.div>
 
-        {/* Right Column: Form */}
-        <motion.form 
+        {/* Right Column: Contact & Socials */}
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-[#111111] p-8 md:p-12 rounded-[32px] border border-neutral-800"
+          className="flex flex-col justify-center gap-12"
         >
-          <div className="flex flex-col gap-6">
-            <input 
-              type="text" 
-              placeholder="Name" 
-              className="bg-transparent border-b border-neutral-700 py-3 outline-none focus:border-orange-500 transition" 
-            />
-            <input 
-              type="email" 
-              placeholder="Email" 
-              className="bg-transparent border-b border-neutral-700 py-3 outline-none focus:border-orange-500 transition" 
-            />
-            <textarea 
-              placeholder="Tell me about your project" 
-              rows={4}
-              className="bg-transparent border-b border-neutral-700 py-3 outline-none focus:border-orange-500 transition resize-none" 
-            />
-            <button className="bg-orange-600 text-white w-full py-4 rounded-full font-bold mt-4 hover:bg-white hover:text-black transition-all duration-300">
-              Send Message
-            </button>
+          {/* Direct Contact */}
+          <div className="space-y-6">
+            <div className="space-y-1">
+              <h4 className="font-bold text-sm uppercase tracking-widest opacity-50">Email</h4>
+              <a href="mailto:hello@folioblox.com" className="text-2xl hover:text-orange-500 transition block">hello@folioblox.com</a>
+            </div>
+            <div className="space-y-1">
+              <h4 className="font-bold text-sm uppercase tracking-widest opacity-50">Location</h4>
+              <p className="text-xl">San Francisco, CA</p>
+            </div>
           </div>
-        </motion.form>
+
+          {/* Social Links */}
+          <div className="space-y-4">
+            <h4 className="font-bold text-sm uppercase tracking-widest opacity-50">Find me online</h4>
+            <div className="flex flex-wrap gap-4">
+              {['Twitter', 'GitHub', 'LinkedIn', 'Dribbble'].map((social) => (
+                <a 
+                  key={social}
+                  href="#" 
+                  className="px-6 py-2 border border-neutral-800 rounded-full hover:border-orange-500 hover:text-orange-500 transition"
+                >
+                  {social}
+                </a>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </main>
     </div>
   );

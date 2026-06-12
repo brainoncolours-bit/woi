@@ -125,36 +125,21 @@ function HeroSection({ isDarkMode }) {
           Institutional Architecture
         </motion.div>
         
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-normal font-serif text-white leading-[1.05] tracking-tight overflow-hidden">
-          {["Sovereign Scale.", "Built for"].map((text, i) => (
-            <motion.span 
-              key={i} 
-              custom={i}
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, delay: i * 0.15, ease: EASE_CUBIC }}
-              className="block"
-            >
-              {text}
-            </motion.span>
-          ))}
-          <motion.span 
-            initial={{ y: "100%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4, ease: EASE_CUBIC }}
-            className="block italic font-light text-neutral-300"
-          >
-            permanence.
-          </motion.span>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal font-serif text-white leading-tight tracking-tight overflow-hidden">
+          <motion.span initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: EASE_CUBIC }} className="block">Building Better Worlds</motion.span>
+          <motion.span initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, ease: EASE_CUBIC }} className="block">Through Better Ecosystems</motion.span>
         </h1>
-        
-        <motion.p variants={fadeInUpVariant} className="text-sm md:text-base text-white/60 font-light leading-relaxed max-w-md pt-2">
-          World of Ique operates a global enterprise framework, engineered to provide{' '}
-          <span className="underline underline-offset-4 decoration-white/40 text-white font-normal">
-            international grade
-          </span>{' '}
-          structural engineering and asset management optimization models.
+
+        <motion.p variants={fadeInUpVariant} className="text-sm md:text-base text-white/60 font-light leading-relaxed max-w-lg pt-4">
+          WOI is a global ecosystem development company headquartered in Dubai, building entrepreneurial, innovation, investment, and industry ecosystems for the future of economies, cities, and communities. We bring together founders, investors, institutions, corporates, governments, talent, infrastructure, and capital to build environments where innovation can thrive.
         </motion.p>
+
+        <div className="mt-6 flex items-center space-x-4">
+          <motion.a whileHover={{ scale: 1.02 }} href="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-xs">Explore WOI</motion.a>
+          <motion.a whileHover={{ scale: 1.02 }} href="/contact" className="inline-flex items-center border border-white text-white px-6 py-3 rounded-md font-medium tracking-widest text-xs">Partner With Us</motion.a>
+        </div>
+
+        <div className="mt-4 text-[11px] text-white/40 font-mono tracking-wider">Currently building ecosystem initiatives across India, UAE, Singapore, Malaysia, Mauritius, Rwanda, and beyond.</div>
       </motion.div>
 
       <div className="absolute right-12 bottom-36 hidden md:flex items-center space-x-6 text-xs text-white/40">
@@ -217,10 +202,12 @@ function ParallaxPhilosophy() {
    ========================================================================== */
 function ServicesBento() {
   const serviceItems = [
-    { icon: <Layers size={20} />, title: "Structural Scaling", desc: "Formulating enterprise scaling metrics designed to endure modern macroeconomic volatility." },
-    { icon: <Compass size={20} />, title: "Brand Identity Design", desc: "Premium high-grade narratives that elevate standard operations into global identities." },
-    { icon: <Cpu size={20} />, title: "Technical Architecture", desc: "Enterprise cloud arrays and computational engineering deployed with absolute data integrity." },
-    { icon: <TrendingUp size={20} />, title: "Capital Optimization", desc: "Eliminating operational friction to reposition layout deployment overhead into active velocity." }
+    { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems." },
+    { icon: <Compass size={20} />, title: "Venture Building", desc: "Supporting the creation, growth, and scaling of startups and emerging ventures." },
+    { icon: <Cpu size={20} />, title: "Infrastructure Development", desc: "Developing startup parks, innovation hubs, centers of excellence, and ecosystem spaces." },
+    { icon: <TrendingUp size={20} />, title: "Community Building", desc: "Creating founder, investor, creator, student, and industry communities and platforms." },
+    { icon: <Globe size={20} />, title: "Education & Talent", desc: "Delivering entrepreneurship, innovation, leadership and future-skills programs." },
+    { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners." }
   ];
 
   return (
@@ -233,8 +220,8 @@ function ServicesBento() {
           transition={{ duration: 0.8, ease: EASE_CUBIC }}
           className="mb-20 max-w-xl space-y-4"
         >
-          <div className="text-[10px] font-bold uppercase tracking-widest text-black/40">Core Vectors</div>
-          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">Delivering global reach without asset bloat.</h2>
+          <div className="text-[10px] font-bold uppercase tracking-widest text-black/40">What We Build</div>
+          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">We build the systems behind great companies, industries and economies.</h2>
         </motion.div>
 
         <motion.div 

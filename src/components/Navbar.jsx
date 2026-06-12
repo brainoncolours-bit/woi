@@ -56,6 +56,10 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
 
       {/* Right: Theme Selector & Menu */}
       <div className="flex items-center space-x-4">
+        {/* Build CTA */}
+        <Link to="/partner" className={`hidden md:inline-flex items-center px-4 py-2 rounded-md text-sm font-medium tracking-wider transition-all ${isDarkMode ? 'bg-amber-400 text-black' : 'bg-indigo-600 text-white'}`}>
+          Build With WOI
+        </Link>
         <button 
           onClick={toggleTheme}
           className={`p-2 rounded-full border transition-all ${isDarkMode ? 'border-white/20 hover:bg-white/10 text-amber-400' : 'border-black/20 hover:bg-black/5 text-indigo-600'}`}
