@@ -42,7 +42,7 @@ export default function CorporateLanding({ isDarkMode }) {
       <HorizontalPortfolio isDarkMode={isDarkMode} />
       <MetricsSection isDarkMode={isDarkMode} />
       <CTASection isDarkMode={isDarkMode} />
-      <Footer isDarkMode={isDarkMode} />
+      {/* <Footer isDarkMode={isDarkMode} /> */}
     </div>
   );
 }
@@ -271,31 +271,35 @@ function ServicesBento() {
    ========================================================================== */
 function HorizontalPortfolio() {
   const targetRef = useRef(null);
+  const scrollerRef = useRef(null);
   const productionCases = [
     { num: "01", name: "The Nordics Integration", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200", desc: "A sovereign logistics matrix transition across three maritime territories." },
     { num: "02", name: "Apex Venture Lab", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200", desc: "Infrastructural system architecture overhaul for global capital assets." },
     { num: "03", name: "Aether Cryptographic", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
   ];
 
-  // Make the section height proportional to the number of slides so vertical scroll maps to horizontal motion
-  const sectionHeightVh = productionCases.length * 100; // e.g., 3 slides -> 300vh
+  const sectionHeightVh = productionCases.length * 100;
 
-  // Create a scroll-linked transform that moves from 0 to negative (N-1)*100vw
   const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(productionCases.length - 1) * 100}vw`]);
+
+  const rawX = useTransform(scrollYProgress, (value) => {
+    if (!scrollerRef.current) return 0;
+    const maxTranslate = scrollerRef.current.scrollWidth - window.innerWidth;
+    return -value * Math.max(0, maxTranslate);
+  });
+  const x = useSpring(rawX, { stiffness: 120, damping: 30 });
 
   return (
-    <div ref={targetRef} className="relative bg-[#121214]" style={{ height: `${sectionHeightVh}vh` }}>
+    <div ref={targetRef} className="relative bg-[#121214]" style={{ height: '100vh' }}>
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
 
-        {/* Absolute Header Anchors */}
         <div className="absolute left-6 md:left-12 top-12 z-20 pointer-events-none">
           <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Case Exhibits</div>
           <h2 className="text-2xl font-serif text-white">Selected Implementations</h2>
         </div>
 
-        {/* Horizontal scroller driven by `x` */}
         <motion.div
+          ref={scrollerRef}
           style={{ x }}
           className="flex items-center gap-12 pl-6 md:pl-12 pr-[20vw] will-change-transform"
         >
