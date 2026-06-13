@@ -307,42 +307,21 @@ const AboutUsPage = ({ isDarkMode }) => {
       ))}
     </div>
 
-    {/* Bottom stat strip */}
-    <div className={`mt-20 pt-10 border-t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 ${isDarkMode ? 'border-white/5' : 'border-black/5'}`}>
-      <div className="flex flex-wrap gap-12">
-        {[
-          { num: "6", label: "Active regions" },
-          { num: "3+", label: "Continents" },
-          { num: "1", label: "Global network" }
-        ].map((stat, i) => (
-          <div key={i} className="space-y-1">
-            <p className={`text-4xl font-light tracking-tight font-serif italic ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>
-              {stat.num}
-            </p>
-            <p className={`text-[10px] uppercase tracking-widest font-mono ${isDarkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-              {stat.label}
-            </p>
-          </div>
-        ))}
-      </div>
-      <p className={`text-sm font-light max-w-xs leading-relaxed ${isDarkMode ? 'text-stone-500' : 'text-stone-400'}`}>
-        Each node operates independently, yet contributes to a single interconnected global ecosystem.
-      </p>
-    </div>
+   
 
   </div>
 </section>
 
       {/* 6. CALL TO ACTION ACCELERATOR AREA */}
-      <section className={`py-32 text-center relative overflow-hidden border-t ${isDarkMode ? 'border-white/5 bg-stone-900/30' : 'border-black/5 bg-stone-200/40'}`}>
-        <div className="max-w-3xl mx-auto px-6 space-y-8 relative z-10">
+      <section className={`py-16 text-center relative overflow-hidden border-t ${isDarkMode ? 'border-white/5 bg-stone-900/30' : 'border-black/5 bg-stone-200/40'}`}>
+        <div className="max-w-3xl mx-auto px-6 space-y-6 relative z-10">
           <h2 className="text-3xl md:text-6xl font-light tracking-tight">
             Connect with our <span className="font-serif italic block mt-1">Management Core</span>
           </h2>
           <p className={`text-sm md:text-base max-w-xl mx-auto leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
             Review strategic architecture documents, asset pooling arrangements, and international ecosystem expansion blueprints.
           </p>
-          <div className="pt-4">
+          <div className="pt-2">
             <button className={`inline-flex items-center space-x-3 text-xs uppercase tracking-[0.2em] font-medium px-8 py-4 rounded-full border transition-all duration-300 transform hover:scale-105 active:scale-95 group ${
               isDarkMode 
                 ? 'bg-white text-stone-950 border-white hover:bg-transparent hover:text-white' 

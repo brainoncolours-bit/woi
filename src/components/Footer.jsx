@@ -22,7 +22,7 @@ export default function ContactPage() {
         >
           <h1 className="text-7xl font-bold tracking-tighter mb-6 leading-[0.9]">
             Let's talk <br />
-            <span style={{ color: '#fe9a00' }} className="italic">business.</span>
+            <span style={{ color: '#ffb900' }} className="italic">business.</span>
           </h1>
           <p className="text-gray-400 text-lg max-w-sm">
             Have a project in mind? I'm currently accepting new collaborations and freelance inquiries.
