@@ -172,26 +172,31 @@ function ParallaxPhilosophy() {
 
   return (
     <section ref={containerRef} className="py-32 md:py-48 bg-[#0f0f11] relative overflow-hidden">
-      <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 text-center space-y-8">
-        <p className="text-2xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 leading-snug max-w-4xl mx-auto">
-          "We reject volatile, shifting systems. To command market longevity, capital infrastructure must synchronize seamlessly with elegant system logic."
-        </p>
-        <div className="w-8 h-[1px] bg-white/30 mx-auto mt-4" />
-      </motion.div>
+  <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 text-center space-y-8">
+    <p className="text-2xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 leading-snug max-w-4xl mx-auto">
+      "We reject volatile, shifting systems. To command{' '}
+      <span className="relative inline-block px-2 text-[1.1em] text-amber-300">
+        market longevity
+      </span>
+      , capital infrastructure must synchronize seamlessly with{' '}
+      <span className="relative inline-block px-2 text-[1.1em] text-amber-300">
+        elegant system logic
+      </span>
+      ."
+    </p>
+    <div className="w-8 h-[1px] bg-white/30 mx-auto mt-4" />
+  </motion.div>
 
-      <motion.div 
-        style={{ x: textLeft }} 
-        className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none whitespace-nowrap"
-      >
-        WORLD OF IQUE
-      </motion.div>
-    </section>
+  <motion.div
+    style={{ x: textLeft }}
+    className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none whitespace-nowrap"
+  >
+    WORLD OF IQUE
+  </motion.div>
+</section>
   );
 }
 
-/* ==========================================================================
-   4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
-   ========================================================================== */
 /* ==========================================================================
    4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
    ========================================================================== */

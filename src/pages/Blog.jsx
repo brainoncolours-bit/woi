@@ -61,7 +61,7 @@ export default function MinimalPortfolio() {
   const explicitProjects = [
     { title: "Startup park", imgUrl: "/banner6.png" },
     { title: "Incubenation ", imgUrl: "/banner7.png" },
-    { title: "VCCircle",  imgUrl: "/banner8.png" },
+    { title: "VC Circle",  imgUrl: "/banner8.png" },
     { title: "Startup School", imgUrl: "/banner9.png" }
   ];
 
@@ -151,7 +151,7 @@ export default function MinimalPortfolio() {
         
       </FadeInSection>
 
-     {/* SECTION 3: PILLARS */}
+    {/* SECTION 3: PILLARS */}
 <FadeInSection className="border-t border-neutral-900 mt-12">
   <div className="mb-20">
     <p className="text-3xl md:text-5xl font-bold tracking-tight">Pillars</p>
@@ -192,12 +192,12 @@ export default function MinimalPortfolio() {
     ].map((item, i) => (
       <div
         key={i}
-        className="group relative bg-black border border-neutral-800 p-8 hover:border-[#fe9a00] transition-all duration-500 overflow-hidden"
+        className="group relative bg-black border border-neutral-800 p-8 hover:border-[#ffb900] transition-all duration-500 overflow-hidden"
       >
         {/* Accent corner */}
-        <div className="absolute top-0 left-0 w-8 h-[2px] bg-[#fe9a00]" />
+        <div className="absolute top-0 left-0 w-8 h-[2px] bg-[#ffb900]" />
 
-        <h4 className="text-lg font-bold text-white tracking-tight mb-3 group-hover:text-[#fe9a00] transition-colors duration-300">
+        <h4 className="text-lg font-bold text-white tracking-tight mb-3 group-hover:text-[#ffb900] transition-colors duration-300">
           {item.title}
         </h4>
         <p className="text-neutral-500 text-sm leading-relaxed font-light group-hover:text-neutral-400 transition-colors duration-300">
@@ -205,7 +205,7 @@ export default function MinimalPortfolio() {
         </p>
 
         {/* Bottom accent on hover */}
-        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#fe9a00] group-hover:w-full transition-all duration-500" />
+        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#ffb900] group-hover:w-full transition-all duration-500" />
       </div>
     ))}
   </div>
