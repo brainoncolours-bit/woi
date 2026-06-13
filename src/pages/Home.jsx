@@ -175,11 +175,11 @@ function ParallaxPhilosophy() {
   <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 text-center space-y-8">
     <p className="text-2xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 leading-snug max-w-4xl mx-auto">
       "We reject volatile, shifting systems. To command{' '}
-      <span className="relative inline-block px-2 text-[1.1em] text-amber-300">
+      <span className="relative inline-block px-2 text-[1.25em] text-amber-300">
         market longevity
       </span>
       , capital infrastructure must synchronize seamlessly with{' '}
-      <span className="relative inline-block px-2 text-[1.1em] text-amber-300">
+      <span className="relative inline-block px-2 text-[1.25em] text-amber-300">
         elegant system logic
       </span>
       ."
