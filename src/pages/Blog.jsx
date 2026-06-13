@@ -43,7 +43,6 @@ const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
       
       {/* Card Interface Content */}
       <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
-        <span className="text-orange-500 font-mono tracking-widest uppercase text-xs">0{index} / Selected Work</span>
         <div>
           <h3 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{title}</h3>
           <p className="text-neutral-400 text-sm md:text-base font-light">{tags}</p>
@@ -85,9 +84,7 @@ export default function MinimalPortfolio() {
         style={{ backgroundImage: "url(/banner4.png)" }}>
           <div className="flex justify-between items-center">
             <span className="font-bold tracking-tighter text-xl">STUDIO_M.</span>
-            <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase border border-neutral-800 rounded-full px-4 py-1.5 bg-black/20">
-              Active '26 Portfolio
-            </span>
+            
           </div>
           
           <div className="max-w-4xl">

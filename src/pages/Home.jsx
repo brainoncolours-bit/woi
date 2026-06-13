@@ -102,14 +102,14 @@ function HeroSection({ isDarkMode }) {
   return (
     <section ref={containerRef} className="relative h-screen flex items-center justify-between px-6 md:px-16 lg:px-24 overflow-hidden bg-[#070708]">
       <motion.div 
-        className="absolute inset-0 z-0 bg-cover bg-center opacity-25 pointer-events-none scale-105"
+        className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none scale-105"
         style={{ 
           backgroundImage: "url(/banner.png)",  
           y: bgY
         }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0c] via-transparent to-[#0b0b0c]/80" />
-      </motion.div>
+      />
+
+    <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/60 to-black/10" />
 
       <motion.div 
         variants={staggerContainer}
@@ -122,7 +122,6 @@ function HeroSection({ isDarkMode }) {
           variants={fadeInUpVariant}
           className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/50 border-l-2 border-white/40 pl-3"
         >
-          Institutional Architecture
         </motion.div>
         
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal font-serif text-white leading-tight tracking-tight overflow-hidden">
@@ -179,12 +178,10 @@ function ParallaxPhilosophy() {
   return (
     <section ref={containerRef} className="py-32 md:py-48 bg-[#0f0f11] relative overflow-hidden">
       <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 text-center space-y-8">
-        <h2 className="text-[11px] uppercase tracking-[0.3em] text-white/40 font-semibold">Corporate Manifesto</h2>
         <p className="text-2xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 leading-snug max-w-4xl mx-auto">
           "We reject volatile, shifting systems. To command market longevity, capital infrastructure must synchronize seamlessly with elegant system logic."
         </p>
         <div className="w-8 h-[1px] bg-white/30 mx-auto mt-4" />
-        <p className="text-xs text-white/40 tracking-wider font-mono">IQUE STRUCTURAL ARCHITECTURE — 2026</p>
       </motion.div>
 
       <motion.div 
@@ -220,7 +217,6 @@ function ServicesBento() {
           transition={{ duration: 0.8, ease: EASE_CUBIC }}
           className="mb-20 max-w-xl space-y-4"
         >
-          <div className="text-[10px] font-bold uppercase tracking-widest text-black/40">What We Build</div>
           <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">We build the systems behind great companies, industries and economies.</h2>
         </motion.div>
 

@@ -62,9 +62,7 @@ const AboutUsPage = ({ isDarkMode }) => {
           className="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-6 will-change-transform"
           style={{ transform: `translate3d(0, ${scrollY * 0.15}px, 0)` }}
         >
-          <span className={`inline-block text-xs font-semibold tracking-[0.4em] uppercase ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>
-            Architectural Blueprint
-          </span>
+          
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-light tracking-tighter leading-none">
             Ecosystem <span className="font-serif italic font-normal">Sovereignty</span>
           </h1>
@@ -75,9 +73,7 @@ const AboutUsPage = ({ isDarkMode }) => {
             <div>Headquarters: Dubai</div>
             <div className="mt-1 italic">Building Better Worlds Through Better Ecosystems</div>
           </div>
-          <div className="pt-4 animate-bounce [animation-duration:2.5s]">
-            <span className="text-[10px] uppercase tracking-[0.3em] opacity-40">Scroll Down</span>
-          </div>
+         
         </div>
       </section>
 
