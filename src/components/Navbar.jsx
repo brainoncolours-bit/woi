@@ -221,18 +221,7 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
             Build With WOI
           </Link>
 
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className={`p-2 rounded-full border transition-all ${
-              isDarkMode
-                ? 'border-white/20 hover:bg-white/10 text-amber-400'
-                : 'border-black/20 hover:bg-black/5 text-indigo-600'
-            }`}
-            aria-label="Toggle Theme"
-          >
-            {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
+          
 
           {/* Language */}
           <button
