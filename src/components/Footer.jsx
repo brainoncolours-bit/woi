@@ -6,10 +6,7 @@ export default function ContactPage() {
     <div className="bg-[#0A0A0A] text-white min-h-screen font-sans p-6 md:p-12">
       
       {/* Navigation */}
-      <nav className="max-w-6xl mx-auto flex justify-between items-center mb-20">
-        <div className="font-bold text-lg">Folioblox</div>
-        <button className="text-sm opacity-60 hover:text-orange-500 transition">Back to Home</button>
-      </nav>
+     
 
       <main className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20">
         
@@ -41,10 +38,7 @@ export default function ContactPage() {
               <h4 className="font-bold text-sm uppercase tracking-widest opacity-50">Email</h4>
               <a href="mailto:hello@folioblox.com" className="text-2xl hover:text-orange-500 transition block">hello@folioblox.com</a>
             </div>
-            <div className="space-y-1">
-              <h4 className="font-bold text-sm uppercase tracking-widest opacity-50">Location</h4>
-              <p className="text-xl">San Francisco, CA</p>
-            </div>
+            
           </div>
 
           {/* Social Links */}

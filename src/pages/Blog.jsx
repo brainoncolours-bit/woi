@@ -59,10 +59,10 @@ export default function MinimalPortfolio() {
   const scaleX = useTransform(globalProgress, [0, 1], [0, 1]);
 
   const explicitProjects = [
-    { title: "Hyperion Ecosystem", tags: "Brand Strategy, Visual Architecture", imgUrl: "/banner6.png" },
-    { title: "Aether Platform", tags: "Interactive Interface, Engine Design", imgUrl: "/banner7.png" },
-    { title: "Chronos Editorial", tags: "Creative Direction, Spatial Design", imgUrl: "/banner8.png" },
-    { title: "Vortex Lab", tags: "Product Positioning, Experiences", imgUrl: "/banner9.png" }
+    { title: "Startup park", imgUrl: "/banner6.png" },
+    { title: "Incubenation ", imgUrl: "/banner7.png" },
+    { title: "VCCircle",  imgUrl: "/banner8.png" },
+    { title: "Startup School", imgUrl: "/banner9.png" }
   ];
 
   return (
@@ -83,10 +83,7 @@ export default function MinimalPortfolio() {
       >
         <div className="bg-gradient-to-br  rounded-[40px] p-8 md:p-20 h-[80vh] min-h-[550px] flex flex-col justify-between border border-neutral-900/40"
         style={{ backgroundImage: "url(/banner4.png)" }}>
-          <div className="flex justify-between items-center">
-            <span className="font-bold tracking-tighter text-xl">STUDIO_M.</span>
-            
-          </div>
+          
           
           <div className="max-w-4xl">
             <h1 className="text-6xl md:text-[100px] font-bold tracking-tighter leading-[0.9] mb-8">
@@ -103,12 +100,9 @@ export default function MinimalPortfolio() {
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <h2 className="text-orange-500 font-mono font-bold uppercase tracking-widest text-xs mb-3">Portfolio</h2>
             <p className="text-3xl md:text-5xl font-bold tracking-tight">Case Studies</p>
           </div>
-          <p className="text-neutral-500 max-w-xs text-sm md:text-base font-light leading-relaxed">
-            A precise selection exploring the interplay of brand value across physical landscapes and functional tech.
-          </p>
+          
         </div>
 
         {/* Dynamic 2-Column Responsive Layout */}
@@ -154,15 +148,12 @@ export default function MinimalPortfolio() {
           ))}
         </div>
 
-        <div className="text-center mt-8">
-          <Link to="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-sm">Explore WOI India</Link>
-        </div>
+        
       </FadeInSection>
 
       {/* SECTION 3: SERVICES */}
       <FadeInSection className="border-t border-neutral-900 mt-12">
         <div className="mb-20">
-          <h2 className="text-orange-500 font-mono font-bold uppercase tracking-widest text-xs mb-3">Capabilities</h2>
           <p className="text-3xl md:text-5xl font-bold tracking-tight">Strategic Foundations</p>
         </div>
 
@@ -173,7 +164,6 @@ export default function MinimalPortfolio() {
             { title: 'Creative Consulting', desc: 'Leading cross-functional design initiatives across internal product teams to synchronize system rollouts.' }
           ].map((item, i) => (
             <div key={i} className="border-l border-neutral-800 pl-6 py-2 hover:border-orange-500 transition-colors duration-500 group">
-              <span className="text-neutral-600 group-hover:text-orange-500 font-mono text-xs transition-colors duration-300">0{i+1} // MODULE</span>
               <h4 className="text-2xl font-bold mt-3 tracking-tight">{item.title}</h4>
               <p className="text-neutral-500 mt-4 text-sm md:text-base leading-relaxed font-light">{item.desc}</p>
             </div>

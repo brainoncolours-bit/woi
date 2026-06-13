@@ -5,7 +5,7 @@ import { Home, User, Layers, Mail, Radio, Sun, Moon, Menu } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', path: '/', icon: Home, code: '01 // CORE' },
-  { name: 'Work', path: '/work', icon: Layers, code: '02 // ARCH' },
+  { name: 'Ecosystem', path: '/work', icon: Layers, code: '02 // ARCH' },
   { name: 'About', path: '/about', icon: User, code: '03 // INTEL' },
   { name: 'Contact', path: '/contact', icon: Mail, code: '04 // SYNC' },
 ];

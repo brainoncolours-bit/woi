@@ -76,7 +76,6 @@ function FloatingContact() {
       transition={{ type: "spring", stiffness: 150, damping: 15 }}
       className="fixed bottom-8 right-8 z-40 flex items-center space-x-3 bg-white text-black pl-5 pr-4 py-2.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer group"
     >
-      <span className="text-xs font-semibold tracking-wide">Initiate Briefing</span>
       <motion.div 
         variants={{ hover: { scale: 1.1, rotate: 15 } }}
         className="w-6 h-6 rounded-full bg-black flex items-center justify-center text-white"
@@ -139,7 +138,6 @@ function HeroSection({ isDarkMode }) {
           <Link to="/contact" className="inline-flex items-center border border-white text-white px-6 py-3 rounded-md font-medium tracking-widest text-xs">Partner With Us</Link>
         </div>
 
-        <div className="mt-4 text-[11px] text-white/40 font-mono tracking-wider">Currently building ecosystem initiatives across India, UAE, Singapore, Malaysia, Mauritius, Rwanda, and beyond.</div>
       </motion.div>
 
       <div className="absolute right-12 bottom-36 hidden md:flex items-center space-x-6 text-xs text-white/40">
@@ -152,11 +150,7 @@ function HeroSection({ isDarkMode }) {
         </button>
       </div>
 
-      <div className="absolute bottom-12 left-6 md:left-24 z-10 flex items-baseline font-light text-white/30">
-        <span className="text-3xl md:text-4xl font-serif text-white font-normal">01</span>
-        <span className="text-xs px-2">/</span>
-        <span className="text-xs">03</span>
-      </div>
+      
 
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-white/20" />
     </section>
@@ -317,9 +311,9 @@ function HorizontalPortfolio() {
    ========================================================================== */
 function MetricsSection() {
   const metrics = [
-    { rate: "124%", label: "Average Capital Return Rate" },
-    { rate: "$1.4B", label: "Managed Enterprise Assets" },
-    { rate: "03", label: "Global Institutional Hubs" }
+    { rate: "1000+", label: "Startups" },
+    { rate: "10,000", label: "HNWI" },
+    { rate: "3+", label: "Countries" }
   ];
 
   return (

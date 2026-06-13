@@ -69,10 +69,7 @@ const AboutUsPage = ({ isDarkMode }) => {
           <p className={`text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed tracking-wide ${isDarkMode ? 'text-stone-300' : 'text-stone-600'}`}>
             WOI is a global ecosystem development company headquartered in Dubai, focused on creating, developing, and managing entrepreneurial, innovation, investment, and industry ecosystems. We build infrastructure, communities, platforms and partnerships that enable sustainable economic growth and innovation.
           </p>
-          <div className="mt-6 text-sm font-mono text-stone-400">
-            <div>Headquarters: Dubai</div>
-            <div className="mt-1 italic">Building Better Worlds Through Better Ecosystems</div>
-          </div>
+          
          
         </div>
       </section>
@@ -147,15 +144,14 @@ const AboutUsPage = ({ isDarkMode }) => {
         />
         <div className={`absolute inset-0 opacity-80 ${isDarkMode ? 'bg-stone-950' : 'bg-stone-50'}`} />
         <div className="relative z-10 max-w-3xl mx-auto text-center px-6 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight font-serif italic">"Precision isn't secondary—it's foundational."</h2>
-          <p className={`text-xs uppercase tracking-[0.25em] ${isDarkMode ? 'text-stone-400' : 'text-stone-500'}`}>IQue Operations Standard</p>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight font-serif italic">"We don’t just support startups. We build the ecosystems where startups, industries, and 
+            economies can grow."</h2>
         </div>
       </section>
 
       {/* 4. EVOLUTION ROADMAP (Interactive Scrolling Track Lines) */}
       <section ref={trackRef} className="py-32 px-6 md:px-12 max-w-5xl mx-auto relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-28 space-y-4">
-          <span className={`text-xs font-semibold tracking-[0.2em] uppercase ${isDarkMode ? 'text-stone-400' : 'text-stone-500'}`}>Ecosystem Progression</span>
           <h2 className="text-4xl md:text-5xl font-light tracking-tight">Ecosystem Milestones</h2>
         </div>
 
