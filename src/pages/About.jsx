@@ -194,7 +194,146 @@ const AboutUsPage = ({ isDarkMode }) => {
         </div>
       </section>
 
-      {/* 5. CALL TO ACTION ACCELERATOR AREA */}
+      {/* ============================================================
+    SECTION 5: GLOBAL EXPANSION
+    Insert this block before the CTA section (section 6).
+    Requires: isDarkMode prop, scrollY state — both already in
+    your AboutUsPage component.
+    ============================================================ */}
+<section className={`py-32 px-6 md:px-12 border-t relative z-20 transition-colors duration-500 ${isDarkMode ? 'border-white/5 bg-stone-950' : 'border-black/5 bg-stone-100/50'}`}>
+  <div className="max-w-7xl mx-auto">
+
+    {/* Header */}
+    <div className="max-w-3xl mb-20 space-y-5">
+      <p className={`text-xs uppercase tracking-[0.3em] font-mono ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>
+        Global Presence
+      </p>
+      <h2 className="text-4xl md:text-6xl font-light tracking-tight leading-none">
+        From Dubai <span className="font-serif italic font-normal">to the World</span>
+      </h2>
+      <p className={`text-sm md:text-base leading-relaxed max-w-xl font-light ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+        WOI is building a global network of ecosystem initiatives across emerging and high-growth markets. Each regional ecosystem is designed around local opportunity, global connectivity, and long-term economic impact.
+      </p>
+    </div>
+
+    {/* Country Cards Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {[
+        {
+          region: "Middle East",
+          name: "WOI UAE",
+          desc: "A regional innovation and entrepreneurship ecosystem serving the Middle East.",
+          flag: "🇦🇪",
+          status: "Active"
+        },
+        {
+          region: "Southeast Asia",
+          name: "WOI Singapore",
+          desc: "A gateway ecosystem connecting Southeast Asia's startup, investment, and technology communities.",
+          flag: "🇸🇬",
+          status: "Active"
+        },
+        {
+          region: "Southeast Asia",
+          name: "WOI Malaysia",
+          desc: "An ecosystem focused on innovation, entrepreneurship, and industry development.",
+          flag: "🇲🇾",
+          status: "Active"
+        },
+        {
+          region: "Africa & Indian Ocean",
+          name: "WOI Mauritius",
+          desc: "A strategic ecosystem connecting Africa, the Middle East, and Asia through entrepreneurship, investment, innovation, and global business collaboration.",
+          flag: "🇲🇺",
+          status: "Building"
+        },
+        {
+          region: "Africa",
+          name: "WOI Rwanda",
+          desc: "Supporting the growth of Africa's emerging innovation and startup economy.",
+          flag: "🇷🇼",
+          status: "Building"
+        },
+        {
+          region: "South Asia",
+          name: "WOI India",
+          desc: "A pilot ecosystem model bringing together founders, investors, institutions, and corporates across India's innovation landscape.",
+          flag: "🇮🇳",
+          status: "Active"
+        }
+      ].map((country, idx) => (
+        <div
+          key={idx}
+          className={`group relative p-8 rounded-2xl border backdrop-blur-md overflow-hidden transition-all duration-500 cursor-default ${
+            isDarkMode
+              ? 'bg-stone-900/20 border-white/5 hover:border-white/10 hover:bg-stone-900/60'
+              : 'bg-white border-black/5 hover:border-black/10 hover:shadow-2xl'
+          }`}
+        >
+          {/* Bottom edge tracer on hover — matches Vision/Mission/Philosophy cards */}
+          <div className={`absolute bottom-0 left-0 right-0 h-[2px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${isDarkMode ? 'bg-amber-400/50' : 'bg-indigo-600/50'}`} />
+
+          {/* Top row: flag + status badge */}
+          <div className="flex items-start justify-between mb-6">
+            <span className="text-3xl leading-none">{country.flag}</span>
+            <span className={`text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full border ${
+              country.status === 'Active'
+                ? isDarkMode
+                  ? 'text-amber-400 border-amber-400/30 bg-amber-400/5'
+                  : 'text-indigo-600 border-indigo-600/30 bg-indigo-600/5'
+                : isDarkMode
+                  ? 'text-stone-500 border-stone-700 bg-stone-800/40'
+                  : 'text-stone-400 border-stone-300 bg-stone-100'
+            }`}>
+              {country.status}
+            </span>
+          </div>
+
+          {/* Region label */}
+          <p className={`text-[10px] uppercase tracking-[0.25em] font-mono mb-1 ${isDarkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+            {country.region}
+          </p>
+
+          {/* Country name */}
+          <h3 className="text-xl font-serif italic font-normal tracking-tight mb-3">
+            {country.name}
+          </h3>
+
+          {/* Description */}
+          <p className={`text-sm leading-relaxed font-light ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+            {country.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    {/* Bottom stat strip */}
+    <div className={`mt-20 pt-10 border-t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 ${isDarkMode ? 'border-white/5' : 'border-black/5'}`}>
+      <div className="flex flex-wrap gap-12">
+        {[
+          { num: "6", label: "Active regions" },
+          { num: "3+", label: "Continents" },
+          { num: "1", label: "Global network" }
+        ].map((stat, i) => (
+          <div key={i} className="space-y-1">
+            <p className={`text-4xl font-light tracking-tight font-serif italic ${isDarkMode ? 'text-amber-400' : 'text-indigo-600'}`}>
+              {stat.num}
+            </p>
+            <p className={`text-[10px] uppercase tracking-widest font-mono ${isDarkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p className={`text-sm font-light max-w-xs leading-relaxed ${isDarkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+        Each node operates independently, yet contributes to a single interconnected global ecosystem.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+      {/* 6. CALL TO ACTION ACCELERATOR AREA */}
       <section className={`py-32 text-center relative overflow-hidden border-t ${isDarkMode ? 'border-white/5 bg-stone-900/30' : 'border-black/5 bg-stone-200/40'}`}>
         <div className="max-w-3xl mx-auto px-6 space-y-8 relative z-10">
           <h2 className="text-3xl md:text-6xl font-light tracking-tight">

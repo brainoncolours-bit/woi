@@ -230,6 +230,146 @@ export default function MinimalPortfolio() {
         </motion.div>
       </FadeInSection>
 
+{/* =================
+    SECTION 5: WHO WE WORK WITH
+    ============== */}
+<FadeInSection className="border-t border-neutral-900 mt-12">
+
+  {/* Header row */}
+  <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-3">
+    <div>
+      <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white">
+        Who We Work With
+      </h2>
+    </div>
+    <p className="text-neutral-500 text-sm max-w-xs leading-relaxed font-light">
+      Designed for ecosystem builders.
+    </p>
+  </div>
+
+  {/* Audience rows */}
+  <div className="flex flex-col divide-y divide-neutral-900">
+    {[
+      {
+        label: "Governments",
+        short: "Economic development & national ecosystems",
+        desc: "For economic development, innovation districts, startup policies, and national ecosystem programs.",
+      },
+      {
+        label: "Investors",
+        short: "Deal flow, angel networks & market expansion",
+        desc: "For deal flow, startup access, angel networks, venture capital ecosystems, and market expansion.",
+      },
+      {
+        label: "Entrepreneurs & Startups",
+        short: "Venture building, community & capital access",
+        desc: "For venture building, incubation, acceleration, community, mentorship, and capital access.",
+      },
+      {
+        label: "Institutions",
+        short: "Education, innovation & talent development",
+        desc: "For entrepreneurship education, innovation programs, student founder ecosystems, and talent development.",
+      },
+      {
+        label: "Corporates",
+        short: "Innovation partnerships & industry ecosystems",
+        desc: "For innovation partnerships, industry ecosystems, startup collaboration, and market-building initiatives.",
+      },
+      {
+        label: "Cities & Regions",
+        short: "Entrepreneurship-led economic development",
+        desc: "For building entrepreneurship-led economic development models.",
+      }
+    ].map((item, i) => (
+      <motion.div
+        key={i}
+        initial={false}
+        className="group cursor-default"
+        whileHover="hovered"
+      >
+        {/* ── Desktop row (md+): icon | label + short | arrow ── */}
+        <div className="hidden md:flex items-start gap-6 py-7 overflow-hidden">
+          {/* Index pill */}
+          <div className="flex-shrink-0 w-10 h-10 rounded-full border border-neutral-800 group-hover:border-[#fe9a00] group-hover:bg-[#fe9a00] transition-all duration-300 flex items-center justify-center">
+            <span className="text-[10px] font-black text-neutral-500 group-hover:text-black transition-colors duration-300 tracking-wide">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* Text */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-baseline gap-6">
+              <h4 className="text-xl font-bold text-white group-hover:text-[#fe9a00] transition-colors duration-300 tracking-tight whitespace-nowrap">
+                {item.label}
+              </h4>
+              <span className="text-xs text-neutral-600 group-hover:text-neutral-500 transition-colors duration-300 font-mono uppercase tracking-widest truncate">
+                {item.short}
+              </span>
+            </div>
+
+            {/* Description slides in on hover */}
+            <motion.div
+              variants={{ hovered: { height: "auto", opacity: 1, marginTop: 8 } }}
+              initial={{ height: 0, opacity: 0, marginTop: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <p className="text-sm text-neutral-400 font-light leading-relaxed max-w-xl">
+                {item.desc}
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Arrow */}
+          <div className="flex-shrink-0 self-center">
+            <motion.div
+              variants={{ hovered: { x: 4, opacity: 1 } }}
+              initial={{ x: 0, opacity: 0.2 }}
+              transition={{ duration: 0.3 }}
+              className="text-[#fe9a00]"
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── Mobile card (< md): always shows desc, no hover needed ── */}
+        <div className="flex md:hidden items-start gap-4 py-5">
+          {/* Index pill */}
+          <div className="flex-shrink-0 w-9 h-9 rounded-full border border-neutral-800 flex items-center justify-center mt-0.5">
+            <span className="text-[10px] font-black text-neutral-500 tracking-wide">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* Text — always visible */}
+          <div className="flex-1 min-w-0 space-y-1">
+            <h4 className="text-base font-bold text-white tracking-tight leading-snug">
+              {item.label}
+            </h4>
+            <p className="text-xs text-neutral-500 font-mono uppercase tracking-widest leading-relaxed">
+              {item.short}
+            </p>
+            <p className="text-sm text-neutral-400 font-light leading-relaxed pt-1">
+              {item.desc}
+            </p>
+          </div>
+
+          {/* Static arrow */}
+          <div className="flex-shrink-0 self-start mt-1 text-[#fe9a00] opacity-40">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+              <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+
+</FadeInSection>
+
     </div>
   );
 }
