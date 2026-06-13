@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { Menu, MessageSquare, ArrowRight, ArrowLeft, Layers, Compass, Cpu, TrendingUp, Globe, ArrowUpRight } from 'lucide-react';
 
@@ -134,8 +135,8 @@ function HeroSection({ isDarkMode }) {
         </motion.p>
 
         <div className="mt-6 flex items-center space-x-4">
-          <motion.a whileHover={{ scale: 1.02 }} href="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-xs">Explore WOI</motion.a>
-          <motion.a whileHover={{ scale: 1.02 }} href="/contact" className="inline-flex items-center border border-white text-white px-6 py-3 rounded-md font-medium tracking-widest text-xs">Partner With Us</motion.a>
+          <Link to="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-xs">Explore WOI</Link>
+          <Link to="/contact" className="inline-flex items-center border border-white text-white px-6 py-3 rounded-md font-medium tracking-widest text-xs">Partner With Us</Link>
         </div>
 
         <div className="mt-4 text-[11px] text-white/40 font-mono tracking-wider">Currently building ecosystem initiatives across India, UAE, Singapore, Malaysia, Mauritius, Rwanda, and beyond.</div>

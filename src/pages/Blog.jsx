@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 // Reusable Scroll-In Wrapper for clean section entrances
@@ -154,7 +155,7 @@ export default function MinimalPortfolio() {
         </div>
 
         <div className="text-center mt-8">
-          <a href="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-sm">Explore WOI India</a>
+          <Link to="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-sm">Explore WOI India</Link>
         </div>
       </FadeInSection>
 
