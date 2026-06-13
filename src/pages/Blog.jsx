@@ -151,25 +151,65 @@ export default function MinimalPortfolio() {
         
       </FadeInSection>
 
-      {/* SECTION 3: SERVICES */}
-      <FadeInSection className="border-t border-neutral-900 mt-12">
-        <div className="mb-20">
-          <p className="text-3xl md:text-5xl font-bold tracking-tight">Strategic Foundations</p>
-        </div>
+     {/* SECTION 3: PILLARS */}
+<FadeInSection className="border-t border-neutral-900 mt-12">
+  <div className="mb-20">
+    <p className="text-3xl md:text-5xl font-bold tracking-tight">Pillars</p>
+  </div>
 
-        <div className="grid md:grid-cols-3 gap-12 md:gap-8">
-          {[
-            { title: 'Brand Identity', desc: 'Distilling complex market behaviors into concrete, flexible brand languages ready for global scale.' },
-            { title: 'Digital Architectures', desc: 'Architecting clean front-end environments built carefully with interactive balance, focus, and speed.' },
-            { title: 'Creative Consulting', desc: 'Leading cross-functional design initiatives across internal product teams to synchronize system rollouts.' }
-          ].map((item, i) => (
-            <div key={i} className="border-l border-neutral-800 pl-6 py-2 hover:border-orange-500 transition-colors duration-500 group">
-              <h4 className="text-2xl font-bold mt-3 tracking-tight">{item.title}</h4>
-              <p className="text-neutral-500 mt-4 text-sm md:text-base leading-relaxed font-light">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </FadeInSection>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {[
+      {
+        title: 'Infrastructure',
+        desc: 'Startup parks, innovation hubs, centers of excellence, and ecosystem spaces.',
+        icon: '▪'
+      },
+      {
+        title: 'Capital',
+        desc: 'Angel networks, venture capital access, investor communities, and strategic partnerships.',
+        icon: '▪'
+      },
+      {
+        title: 'Talent',
+        desc: 'Entrepreneurship education, leadership programs, future-skills development, and founder training.',
+        icon: '▪'
+      },
+      {
+        title: 'Community',
+        desc: 'Founder communities, investor circles, creator networks, student communities, and industry platforms.',
+        icon: '▪'
+      },
+      {
+        title: 'Venture Creation',
+        desc: 'Venture studios, startup support systems, incubation, acceleration, and scale-up programs.',
+        icon: '▪'
+      },
+      {
+        title: 'Global Partnerships',
+        desc: 'Connecting governments, institutions, corporates, investors, and entrepreneurs across markets.',
+        icon: '▪'
+      }
+    ].map((item, i) => (
+      <div
+        key={i}
+        className="group relative bg-black border border-neutral-800 p-8 hover:border-[#fe9a00] transition-all duration-500 overflow-hidden"
+      >
+        {/* Accent corner */}
+        <div className="absolute top-0 left-0 w-8 h-[2px] bg-[#fe9a00]" />
+
+        <h4 className="text-lg font-bold text-white tracking-tight mb-3 group-hover:text-[#fe9a00] transition-colors duration-300">
+          {item.title}
+        </h4>
+        <p className="text-neutral-500 text-sm leading-relaxed font-light group-hover:text-neutral-400 transition-colors duration-300">
+          {item.desc}
+        </p>
+
+        {/* Bottom accent on hover */}
+        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#fe9a00] group-hover:w-full transition-all duration-500" />
+      </div>
+    ))}
+  </div>
+</FadeInSection>
 
       {/* SECTION 4: CONTACT & CALL TO ACTION */}
       <FadeInSection className="text-center pb-32 md:pb-48">

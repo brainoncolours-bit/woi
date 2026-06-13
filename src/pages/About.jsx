@@ -216,10 +216,7 @@ const AboutUsPage = ({ isDarkMode }) => {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className={`py-12 px-6 md:px-12 text-center text-xs tracking-wider border-t relative z-10 ${isDarkMode ? 'border-white/5 text-stone-500' : 'border-black/5 text-stone-400'}`}>
-        <p>© 2026 World of IQue Ecosystem. Crafted with pristine structural design.</p>
-      </footer>
+     
 
     </div>
   );

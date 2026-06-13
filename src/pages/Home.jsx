@@ -192,6 +192,9 @@ function ParallaxPhilosophy() {
 /* ==========================================================================
    4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
    ========================================================================== */
+/* ==========================================================================
+   4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
+   ========================================================================== */
 function ServicesBento() {
   const serviceItems = [
     { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems." },
@@ -226,15 +229,32 @@ function ServicesBento() {
             <motion.div 
               key={index}
               variants={fadeInUpVariant}
-              whileHover={{ y: -6, boxShadow: "0px 30px 60px rgba(0,0,0,0.06)" }}
-              className="p-10 bg-white rounded-md border border-black/5 hover:border-black/10 transition-all duration-300 flex flex-col justify-between h-72 group relative overflow-hidden"
+              whileHover={{ y: -6, boxShadow: "0px 30px 60px rgba(0,0,0,0.15)" }}
+              className="p-10 rounded-md border border-black/5 hover:border-black/10 transition-all duration-300 flex flex-col justify-between h-72 group relative overflow-hidden"
+              style={{
+                backgroundImage: "url('/banner.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             >
-              <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors duration-300">
+              {/* Light-to-dark gradient overlay — clear image at top, readable text at bottom */}
+              <div
+                className="absolute inset-0 transition-opacity duration-300"
+                style={{
+                  background: "linear-gradient(to bottom, rgba(255,255,255,0.20) 0%, rgba(0,0,0,0.60) 100%)",
+                }}
+              />
+
+              {/* Icon */}
+              <div className="relative z-10 w-12 h-12 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors duration-300">
                 {item.icon}
               </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-serif text-black group-hover:text-neutral-700 transition-colors">{item.title}</h3>
-                <p className="text-sm text-black/60 font-light leading-relaxed">{item.desc}</p>
+
+              {/* Text */}
+              <div className="relative z-10 space-y-2">
+                <h3 className="text-xl font-serif text-white drop-shadow-sm">{item.title}</h3>
+                <p className="text-sm text-white/80 font-light leading-relaxed drop-shadow-sm">{item.desc}</p>
               </div>
             </motion.div>
           ))}
