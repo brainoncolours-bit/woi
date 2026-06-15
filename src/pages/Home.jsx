@@ -121,32 +121,45 @@ function ParallaxPhilosophy() {
   const textLeft = useTransform(scrollYProgress, [0, 1], ["-15%", "10%"]);
 
   return (
-    <section ref={containerRef} className="py-32 md:py-48 bg-[#0f0f11] relative overflow-hidden">
-  <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 text-center space-y-8">
-    <p className="text-2xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 leading-snug max-w-4xl mx-auto">
-      "We reject volatile, shifting systems. To command{' '}
-      <span className="relative inline-block px-2 text-[1.25em] text-amber-300">
-        market longevity
-      </span>
-      , capital infrastructure must synchronize seamlessly with{' '}
-      <span className="relative inline-block px-2 text-[1.25em] text-amber-300">
-        elegant system logic
-      </span>
-      ."
-    </p>
-    <div className="w-8 h-[1px] bg-white/30 mx-auto mt-4" />
-  </motion.div>
+    <section ref={containerRef} className="py-40 md:py-56 bg-[#0f0f11] relative overflow-hidden">
 
-  <motion.div
-    style={{ x: textLeft }}
-    className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none whitespace-nowrap"
-  >
-    WORLD OF IQUE
-  </motion.div>
-</section>
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      <motion.div style={{ scale }} className="max-w-4xl mx-auto px-6 md:px-12 text-center space-y-10">
+
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white/90 leading-[1.2] whitespace-nowrap">
+            "The world does not need
+          </p>
+          <p className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-[1.2] whitespace-nowrap">
+            more{' '}
+            <span className="italic text-white/40">
+              isolated startups.
+            </span>
+          </p>
+          <p className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white/90 leading-[1.2] whitespace-nowrap">
+            It needs better{' '}
+            <span className="text-amber-300 not-italic">ecosystems</span>
+            ."
+          </p>
+        </div>
+
+        
+
+      </motion.div>
+
+      <motion.div
+        style={{ x: textLeft }}
+        className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none whitespace-nowrap"
+      >
+        WORLD OF IQUE
+      </motion.div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+    </section>
   );
 }
-
 /* ==========================================================================
    4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
    ========================================================================== */
@@ -240,9 +253,9 @@ function HorizontalPortfolio() {
   const targetRef = useRef(null);
   const scrollerRef = useRef(null);
   const productionCases = [
-    { num: "01", name: "The Nordics Integration", img: "/banner10.png", desc: "A sovereign logistics matrix transition across three maritime territories." },
-    { num: "02", name: "Apex Venture Lab", img: "/banner6.png", desc: "Infrastructural system architecture overhaul for global capital assets." },
-    { num: "03", name: "Aether Cryptographic", img: "/banner2.png", desc: "Redefining structural interface accessibility layers for high-throughput nodes." }
+    { num: "01", name: "WOI UAE", img: "/banner10.png", desc: "A regional innovation and entrepreneurship ecosystem serving the Middle East." },
+    { num: "02", name: "WOI Singapore", img: "/banner6.png", desc: "A gateway ecosystem connecting Southeast Asia's startup, investment, and technology communities." },
+    { num: "03", name: "WOI Malaysia", img: "/banner2.png", desc: "An ecosystem focused on innovation, entrepreneurship, and industry development." },
   ];
 
   const sectionHeightVh = productionCases.length * 100;
@@ -261,8 +274,8 @@ function HorizontalPortfolio() {
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
 
         <div className="absolute left-6 md:left-12 top-12 z-20 pointer-events-none">
-          <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Case Exhibits</div>
-          <h2 className="text-2xl font-serif text-white">Selected Implementations</h2>
+          <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Global Ecosystem Network</div>
+          <h2 className="text-2xl font-serif text-white">Building Across Borders</h2>
         </div>
 
         <motion.div
@@ -276,7 +289,7 @@ function HorizontalPortfolio() {
                 <motion.div
                   whileHover={{ scale: 1.04 }}
                   transition={{ duration: 0.6, ease: EASE_CUBIC }}
-                  className="absolute inset-0 bg-cover bg-center filter grayscale contrast-115"
+                  className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${project.img})` }}
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:opacity-10 transition-opacity pointer-events-none" />
@@ -294,7 +307,6 @@ function HorizontalPortfolio() {
     </div>
   );
 }
-
 /* ==========================================================================
    6. METRICS SECTION (TRANSITIONS INTO CRISP OFF-WHITE CANVAS CONTRAST)
    ========================================================================== */

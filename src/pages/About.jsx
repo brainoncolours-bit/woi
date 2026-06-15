@@ -150,49 +150,75 @@ const AboutUsPage = ({ isDarkMode }) => {
       </section>
 
       {/* 4. EVOLUTION ROADMAP (Interactive Scrolling Track Lines) */}
-      <section ref={trackRef} className="py-32 px-6 md:px-12 max-w-5xl mx-auto relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-28 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-light tracking-tight">Ecosystem Milestones</h2>
-        </div>
+<section ref={trackRef} className="py-32 px-6 md:px-12 max-w-5xl mx-auto relative z-10">
+  <div className="text-center max-w-2xl mx-auto mb-28 space-y-4">
+    <h2 className="text-4xl md:text-5xl font-light tracking-tight">Our Journey</h2>
+    <p className={`text-sm font-light leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+      From a founding vision to a growing global ecosystem network.
+    </p>
+  </div>
 
-        <div className="space-y-24 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-[1px] before:bg-stone-500/10">
-          {[
-            { year: "2022", title: "Blueprint Architecture", desc: "Launched IQue Ventures foundations to directly solve structural misalignment tracks hurting cross-border startup ecosystems." },
-            { year: "2024", title: "Liquid Asset Execution", desc: "Successfully integrated real-time capital routing and sandbox compliance pathways across 15 global economic sectors." },
-            { year: "2026", title: "Sovereign Framework Nodes", desc: "Expanded core laboratory infrastructure networks, validating a continuous ecosystem founder structural success parity of 94%." }
-          ].map((milestone, idx) => {
-            // Alternating entry animations triggered as scroll advances
-            const activeScroll = trackVisible ? Math.max(0, scrollY - (trackRef.current?.offsetTop || 0) + 200) : 0;
-            const itemTriggered = activeScroll > idx * 220;
+  <div className="space-y-24 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-[1px] before:bg-stone-500/10">
+    {[
+      {
+        year: "2022",
+        title: "The Vision Begins",
+        desc: "WOI was founded with a clear mission — to build entrepreneurial, innovation, investment, and industry ecosystems that enable sustainable economic growth across cities, regions, and nations."
+      },
+      {
+        year: "2023",
+        title: "WOI India — Pilot Ecosystem",
+        desc: "WOI India was established as the pilot ecosystem initiative in Bengaluru, bringing together founders, investors, institutions, and ecosystem partners through interconnected platforms and programs."
+      },
+      {
+        year: "2024",
+        title: "Expanding the Network",
+        desc: "WOI launched ecosystem initiatives across the UAE, Singapore, Malaysia, Mauritius, and Rwanda — building a global network of connected entrepreneurship and innovation ecosystems."
+      },
+      {
+        year: "2025",
+        title: "Building the Infrastructure",
+        desc: "WOI deepened its ecosystem infrastructure through venture studios, startup schools, angel networks, investor communities, and innovation hubs designed to support founders at every stage."
+      },
+      {
+        year: "2026",
+        title: "A Global Ecosystem Company",
+        desc: "Today WOI operates across multiple markets, working with governments, investors, institutions, and entrepreneurs to design and build the systems behind great companies, industries, and economies."
+      }
+    ].map((milestone, idx) => {
+      const activeScroll = trackVisible ? Math.max(0, scrollY - (trackRef.current?.offsetTop || 0) + 200) : 0;
+      const itemTriggered = activeScroll > idx * 220;
 
-            return (
-              <div 
-                key={idx} 
-                className={`relative flex flex-col md:flex-row items-start md:even:flex-row-reverse group transition-all duration-1000 transform ${
-                  itemTriggered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-              >
-                {/* Central Track Orb Indicator */}
-                <div className={`absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-4 transition-all duration-500 ${
-                  itemTriggered 
-                    ? (isDarkMode ? 'bg-amber-400 border-stone-950 scale-125' : 'bg-indigo-600 border-stone-50 scale-125') 
-                    : 'bg-stone-700 border-transparent'
-                }`} />
-                
-                <div className="w-full md:w-1/2 pl-12 md:pl-0 md:group-odd:pr-16 md:group-even:pl-16 md:text-right md:group-even:text-left">
-                  <span className={`text-3xl font-serif font-bold italic tracking-wide block mb-1 transition-colors ${itemTriggered ? (isDarkMode ? 'text-amber-400' : 'text-indigo-600') : 'text-stone-500'}`}>
-                    {milestone.year}
-                  </span>
-                  <h4 className="text-xl font-medium tracking-tight mb-2">{milestone.title}</h4>
-                  <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-                    {milestone.desc}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+      return (
+        <div
+          key={idx}
+          className={`relative flex flex-col md:flex-row items-start md:even:flex-row-reverse group transition-all duration-1000 transform ${
+            itemTriggered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}
+        >
+          {/* Central Track Orb Indicator */}
+          <div className={`absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-4 transition-all duration-500 ${
+            itemTriggered
+              ? (isDarkMode ? 'bg-amber-400 border-stone-950 scale-125' : 'bg-indigo-600 border-stone-50 scale-125')
+              : 'bg-stone-700 border-transparent'
+          }`} />
+
+          <div className="w-full md:w-1/2 pl-12 md:pl-0 md:group-odd:pr-16 md:group-even:pl-16 md:text-right md:group-even:text-left">
+            <span className={`text-3xl font-serif font-bold italic tracking-wide block mb-1 transition-colors ${
+              itemTriggered ? (isDarkMode ? 'text-amber-400' : 'text-indigo-600') : 'text-stone-500'
+            }`}>
+              {milestone.year}
+            </span>
+            <h4 className="text-xl font-medium tracking-tight mb-2">{milestone.title}</h4>
+            <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+              {milestone.desc}
+            </p>
+          </div>
         </div>
-      </section>
+      );
+    })}
+  </div>
+</section>
 
       {/* ============================================================
     SECTION 5: GLOBAL EXPANSION

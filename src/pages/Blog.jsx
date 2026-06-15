@@ -75,32 +75,38 @@ export default function MinimalPortfolio() {
       />
 
       {/* SECTION 1: HERO */}
-      <motion.header 
-        initial={{ opacity: 0, y: 20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-7xl mx-auto px-6 pt-12 pb-20 md:py-20"
-      >
-        <div className="bg-gradient-to-br  rounded-[40px] p-8 md:p-20 h-[80vh] min-h-[550px] flex flex-col justify-between border border-neutral-900/40"
-        style={{ backgroundImage: "url(/banner4.png)" }}>
-          
-          
-          <div className="max-w-4xl">
-            <h1 className="text-6xl md:text-[100px] font-bold tracking-tighter leading-[0.9] mb-8">
-              Creative<br />Director
-            </h1>
-            <p className="max-w-md text-base md:text-lg text-neutral-300 font-light leading-relaxed">
-              Elevating corporate and luxury ecosystems through invisible typography frameworks and uncompromised strategic focus.
-            </p>
-          </div>
-        </div>
-      </motion.header>
+<motion.header
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+  className="max-w-7xl mx-auto px-6 pt-12 pb-20 md:py-20"
+>
+  <div
+    className="rounded-[40px] p-8 md:p-20 h-[80vh] min-h-[550px] flex flex-col justify-between border border-neutral-900/40 relative overflow-hidden"
+    style={{ backgroundImage: "url(/banner4.png)", backgroundSize: "cover", backgroundPosition: "center" }}
+  >
+    {/* Dark overlay for text readability */}
+    <div className="absolute inset-0 bg-black/55 rounded-[40px]" />
+
+    
+    {/* Bottom content */}
+    <div className="relative z-10 max-w-3xl">
+      <h1 className="text-5xl md:text-7xl lg:text-[90px] font-light tracking-tighter leading-[0.95] mb-8 text-white">
+        The Pilot<br />
+        <span className="font-serif italic font-normal">Ecosystem</span>
+      </h1>
+      <p className="max-w-lg text-base md:text-lg text-white/60 font-light leading-relaxed">
+        WOI India is where WOI's global vision begins — bringing together founders, investors, institutions, and ecosystem partners to build a replicable model for entrepreneurship and innovation.
+      </p>
+    </div>
+  </div>
+</motion.header>
 
       {/* SECTION 2: PARALLAX WORK GALLERY */}
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <p className="text-3xl md:text-5xl font-bold tracking-tight">Case Studies</p>
+            <p className="text-3xl md:text-5xl font-bold tracking-tight">WOI India Initiatives</p>
           </div>
           
         </div>
