@@ -202,28 +202,30 @@ function ParallaxPhilosophy() {
    ========================================================================== */
 function ServicesBento() {
   const serviceItems = [
-    { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems." },
-    { icon: <Compass size={20} />, title: "Venture Building", desc: "Supporting the creation, growth, and scaling of startups and emerging ventures." },
-    { icon: <Cpu size={20} />, title: "Infrastructure Development", desc: "Developing startup parks, innovation hubs, centers of excellence, and ecosystem spaces." },
-    { icon: <TrendingUp size={20} />, title: "Community Building", desc: "Creating founder, investor, creator, student, and industry communities and platforms." },
-    { icon: <Globe size={20} />, title: "Education & Talent", desc: "Delivering entrepreneurship, innovation, leadership and future-skills programs." },
-    { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners." }
+    { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems.", image: "/Ecosystem development card image.png" },
+    { icon: <Compass size={20} />, title: "Venture Building", desc: "Supporting the creation, growth, and scaling of startups and emerging ventures.", image: "/banner.png" },
+    { icon: <Cpu size={20} />, title: "Infrastructure Development", desc: "Developing startup parks, innovation hubs, centers of excellence, and ecosystem spaces.", image: "/banner.png" },
+    { icon: <TrendingUp size={20} />, title: "Community Building", desc: "Creating founder, investor, creator, student, and industry communities and platforms.", image: "/banner.png" },
+    { icon: <Globe size={20} />, title: "Education & Talent", desc: "Delivering entrepreneurship, innovation, leadership and future-skills programs.", image: "/banner.png" },
+    { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners.", image: "/banner.png" }
   ];
 
   return (
     <section className="py-32 bg-[#f4f4f3] text-[#121214] transition-colors duration-500">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: EASE_CUBIC }}
           className="mb-20 max-w-xl space-y-4"
         >
-          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">We build the systems behind great companies, industries and economies.</h2>
+          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">
+            We build the systems behind great companies, industries and economies.
+          </h2>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -231,35 +233,47 @@ function ServicesBento() {
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {serviceItems.map((item, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               variants={fadeInUpVariant}
-              whileHover={{ y: -6, boxShadow: "0px 30px 60px rgba(0,0,0,0.15)" }}
-              className="p-10 rounded-md border border-black/5 hover:border-black/10 transition-all duration-300 flex flex-col justify-between h-72 group relative overflow-hidden"
+              whileHover={{ y: -6, boxShadow: "0px 30px 60px rgba(0,0,0,0.18)" }}
+              className="rounded-xl overflow-hidden relative h-72 group transition-all duration-300 border border-black/5 hover:border-black/10"
               style={{
-                backgroundImage: "url('/banner.png')",
+                backgroundImage: `url('${item.image}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
               }}
             >
-              {/* Light-to-dark gradient overlay — clear image at top, readable text at bottom */}
+              {/* === GRADIENT OVERLAY: transparent top → dark bottom === */}
               <div
-                className="absolute inset-0 transition-opacity duration-300"
+                className="absolute inset-0 z-10"
                 style={{
-                  background: "linear-gradient(to bottom, rgba(255,255,255,0.20) 0%, rgba(0,0,0,0.60) 100%)",
+                  background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.72) 70%, rgba(0,0,0,0.88) 100%)",
                 }}
               />
 
-              {/* Icon */}
-              <div className="relative z-10 w-12 h-12 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors duration-300">
-                {item.icon}
+              {/* === ICON: top-left === */}
+              <div className="absolute top-5 left-5 z-20">
+                <div className="w-11 h-11 rounded-full border border-white/50 bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors duration-300">
+                  {item.icon}
+                </div>
               </div>
 
-              {/* Text */}
-              <div className="relative z-10 space-y-2">
-                <h3 className="text-xl font-serif text-white drop-shadow-sm">{item.title}</h3>
-                <p className="text-sm text-white/80 font-light leading-relaxed drop-shadow-sm">{item.desc}</p>
+              {/* === TEXT: bottom-left, sitting above gradient === */}
+              <div className="absolute bottom-0 left-0 right-0 z-20 px-6 pb-6 pt-8">
+                <h3
+                  className="text-xl font-serif text-white mb-1 leading-snug"
+                  style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className="text-sm text-white/80 font-light leading-relaxed"
+                  style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
+                >
+                  {item.desc}
+                </p>
               </div>
             </motion.div>
           ))}
