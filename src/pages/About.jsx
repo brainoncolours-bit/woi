@@ -296,23 +296,32 @@ const AboutUsPage = ({ isDarkMode }) => {
               : 'bg-white border-black/5 hover:border-black/10 hover:shadow-2xl'
           }`}
         >
-          {/* Bottom edge tracer on hover — matches Vision/Mission/Philosophy cards */}
+          {/* Bottom edge tracer on hover */}
           <div className={`absolute bottom-0 left-0 right-0 h-[2px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${isDarkMode ? 'bg-amber-400/50' : 'bg-indigo-600/50'}`} />
 
           {/* Top row: flag + status badge */}
           <div className="flex items-start justify-between mb-6">
             <span className="text-3xl leading-none">{country.flag}</span>
-            <span className={`text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full border ${
-              country.status === 'Active'
-                ? isDarkMode
-                  ? 'text-amber-400 border-amber-400/30 bg-amber-400/5'
-                  : 'text-indigo-600 border-indigo-600/30 bg-indigo-600/5'
-                : isDarkMode
-                  ? 'text-stone-500 border-stone-700 bg-stone-800/40'
+
+            {country.status === 'Active' ? (
+              <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${
+                isDarkMode
+                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 shadow-[0_0_14px_rgba(251,191,36,0.5)]'
+                  : 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-[0_0_14px_rgba(99,102,241,0.45)]'
+              }`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${isDarkMode ? 'bg-amber-900' : 'bg-white/70'}`} />
+                {country.status}
+              </span>
+            ) : (
+              <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full border border-dashed ${
+                isDarkMode
+                  ? 'text-stone-400 border-stone-600 bg-stone-800/40'
                   : 'text-stone-400 border-stone-300 bg-stone-100'
-            }`}>
-              {country.status}
-            </span>
+              }`}>
+                <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDarkMode ? 'bg-stone-400' : 'bg-stone-400'}`} />
+                {country.status}
+              </span>
+            )}
           </div>
 
           {/* Region label */}
@@ -332,8 +341,6 @@ const AboutUsPage = ({ isDarkMode }) => {
         </div>
       ))}
     </div>
-
-   
 
   </div>
 </section>
