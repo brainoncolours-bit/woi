@@ -203,7 +203,7 @@ function ParallaxPhilosophy() {
 function ServicesBento() {
   const serviceItems = [
     { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems.", image: "/Ecosystem development card image.png" },
-    { icon: <Compass size={20} />, title: "Venture Building", desc: "Supporting the creation, growth, and scaling of startups and emerging ventures.", image: "/banner.png" },
+    { icon: <Compass size={20} />, title: "Venture Building", desc: "Supporting the creation, growth, and scaling of startups and emerging ventures.", image: "/Venture Building image.png" },
     { icon: <Cpu size={20} />, title: "Infrastructure Development", desc: "Developing startup parks, innovation hubs, centers of excellence, and ecosystem spaces.", image: "/banner.png" },
     { icon: <TrendingUp size={20} />, title: "Community Building", desc: "Creating founder, investor, creator, student, and industry communities and platforms.", image: "/banner.png" },
     { icon: <Globe size={20} />, title: "Education & Talent", desc: "Delivering entrepreneurship, innovation, leadership and future-skills programs.", image: "/banner.png" },
