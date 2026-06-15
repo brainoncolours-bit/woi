@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Home, User, Layers, Mail, Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
 
 const navItems = [
-  { name: 'Home', path: '/', icon: Home, code: '01 // CORE' },
-  { name: 'Ecosystem', path: '/work', icon: Layers, code: '02 // ARCH' },
-  { name: 'About', path: '/about', icon: User, code: '03 // INTEL' },
-  { name: 'Contact', path: '/contact', icon: Mail, code: '04 // SYNC' },
+  { name: 'Home', path: '/', icon: Home},
+  { name: 'Ecosystem', path: '/work', icon: Layers },
+  { name: 'About', path: '/about', icon: User},
+  { name: 'Contact', path: '/contact', icon: Mail},
 ];
 
 /* ==========================================================================

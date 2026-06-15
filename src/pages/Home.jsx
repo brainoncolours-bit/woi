@@ -125,26 +125,21 @@ function ParallaxPhilosophy() {
 
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <motion.div style={{ scale }} className="max-w-4xl mx-auto px-6 md:px-12 text-center space-y-10">
+      <motion.div style={{ scale }} className="max-w-5xl mx-auto px-6 md:px-12 text-center space-y-10">
 
         <div className="flex flex-col items-center gap-2">
-          <p className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white/90 leading-[1.2] whitespace-nowrap">
+          <p className="text-[clamp(1.5rem,4.5vw,4.5rem)] font-serif font-light text-white/90 leading-[1.2]">
             "The world does not need
           </p>
-          <p className="text-4xl md:text-6xl lg:text-7xl font-serif font-light leading-[1.2] whitespace-nowrap">
+          <p className="text-[clamp(1.5rem,4.5vw,4.5rem)] font-serif font-light leading-[1.2]">
             more{' '}
-            <span className="italic text-white/40">
-              isolated startups.
-            </span>
+            <span className="italic text-white/40">isolated startups.</span>
           </p>
-          <p className="text-4xl md:text-6xl lg:text-7xl font-serif font-light text-white/90 leading-[1.2] whitespace-nowrap">
+          <p className="text-[clamp(1.5rem,4.5vw,4.5rem)] font-serif font-light text-white/90 leading-[1.2]">
             It needs better{' '}
-            <span className="text-amber-300 not-italic">ecosystems</span>
-            ."
+            <span className="text-amber-300 not-italic">ecosystems</span>."
           </p>
         </div>
-
-        
 
       </motion.div>
 
@@ -160,6 +155,7 @@ function ParallaxPhilosophy() {
     </section>
   );
 }
+
 /* ==========================================================================
    4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
    ========================================================================== */
