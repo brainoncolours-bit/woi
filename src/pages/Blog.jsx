@@ -217,6 +217,87 @@ export default function MinimalPortfolio() {
   </div>
 </FadeInSection>
 
+{/* ========================================================
+    FUTURE ECOSYSTEM CITIES SECTION
+    ======================================================== */}
+<FadeInSection className="border-t border-neutral-900 mt-12">
+
+  <div className="mb-16">
+    <p className="text-3xl md:text-5xl font-bold tracking-tight">
+      Building the Future of Ecosystem Cities
+    </p>
+    <p className="text-neutral-500 text-sm mt-5 max-w-2xl font-light leading-relaxed">
+      WOI's future initiatives are designed to create focused, industry-led ecosystems that bring together talent, infrastructure, capital, innovation, research, entrepreneurship, and global partnerships.
+    </p>
+  </div>
+
+  <div className="flex flex-col divide-y divide-neutral-800/60">
+    {[
+      {
+        num: '01',
+        title: 'WOI Startup Nation',
+        desc: 'A national-scale entrepreneurship and startup ecosystem.'
+      },
+      {
+        num: '02',
+        title: 'WOI AI City',
+        desc: 'An ecosystem for artificial intelligence, automation, data, and future technologies.'
+      },
+      {
+        num: '03',
+        title: 'WOI Health City',
+        desc: 'A focused ecosystem for healthcare, wellness, biotechnology, health-tech, and medical innovation.'
+      },
+      {
+        num: '04',
+        title: 'WOI Agri City',
+        desc: 'An ecosystem for agriculture, food systems, sustainability, and agri-tech innovation.'
+      },
+      {
+        num: '05',
+        title: 'WOI Quantum City',
+        desc: 'A frontier technology ecosystem for quantum computing, deep-tech, research, and advanced innovation.'
+      },
+      {
+        num: '06',
+        title: 'WOI Creators City',
+        desc: 'A creator economy ecosystem for media, design, content, entertainment, and digital entrepreneurship.'
+      }
+    ].map((item, i) => (
+      <motion.div
+        key={i}
+        initial={false}
+        whileHover="hovered"
+        className="group flex items-center justify-between gap-8 py-7 cursor-default transition-colors duration-300 hover:bg-neutral-900/40 px-4 -mx-4"
+      >
+        {/* Number */}
+        <span className="text-[11px] font-mono text-neutral-600 group-hover:text-[#ffb900] transition-colors duration-300 w-8 flex-shrink-0">
+          {item.num}
+        </span>
+
+        {/* Title */}
+        <h4 className="flex-1 text-xl md:text-2xl font-bold text-white tracking-tight group-hover:text-[#ffb900] transition-colors duration-300">
+          {item.title}
+        </h4>
+
+        {/* Desc — slides in width on hover */}
+        <p className="text-neutral-500 text-sm font-light leading-relaxed max-w-xs text-right hidden md:block group-hover:text-neutral-300 transition-colors duration-300">
+          {item.desc}
+        </p>
+
+        {/* Arrow */}
+        <svg
+          width="18" height="18" viewBox="0 0 18 18" fill="none"
+          className="flex-shrink-0 text-neutral-700 group-hover:text-[#ffb900] transition-all duration-300 group-hover:translate-x-1 transform"
+        >
+          <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </motion.div>
+    ))}
+  </div>
+
+</FadeInSection>
+
       {/* SECTION 4: CONTACT & CALL TO ACTION */}
       <FadeInSection className="text-center pb-32 md:pb-48">
         <motion.div 
@@ -235,6 +316,8 @@ export default function MinimalPortfolio() {
           </a>
         </motion.div>
       </FadeInSection>
+
+      
 
 {/* =================
     SECTION 5: WHO WE WORK WITH
@@ -374,8 +457,15 @@ export default function MinimalPortfolio() {
     ))}
   </div>
 
+  
+
 </FadeInSection>
 
+
+
+
     </div>
+
+    
   );
 }
