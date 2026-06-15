@@ -35,7 +35,6 @@ export default function CorporateLanding({ isDarkMode }) {
       <motion.div className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-neutral-500 via-white to-neutral-500 origin-left z-50" style={{ scaleX }} />
       
       {/* Fixed UI Layer Elements */}
-      <FloatingContact />
 
       <HeroSection isDarkMode={isDarkMode} />
       <ParallaxPhilosophy isDarkMode={isDarkMode} />
@@ -48,43 +47,7 @@ export default function CorporateLanding({ isDarkMode }) {
   );
 }
 
-/* ==========================================================================
-   INTERACTIVE FIXED DECORATIVE LAYOUT ELEMENTS
-   ========================================================================== */
-function FloatingContact() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const x = clientX - left - width / 2;
-    const y = clientY - top - height / 2;
-    mouseX.set(x * 0.35);
-    mouseY.set(y * 0.35);
-  }
-
-  function handleMouseLeave() {
-    mouseX.set(0);
-    mouseY.set(0);
-  }
-
-  return (
-    <motion.div 
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: mouseX, y: mouseY }}
-      transition={{ type: "spring", stiffness: 150, damping: 15 }}
-      className="fixed bottom-8 right-8 z-40 flex items-center space-x-3 bg-white text-black pl-5 pr-4 py-2.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer group"
-    >
-      <motion.div 
-        variants={{ hover: { scale: 1.1, rotate: 15 } }}
-        className="w-6 h-6 rounded-full bg-black flex items-center justify-center text-white"
-      >
-        <MessageSquare size={12} className="fill-white" />
-      </motion.div>
-    </motion.div>
-  );
-}
 
 /* ==========================================================================
    2. HERO SECTION
@@ -140,20 +103,7 @@ function HeroSection({ isDarkMode }) {
 
       </motion.div>
 
-      <div className="absolute right-12 bottom-36 hidden md:flex items-center space-x-6 text-xs text-white/40">
-        <button className="hover:text-white flex items-center space-x-1 transition-colors group">
-          <ArrowLeft size={12} className="transform group-hover:-translate-x-1 transition-transform" /> <span>prev</span>
-        </button>
-        <div className="w-12 h-[1px] bg-white/20" />
-        <button className="hover:text-white flex items-center space-x-1 transition-colors group">
-          <span>next</span> <ArrowRight size={12} className="transform group-hover:translate-x-1 transition-transform" />
-        </button>
-      </div>
-
-      
-
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-16 bg-white/20" />
-    </section>
+         </section>
   );
 }
 
