@@ -248,9 +248,9 @@ function HorizontalPortfolio() {
   const targetRef = useRef(null);
   const scrollerRef = useRef(null);
   const productionCases = [
-    { num: "01", name: "WOI UAE", img: "/banner10.png", desc: "A regional innovation and entrepreneurship ecosystem serving the Middle East." },
-    { num: "02", name: "WOI Singapore", img: "/banner6.png", desc: "A gateway ecosystem connecting Southeast Asia's startup, investment, and technology communities." },
-    { num: "03", name: "WOI Malaysia", img: "/banner2.png", desc: "An ecosystem focused on innovation, entrepreneurship, and industry development." },
+    { num: "01", name: "WOI India", img: "/banner10.png", desc: "A national innovation and entrepreneurship ecosystem connecting India's emerging startup hubs, talent, and investment networks." },
+    { num: "02", name: "WOI Startup Nation", img: "/banner6.png", desc: "A national-scale entrepreneurship and startup ecosystem." },
+    { num: "03", name: "WOI Health City", img: "/banner2.png", desc: "A focused ecosystem for healthcare, wellness, biotechnology, health-tech, and medical innovation." },
   ];
 
   const sectionHeightVh = productionCases.length * 100;
@@ -322,14 +322,14 @@ function MetricsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: i * 0.15, ease: EASE_CUBIC }}
-            className="space-y-2 border-t border-black/10 pt-6 group"
+            className="flex flex-col items-center text-center border-t-2 border-black/20 pt-8 group"
           >
-            <motion.div className="text-4xl md:text-6xl font-serif font-light tracking-tight text-black overflow-hidden">
+            <motion.div className="text-6xl md:text-8xl font-serif font-light tracking-tight text-black overflow-hidden">
               <motion.span className="inline-block" whileInView={{ y: ["20%", "0%"] }}>
                 {metric.rate}
               </motion.span>
             </motion.div>
-            <div className="text-[10px] uppercase tracking-widest text-black/40 font-mono">
+            <div className="mt-4 text-sm uppercase tracking-[0.2em] text-black/70 font-mono font-semibold">
               {metric.label}
             </div>
           </motion.div>
@@ -338,7 +338,6 @@ function MetricsSection() {
     </section>
   );
 }
-
 
 
 // function Footer() {
