@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef , useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { Menu, MessageSquare, ArrowRight, ArrowLeft, Layers, Compass, Cpu, TrendingUp, Globe, ArrowUpRight } from 'lucide-react';
+
 
 /* ==========================================================================
    ANIMATION CONFIGURATIONS (ELEGANT CURVES)
@@ -158,6 +159,7 @@ function ParallaxPhilosophy() {
 /* ==========================================================================
    4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
    ========================================================================== */
+
 function ServicesBento() {
   const serviceItems = [
     { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems.", image: "/Ecosystem development card image.png" },
@@ -168,9 +170,149 @@ function ServicesBento() {
     { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners.", image: "/Capital & Investment.png" }
   ];
 
+  const canvasRef = useRef(null);
+  const animFrameRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    const GRID = 48;
+    const YELLOW = "rgba(245,197,24,";
+
+    let W, H, frame = 0;
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = "#0a0a0a";
+      ctx.fillRect(0, 0, W, H);
+
+      const t = frame * 0.012;
+      const cols = Math.ceil(W / GRID) + 1;
+      const rows = Math.ceil(H / GRID) + 1;
+
+      // Animated focal point — slow drift across the canvas
+      const fx = W * 0.5 + Math.sin(t * 0.4) * W * 0.28;
+      const fy = H * 0.5 + Math.cos(t * 0.3) * H * 0.22;
+      const FADE_RADIUS = Math.min(W, H) * 0.55;
+
+      // Horizontal lines
+      for (let r = 0; r <= rows; r++) {
+        const y = r * GRID;
+        const dy = y - fy;
+        const closestX = Math.max(0, Math.min(W, fx));
+        const d = Math.sqrt((closestX - fx) * (closestX - fx) + dy * dy);
+        const alpha = Math.max(0, 1 - d / FADE_RADIUS) * 0.65;
+
+        if (alpha > 0.01) {
+          const g = ctx.createLinearGradient(Math.max(0, fx - FADE_RADIUS), y, Math.min(W, fx + FADE_RADIUS), y);
+          g.addColorStop(0, YELLOW + "0)");
+          g.addColorStop(0.35, YELLOW + alpha * 0.25 + ")");
+          g.addColorStop(0.5, YELLOW + alpha * 0.8 + ")");
+          g.addColorStop(0.65, YELLOW + alpha * 0.25 + ")");
+          g.addColorStop(1, YELLOW + "0)");
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
+          ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
+        } else {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
+          ctx.strokeStyle = "rgba(245,197,24,0.04)"; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+
+      // Vertical lines
+      for (let c = 0; c <= cols; c++) {
+        const x = c * GRID;
+        const dx = x - fx;
+        const closestY = Math.max(0, Math.min(H, fy));
+        const d = Math.sqrt(dx * dx + (closestY - fy) * (closestY - fy));
+        const alpha = Math.max(0, 1 - d / FADE_RADIUS) * 0.65;
+
+        if (alpha > 0.01) {
+          const g = ctx.createLinearGradient(x, Math.max(0, fy - FADE_RADIUS), x, Math.min(H, fy + FADE_RADIUS));
+          g.addColorStop(0, YELLOW + "0)");
+          g.addColorStop(0.35, YELLOW + alpha * 0.25 + ")");
+          g.addColorStop(0.5, YELLOW + alpha * 0.8 + ")");
+          g.addColorStop(0.65, YELLOW + alpha * 0.25 + ")");
+          g.addColorStop(1, YELLOW + "0)");
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H);
+          ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
+        } else {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H);
+          ctx.strokeStyle = "rgba(245,197,24,0.04)"; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+
+      // Slow ambient glow at focal point
+      const glowAlpha = 0.06 + Math.sin(t * 0.7) * 0.02;
+      const glow = ctx.createRadialGradient(fx, fy, 0, fx, fy, FADE_RADIUS * 0.7);
+      glow.addColorStop(0, `rgba(245,197,24,${glowAlpha})`);
+      glow.addColorStop(0.5, `rgba(245,197,24,${glowAlpha * 0.4})`);
+      glow.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.beginPath(); ctx.arc(fx, fy, FADE_RADIUS * 0.7, 0, Math.PI * 2);
+      ctx.fillStyle = glow; ctx.fill();
+
+      // Subtle intersection dots near focal point
+      const nc = Math.round(fx / GRID);
+      const nr = Math.round(fy / GRID);
+      for (let dc = -3; dc <= 3; dc++) {
+        for (let dr = -3; dr <= 3; dr++) {
+          const ix = (nc + dc) * GRID;
+          const iy = (nr + dr) * GRID;
+          const dist = Math.sqrt((ix - fx) ** 2 + (iy - fy) ** 2);
+          if (dist < FADE_RADIUS * 0.45) {
+            const dotAlpha = (1 - dist / (FADE_RADIUS * 0.45)) * 0.5;
+            const pulse = 0.5 + 0.5 * Math.sin(t * 1.5 + dc * 0.8 + dr * 0.8);
+            const r = 1.5 + pulse * 2;
+            const dg = ctx.createRadialGradient(ix, iy, 0, ix, iy, r + 4);
+            dg.addColorStop(0, YELLOW + dotAlpha * pulse + ")");
+            dg.addColorStop(1, YELLOW + "0)");
+            ctx.beginPath(); ctx.arc(ix, iy, r + 4, 0, Math.PI * 2);
+            ctx.fillStyle = dg; ctx.fill();
+          }
+        }
+      }
+
+      frame++;
+      animFrameRef.current = requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+
+    return () => {
+      cancelAnimationFrame(animFrameRef.current);
+      ro.disconnect();
+    };
+  }, []);
+
   return (
-    <section className="py-32 bg-[#f4f4f3] text-[#121214] transition-colors duration-500">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
+    <section
+      className="py-32 transition-colors duration-500 relative overflow-hidden"
+      style={{ background: "#0a0a0a" }}
+    >
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 0,
+          pointerEvents: "none",
+          display: "block",
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative" style={{ zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -178,7 +320,7 @@ function ServicesBento() {
           transition={{ duration: 0.8, ease: EASE_CUBIC }}
           className="mb-20 max-w-xl space-y-4"
         >
-          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-black">
+          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-white">
             We build the systems behind great companies, industries and economies.
           </h2>
         </motion.div>
@@ -195,7 +337,7 @@ function ServicesBento() {
               key={index}
               variants={fadeInUpVariant}
               whileHover={{ y: -6, boxShadow: "0px 30px 60px rgba(0,0,0,0.18)" }}
-              className="rounded-xl overflow-hidden relative h-72 group transition-all duration-300 border border-black/5 hover:border-black/10"
+              className="rounded-xl overflow-hidden relative h-72 group transition-all duration-300 border border-white/10 hover:border-white/20"
               style={{
                 backgroundImage: `url('${item.image}')`,
                 backgroundSize: "cover",
@@ -203,33 +345,22 @@ function ServicesBento() {
                 backgroundRepeat: "no-repeat",
               }}
             >
-              {/* === GRADIENT OVERLAY: transparent top → dark bottom === */}
               <div
                 className="absolute inset-0 z-10"
                 style={{
                   background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.72) 70%, rgba(0,0,0,0.88) 100%)",
                 }}
               />
-
-              {/* === ICON: top-left === */}
               <div className="absolute top-5 left-5 z-20">
                 <div className="w-11 h-11 rounded-full border border-white/50 bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors duration-300">
                   {item.icon}
                 </div>
               </div>
-
-              {/* === TEXT: bottom-left, sitting above gradient === */}
               <div className="absolute bottom-0 left-0 right-0 z-20 px-6 pb-6 pt-8">
-                <h3
-                  className="text-xl font-serif text-white mb-1 leading-snug"
-                  style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
-                >
+                <h3 className="text-xl font-serif text-white mb-1 leading-snug" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>
                   {item.title}
                 </h3>
-                <p
-                  className="text-sm text-white/80 font-light leading-relaxed"
-                  style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}
-                >
+                <p className="text-sm text-white/80 font-light leading-relaxed" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>
                   {item.desc}
                 </p>
               </div>
@@ -240,7 +371,6 @@ function ServicesBento() {
     </section>
   );
 }
-
 /* ==========================================================================
    5. PORTFOLIO SHOWCASE (CRITICAL TIMING LOCKED SCROLLER BLOCK)
    ========================================================================== */
