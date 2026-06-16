@@ -165,7 +165,7 @@ function ServicesBento() {
     { icon: <Cpu size={20} />, title: "Infrastructure Development", desc: "Developing startup parks, innovation hubs, centers of excellence, and ecosystem spaces.", image: "/Infrastructure Development.png" },
     { icon: <TrendingUp size={20} />, title: "Community Building", desc: "Creating founder, investor, creator, student, and industry communities and platforms.", image: "/Community building.png" },
     { icon: <Globe size={20} />, title: "Education & Talent", desc: "Delivering entrepreneurship, innovation, leadership and future-skills programs.", image: "/Education.png" },
-    { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners.", image: "/banner.png" }
+    { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners.", image: "/Capital & Investment.png" }
   ];
 
   return (
