@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { image } from 'framer-motion/client';
 
 // Reusable Scroll-In Wrapper for clean section entrances
 const FadeInSection = ({ children, className = "" }) => (
@@ -15,39 +16,46 @@ const FadeInSection = ({ children, className = "" }) => (
   </motion.section>
 );
 
-// Individual Parallax Card Component
 const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
   const targetRef = useRef(null);
-  
-  // Track scroll positioning specifically for this wrapper element
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"]
   });
 
-  // Moves background image slightly off-axis to build a high-end parallax depth effect
   const yBg = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    <div 
+    <div
       ref={targetRef}
-      className="h-[480px] md:h-[600px] bg-neutral-900 rounded-[32px] overflow-hidden relative group cursor-pointer"
+      className="h-[480px] md:h-[600px] rounded-[32px] overflow-hidden relative group cursor-pointer"
     >
-      {/* Parallax Background Engine */}
-      <motion.div 
-        style={{ y: yBg, backgroundImage: `url(${imgUrl})` }}
-        className="absolute -inset-y-24 inset-x-0 bg-cover bg-center opacity-40 group-hover:opacity-55 transition-opacity duration-500 scale-105"
+      {/* Parallax Background */}
+      <motion.div
+        style={{
+          y: yBg,
+          backgroundImage: `url(${imgUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="absolute -inset-y-24 inset-x-0 transition-transform duration-500"
       />
-      
-      {/* Vignette Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80" />
-      
-      {/* Card Interface Content */}
-      <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
-        <div>
-          <h3 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{title}</h3>
-          <p className="text-neutral-400 text-sm md:text-base font-light">{tags}</p>
-        </div>
+
+      {/* Bottom gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+      {/* Hover brightness layer */}
+      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
+
+      {/* Content */}
+      <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end z-10">
+        <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-1">
+          {title}
+        </h3>
+        {tags && (
+          <p className="text-white/50 text-sm md:text-base font-light">{tags}</p>
+        )}
       </div>
     </div>
   );
@@ -59,12 +67,11 @@ export default function MinimalPortfolio() {
   const scaleX = useTransform(globalProgress, [0, 1], [0, 1]);
 
   const explicitProjects = [
-    { title: "Startup park", imgUrl: "/banner6.png" },
-    { title: "Incubenation ", imgUrl: "/banner7.png" },
-    { title: "VC Circle",  imgUrl: "/banner8.png" },
-    { title: "Startup School", imgUrl: "/banner9.png" }
-  ];
-
+  { title: "Startup Park", imgUrl: "/StartUp-park.jpg" },
+  { title: "Incubenation",  imgUrl: "/Incubenation-2.png" },
+  { title: "VC Circle",     imgUrl: "/banner8.png" },
+  { title: "Startup School", imgUrl: "/banner9.png" }
+];
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen font-sans selection:bg-orange-500 selection:text-white antialiased overflow-x-hidden">
       
@@ -74,7 +81,7 @@ export default function MinimalPortfolio() {
         style={{ scaleX }}
       />
 
-     {/* SECTION 1: HERO */}
+    {/* SECTION 1: HERO */}
 <motion.header
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
@@ -83,8 +90,26 @@ export default function MinimalPortfolio() {
 >
   <div
     className="rounded-[24px] md:rounded-[40px] p-6 sm:p-10 md:p-20 h-[75vh] sm:h-[80vh] min-h-[480px] flex flex-col justify-end border border-neutral-900/40 relative overflow-hidden"
-    style={{ backgroundImage: "url(/banner4.png)", backgroundSize: "cover", backgroundPosition: "center" }}
   >
+    {/* Zoom background */}
+    <div
+      className="absolute inset-0 rounded-[24px] md:rounded-[40px]"
+      style={{
+        backgroundImage: "url(/banner4.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        animation: "heroZoom 18s ease-in-out infinite alternate",
+        transformOrigin: "center center",
+      }}
+    />
+
+    <style>{`
+      @keyframes heroZoom {
+        from { transform: scale(1); }
+        to   { transform: scale(1.08); }
+      }
+    `}</style>
+
     {/* Dark overlay */}
     <div className="absolute inset-0 bg-black/55 rounded-[24px] md:rounded-[40px]" />
 
