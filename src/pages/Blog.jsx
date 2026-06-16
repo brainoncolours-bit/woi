@@ -69,7 +69,7 @@ export default function MinimalPortfolio() {
   const explicitProjects = [
   { title: "Startup Park", imgUrl: "/StartUp-park.jpg" },
   { title: "Incubenation",  imgUrl: "/Incubenation-2.png" },
-  { title: "VC Circle",     imgUrl: "/banner8.png" },
+  { title: "VC Circle",     imgUrl: "/VC-Circle.jpeg" },
   { title: "Startup School", imgUrl: "/banner9.png" }
 ];
   return (
