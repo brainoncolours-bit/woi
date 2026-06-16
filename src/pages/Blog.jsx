@@ -330,29 +330,10 @@ export default function MinimalPortfolio() {
 
 </motion.section>
 
-      {/* SECTION 4: CONTACT & CALL TO ACTION */}
-      <FadeInSection className="text-center pb-32 md:pb-48">
-        <motion.div 
-          whileHover={{ y: -4 }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="inline-block"
-        >
-          <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-12 max-w-4xl mx-auto leading-tight">
-            Let’s build something permanent.
-          </h2>
-          <a 
-            href="mailto:studio@example.com" 
-            className="inline-block bg-white text-black px-12 py-5 rounded-full font-bold hover:bg-orange-500 hover:text-white transition-all duration-300 text-sm tracking-wide shadow-xl"
-          >
-            Start An Engagement
-          </a>
-        </motion.div>
-      </FadeInSection>
-
       
 
 {/* =================
-    SECTION 5: WHO WE WORK WITH
+    SECTION 4: WHO WE WORK WITH
     ============== */}
 <FadeInSection className="border-t border-neutral-900 mt-12">
 

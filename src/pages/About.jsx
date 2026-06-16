@@ -48,19 +48,15 @@ const AboutUsPage = ({ isDarkMode }) => {
       {/* 1. CINEMATIC SCROLL PARALLAX HERO */}
       <section ref={heroRef} className="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <div 
-          className={`absolute inset-0 bg-cover bg-center will-change-transform transition-all duration-300 ${isDarkMode ? 'mix-blend-lighten' : 'mix-blend-multiply'}`}
+          className={`absolute inset-0 bg-cover bg-center ${isDarkMode ? 'mix-blend-lighten' : 'mix-blend-multiply'}`}
           style={{ 
             backgroundImage: `url('/banner2.png')`,
-            transform: `translate3d(0, ${scrollY * 0.35}px, 0) scale(${1 + scrollY * 0.0005})`,
-            filter: `blur(${Math.min(scrollY * 0.02, 8)}px)`,
-            opacity: Math.max(1 - scrollY * 0.002, 0.15)
           }}
         />
         <div className={`absolute inset-0 transition-opacity duration-500 ${isDarkMode ? 'bg-gradient-to-b from-stone-950/20 via-stone-950/60 to-stone-950' : 'bg-gradient-to-b from-stone-50/10 via-stone-50/40 to-stone-50'}`} />
 
         <div 
-          className="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-6 will-change-transform"
-          style={{ transform: `translate3d(0, ${scrollY * 0.15}px, 0)` }}
+          className="relative z-10 text-center px-6 max-w-5xl mx-auto space-y-6"
         >
           
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-light tracking-tighter leading-none">
@@ -144,8 +140,8 @@ const AboutUsPage = ({ isDarkMode }) => {
         />
         <div className={`absolute inset-0 opacity-80 ${isDarkMode ? 'bg-stone-950' : 'bg-stone-50'}`} />
         <div className="relative z-10 max-w-3xl mx-auto text-center px-6 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight font-serif italic">"We don’t just support startups. We build the ecosystems where startups, industries, and 
-            economies can grow."</h2>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight font-serif italic">"We don't just <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>support</span> startups. We build the <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>ecosystems</span> where startups, industries, and 
+            economies can <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>grow</span>."</h2>
         </div>
       </section>
 
