@@ -157,20 +157,7 @@ export default function Footer() {
 
 
           {/* Offices Column */}
-          <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
-            <h3 className="text-[11px] uppercase tracking-[0.25em] text-white/30 font-semibold">Global Offices</h3>
-            <div className="flex flex-col gap-5">
-              {offices.map(({ city, detail, flag }) => (
-                <div key={city} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors duration-300">
-                  <span className="text-xl leading-none shadow-sm">{flag}</span>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm text-white/80 font-medium">{city}</span>
-                    <span className="text-xs text-white/40">{detail}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+        
 
 
         </div>
