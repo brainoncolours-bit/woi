@@ -8,135 +8,169 @@ const socialLinks = [
   { label: 'YouTube',   href: 'https://youtube.com/@world_of_ique',        icon: 'M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z' },
 ];
 
-const navColumns = [
-  {
-    heading: 'Company',
-    links: [
-      { label: 'Home',      href: '/' },
-      { label: 'About',     href: '/about' },
-      { label: 'Ecosystem', href: '/ecosystem' },
-      { label: 'Contact',   href: '/contact' },
-    ],
-  },
-  {
-    heading: 'Programs',
-    links: [
-      { label: 'Startup Acceleration',   href: '#' },
-      { label: 'Innovation Program',     href: '#' },
-      { label: 'Investment Deals',       href: '#' },
-      { label: 'Industry Collaboration', href: '#' },
-    ],
-  },
+const navLinks = [
+  { label: 'Home',      href: '/' },
+  { label: 'About',     href: '/about' },
+  { label: 'Ecosystem', href: '/ecosystem' },
+  { label: 'Contact',   href: '/contact' },
+];
+
+const offices = [
+  { city: 'Ique Ventures', detail: 'Bangalore, Karnataka', flag: '🇮🇳' },
 ];
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
-  return (
-    <footer className="relative bg-[#080808] text-white overflow-hidden">
+  // Animation variants for staggered rendering
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+    }
+  };
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } 
+    }
+  };
+
+  return (
+    <footer className="relative bg-[#080808] text-white overflow-hidden border-t border-white/[0.05]">
+
+      {/* ── AMBIENT GLOW & TOP GRADIENT LINE ── */}
+      <div className="absolute top-0 inset-x-0 h-px w-full bg-gradient-to-r from-transparent via-[#ffb900]/40 to-transparent opacity-70" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[220px]"
-        style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,185,0,0.07) 0%, transparent 70%)' }}
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[300px]"
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(255, 185, 0, 0.08) 0%, transparent 70%)' }}
       />
 
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-      {/* ── MAIN GRID ── */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-
-        {/* Brand + contact */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-2 flex flex-col gap-6"
-        >
-          <div>
-            <span className="text-xl font-bold tracking-tight">
-              WOI<span className="text-[#ffb900]">.eco</span>
-            </span>
-            <p className="mt-2.5 text-sm text-white/30 leading-relaxed max-w-[280px]">
-              A global innovation ecosystem enabling startups, corporates, and investors to co-create the future.
-            </p>
-          </div>
-
-          {/* Contact details row */}
-          <div className="flex flex-col gap-2">
-            {[
-              { svg: <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>, text: 'Business Bay, Dubai, UAE', href: null },
-              { svg: <><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>, text: 'hello@worldofique.com', href: 'mailto:hello@worldofique.com' },
-              { svg: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.59 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/>, text: '+971 4 000 0000', href: 'tel:+97140000000' },
-            ].map(({ svg, text, href }) => {
-              const inner = (
-                <span className="flex items-center gap-2.5 group">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffb900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">{svg}</svg>
-                  <span className={`text-sm ${href ? 'text-white/40 group-hover:text-white/70 transition-colors' : 'text-white/40'}`}>{text}</span>
-                </span>
-              );
-              return href
-                ? <a key={text} href={href}>{inner}</a>
-                : <div key={text}>{inner}</div>;
-            })}
-          </div>
-
-          {/* Socials */}
-          <div className="flex items-center gap-2">
-            {socialLinks.map(({ label, href, icon }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center hover:border-[#ffb900]/40 hover:bg-[#ffb900]/[0.07] transition-all duration-200 group">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="text-white/35 group-hover:text-[#ffb900] transition-colors">
-                  <path d={icon} />
-                </svg>
+      {/* ── MAIN CONTENT ── */}
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="relative max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-16"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+          
+          {/* Brand Column (Wider) */}
+          <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col gap-8 pr-0 lg:pr-12">
+            <div>
+              <a href="/" className="inline-block text-2xl font-bold tracking-tight mb-4">
+                WOI<span className="text-[#ffb900]">.eco</span>
               </a>
-            ))}
-          </div>
-        </motion.div>
+              <p className="text-sm text-white/50 leading-relaxed max-w-sm font-light">
+                A global innovation ecosystem enabling startups, corporates, and investors to co-create the future.
+              </p>
+            </div>
 
-        {/* Nav columns */}
-        {navColumns.map(({ heading, links }, i) => (
-          <motion.div key={heading}
-            initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.07 * (i + 1), ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col gap-4"
-          >
-            <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 font-medium">{heading}</p>
-            <ul className="flex flex-col gap-3">
-              {links.map(({ label, href }) => (
+            {/* CTA Button moved here for better hierarchy */}
+            <div>
+              <a
+                href="/contact"
+                className="group relative inline-flex items-center gap-3 px-7 py-3.5 bg-[#ffb900] text-[#080808] font-semibold text-sm rounded-full overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span className="relative z-10">Start a conversation</span>
+                <svg className="relative z-10 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              </a>
+            </div>
+
+            {/* Socials */}
+            <div className="flex items-center gap-3 mt-2">
+              {socialLinks.map(({ label, href, icon }) => (
+                <a 
+                  key={label} 
+                  href={href} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  aria-label={label}
+                  className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] flex items-center justify-center hover:border-[#ffb900]/50 hover:bg-[#ffb900]/10 hover:-translate-y-1 hover:shadow-[0_4px_12px_rgba(255,185,0,0.15)] transition-all duration-300 group"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-white/40 group-hover:text-[#ffb900] transition-colors duration-300">
+                    <path d={icon} />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Navigation Column */}
+          <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
+            <h3 className="text-[11px] uppercase tracking-[0.25em] text-white/30 font-semibold">Company</h3>
+            <ul className="flex flex-col gap-4">
+              {navLinks.map(({ label, href }) => (
                 <li key={label}>
-                  <a href={href} className="text-sm text-white/40 hover:text-white/85 transition-colors duration-150 flex items-center gap-1.5 group">
-                    <span className="w-0 group-hover:w-2.5 h-px bg-[#ffb900] transition-all duration-200 overflow-hidden flex-shrink-0" />
-                    {label}
+                  <a href={href} className="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2 group w-fit">
+                    <span className="w-0 group-hover:w-3 h-[2px] bg-[#ffb900] rounded-full transition-all duration-300 ease-out overflow-hidden flex-shrink-0 opacity-0 group-hover:opacity-100" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-300 ease-out">{label}</span>
                   </a>
                 </li>
               ))}
             </ul>
           </motion.div>
-        ))}
-      </div>
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="h-px bg-white/[0.06]" />
-      </div>
+          {/* Contact Information Column */}
+          <motion.div variants={itemVariants} className="lg:col-span-3 flex flex-col gap-6">
+            <h3 className="text-[11px] uppercase tracking-[0.25em] text-white/30 font-semibold">Contact Us</h3>
+            <div className="flex flex-col gap-5">
+              {[
+                { svg: <><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>, text: 'hello@worldofique.com', href: 'mailto:hello@worldofique.com' },
+                { svg: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.59 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/>, text: '+971 4 000 0000', href: 'tel:+97140000000' },
+              ].map(({ svg, text, href }) => (
+                <a key={text} href={href} className="flex items-start gap-3.5 group w-fit">
+                  <div className="mt-0.5 p-1.5 rounded-md bg-white/[0.03] border border-white/[0.05] group-hover:border-[#ffb900]/30 group-hover:bg-[#ffb900]/10 transition-colors duration-300">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffb900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">{svg}</svg>
+                  </div>
+                  <span className="text-sm text-white/60 group-hover:text-white transition-colors duration-200 mt-1">{text}</span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Offices Column */}
+          <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
+            <h3 className="text-[11px] uppercase tracking-[0.25em] text-white/30 font-semibold">Global Offices</h3>
+            <div className="flex flex-col gap-5">
+              {offices.map(({ city, detail, flag }) => (
+                <div key={city} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors duration-300">
+                  <span className="text-xl leading-none shadow-sm">{flag}</span>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-sm text-white/80 font-medium">{city}</span>
+                    <span className="text-xs text-white/40">{detail}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </motion.div>
 
       {/* ── BOTTOM BAR ── */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-white/20">© {year} World of Ique. All rights reserved.</p>
+      <div className="relative border-t border-white/[0.06] bg-[#050505]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-white/40 font-light">
+            © {year} World of Ique. All rights reserved.
+          </p>
 
-        <a
-          href="/contact"
-          className="group inline-flex items-center gap-2.5 px-6 py-2.5 bg-[#ffb900] text-[#080808] font-semibold text-sm rounded-full hover:bg-[#ffc91a] active:scale-[0.97] transition-all duration-200"
-        >
-          Start a conversation
-          <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </a>
-
-        <div className="flex items-center gap-5">
-          {['Privacy Policy', 'Terms of Use'].map((t) => (
-            <a key={t} href="#" className="text-xs text-white/20 hover:text-white/50 transition-colors duration-150">{t}</a>
-          ))}
+          <div className="flex items-center gap-8">
+            {['Privacy Policy', 'Terms of Use', 'Cookie Policy'].map((t) => (
+              <a key={t} href="#" className="text-xs text-white/40 hover:text-[#ffb900] transition-colors duration-200 font-light">
+                {t}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
