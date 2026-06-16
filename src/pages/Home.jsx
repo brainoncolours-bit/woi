@@ -316,20 +316,23 @@ function MetricsSection() {
     <section className="py-32 bg-[#f4f4f3] text-[#121214] border-t border-black/5">
       <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-12">
         {metrics.map((metric, i) => (
-          <motion.div 
+          <motion.div
             key={i}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: i * 0.15, ease: EASE_CUBIC }}
-            className="flex flex-col items-center text-center border-t-2 border-black/20 pt-8 group"
+            className="flex flex-col items-center text-center border-t-2 border-black/25 pt-8"
           >
             <motion.div className="text-6xl md:text-8xl font-serif font-light tracking-tight text-black overflow-hidden">
-              <motion.span className="inline-block" whileInView={{ y: ["20%", "0%"] }}>
+              <motion.span
+                className="inline-block"
+                whileInView={{ y: ["20%", "0%"] }}
+              >
                 {metric.rate}
               </motion.span>
             </motion.div>
-            <div className="mt-4 text-sm uppercase tracking-[0.2em] text-black/70 font-mono font-semibold">
+            <div className="mt-5 text-base md:text-lg uppercase tracking-[0.25em] text-black font-mono font-bold">
               {metric.label}
             </div>
           </motion.div>
