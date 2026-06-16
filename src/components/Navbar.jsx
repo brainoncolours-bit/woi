@@ -223,17 +223,7 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
 
           
 
-          {/* Language */}
-          <button
-            className={`hidden sm:flex items-center space-x-1 border rounded-full px-3 py-1 text-xs uppercase tracking-wider transition-all ${
-              isDarkMode
-                ? 'border-white/30 hover:bg-white/10 text-white'
-                : 'border-black/30 hover:bg-black/5 text-stone-900'
-            }`}
-          >
-            <span>EN</span>
-            <span className="text-[10px] opacity-60">▼</span>
-          </button>
+         
 
           {/* Hamburger — visible on all screens below lg */}
           <button
