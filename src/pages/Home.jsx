@@ -179,7 +179,7 @@ function ParallaxPhilosophy() {
 }
 
 /* ==========================================================================
-   4. SERVICES BENTO GRID (TRANSITION INTO ALPINE WHITE CANVAS BACKGROUND)
+   4. SERVICES BENTO GRID
    ========================================================================== */
 
 function ServicesBento() {
@@ -192,149 +192,68 @@ function ServicesBento() {
     { icon: <ArrowUpRight size={20} />, title: "Capital & Investment", desc: "Facilitating access to investors, venture capital, angel networks, and strategic partners.", image: "/Capital & Investment.png" }
   ];
 
-  const canvasRef = useRef(null);
-  const animFrameRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-
-    const GRID = 48;
-    const YELLOW = "rgba(245,197,24,";
-
-    let W, H, frame = 0;
-
-    function resize() {
-      W = canvas.width = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = "#0a0a0a";
-      ctx.fillRect(0, 0, W, H);
-
-      const t = frame * 0.012;
-      const cols = Math.ceil(W / GRID) + 1;
-      const rows = Math.ceil(H / GRID) + 1;
-
-      // Animated focal point — slow drift across the canvas
-      const fx = W * 0.5 + Math.sin(t * 0.4) * W * 0.28;
-      const fy = H * 0.5 + Math.cos(t * 0.3) * H * 0.22;
-      const FADE_RADIUS = Math.min(W, H) * 0.55;
-
-      // Horizontal lines
-      for (let r = 0; r <= rows; r++) {
-        const y = r * GRID;
-        const dy = y - fy;
-        const closestX = Math.max(0, Math.min(W, fx));
-        const d = Math.sqrt((closestX - fx) * (closestX - fx) + dy * dy);
-        const alpha = Math.max(0, 1 - d / FADE_RADIUS) * 0.65;
-
-        if (alpha > 0.01) {
-          const g = ctx.createLinearGradient(Math.max(0, fx - FADE_RADIUS), y, Math.min(W, fx + FADE_RADIUS), y);
-          g.addColorStop(0, YELLOW + "0)");
-          g.addColorStop(0.35, YELLOW + alpha * 0.25 + ")");
-          g.addColorStop(0.5, YELLOW + alpha * 0.8 + ")");
-          g.addColorStop(0.65, YELLOW + alpha * 0.25 + ")");
-          g.addColorStop(1, YELLOW + "0)");
-          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
-          ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
-        } else {
-          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y);
-          ctx.strokeStyle = "rgba(245,197,24,0.04)"; ctx.lineWidth = 0.5; ctx.stroke();
-        }
-      }
-
-      // Vertical lines
-      for (let c = 0; c <= cols; c++) {
-        const x = c * GRID;
-        const dx = x - fx;
-        const closestY = Math.max(0, Math.min(H, fy));
-        const d = Math.sqrt(dx * dx + (closestY - fy) * (closestY - fy));
-        const alpha = Math.max(0, 1 - d / FADE_RADIUS) * 0.65;
-
-        if (alpha > 0.01) {
-          const g = ctx.createLinearGradient(x, Math.max(0, fy - FADE_RADIUS), x, Math.min(H, fy + FADE_RADIUS));
-          g.addColorStop(0, YELLOW + "0)");
-          g.addColorStop(0.35, YELLOW + alpha * 0.25 + ")");
-          g.addColorStop(0.5, YELLOW + alpha * 0.8 + ")");
-          g.addColorStop(0.65, YELLOW + alpha * 0.25 + ")");
-          g.addColorStop(1, YELLOW + "0)");
-          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H);
-          ctx.strokeStyle = g; ctx.lineWidth = 1; ctx.stroke();
-        } else {
-          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H);
-          ctx.strokeStyle = "rgba(245,197,24,0.04)"; ctx.lineWidth = 0.5; ctx.stroke();
-        }
-      }
-
-      // Slow ambient glow at focal point
-      const glowAlpha = 0.06 + Math.sin(t * 0.7) * 0.02;
-      const glow = ctx.createRadialGradient(fx, fy, 0, fx, fy, FADE_RADIUS * 0.7);
-      glow.addColorStop(0, `rgba(245,197,24,${glowAlpha})`);
-      glow.addColorStop(0.5, `rgba(245,197,24,${glowAlpha * 0.4})`);
-      glow.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.beginPath(); ctx.arc(fx, fy, FADE_RADIUS * 0.7, 0, Math.PI * 2);
-      ctx.fillStyle = glow; ctx.fill();
-
-      // Subtle intersection dots near focal point
-      const nc = Math.round(fx / GRID);
-      const nr = Math.round(fy / GRID);
-      for (let dc = -3; dc <= 3; dc++) {
-        for (let dr = -3; dr <= 3; dr++) {
-          const ix = (nc + dc) * GRID;
-          const iy = (nr + dr) * GRID;
-          const dist = Math.sqrt((ix - fx) ** 2 + (iy - fy) ** 2);
-          if (dist < FADE_RADIUS * 0.45) {
-            const dotAlpha = (1 - dist / (FADE_RADIUS * 0.45)) * 0.5;
-            const pulse = 0.5 + 0.5 * Math.sin(t * 1.5 + dc * 0.8 + dr * 0.8);
-            const r = 1.5 + pulse * 2;
-            const dg = ctx.createRadialGradient(ix, iy, 0, ix, iy, r + 4);
-            dg.addColorStop(0, YELLOW + dotAlpha * pulse + ")");
-            dg.addColorStop(1, YELLOW + "0)");
-            ctx.beginPath(); ctx.arc(ix, iy, r + 4, 0, Math.PI * 2);
-            ctx.fillStyle = dg; ctx.fill();
-          }
-        }
-      }
-
-      frame++;
-      animFrameRef.current = requestAnimationFrame(draw);
-    }
-
-    resize();
-    draw();
-
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-
-    return () => {
-      cancelAnimationFrame(animFrameRef.current);
-      ro.disconnect();
-    };
-  }, []);
-
   return (
     <section
       className="py-32 transition-colors duration-500 relative overflow-hidden"
-      style={{ background: "#0a0a0a" }}
     >
-      <canvas
-        ref={canvasRef}
+      {/* ── Base black background ── */}
+      <div className="absolute inset-0 z-0 bg-black" />
+
+      {/* ── Diagonal gold stripe pattern ── */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: 0,
-          pointerEvents: "none",
-          display: "block",
+          backgroundImage: `repeating-linear-gradient(
+            -55deg,
+            transparent,
+            transparent 38px,
+            rgba(255,185,0,0.20) 38px,
+            rgba(255,185,0,0.20) 39px,
+            transparent 39px,
+            transparent 76px,
+            rgba(255,185,0,0.08) 76px,
+            rgba(255,185,0,0.08) 77px
+          )`
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative" style={{ zIndex: 1 }}>
+      {/* ── Bold left accent bar ── */}
+      <div className="absolute left-0 top-0 bottom-0 z-[2] w-1 bg-[#ffb900] pointer-events-none" />
+
+      {/* ── Gold corner marks — top-left & bottom-right ── */}
+      <div className="absolute top-8 left-6 z-[2] pointer-events-none flex flex-col gap-1">
+        <div className="w-8 h-[2px] bg-[#ffb900]" />
+        <div className="w-4 h-[2px] bg-[#ffb900]/50" />
+      </div>
+      <div className="absolute bottom-8 right-6 z-[2] pointer-events-none flex flex-col gap-1 items-end">
+        <div className="w-4 h-[2px] bg-[#ffb900]/50" />
+        <div className="w-8 h-[2px] bg-[#ffb900]" />
+      </div>
+
+      {/* ── Large faint watermark number ── */}
+      <div
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-[1] pointer-events-none select-none font-black text-[20vw] leading-none"
+        style={{ color: "rgba(255,185,0,0.04)", fontFamily: "serif" }}
+      >
+        04
+      </div>
+
+      {/* ── Amber glow — bottom left corner ── */}
+      <div
+        className="absolute bottom-0 left-0 z-[1] pointer-events-none"
+        style={{
+          width: "55%",
+          height: "60%",
+          background: "radial-gradient(ellipse at 0% 100%, rgba(255,185,0,0.22) 0%, rgba(255,185,0,0.06) 40%, transparent 70%)"
+        }}
+      />
+
+      {/* Top fade */}
+      <div className="absolute inset-x-0 top-0 h-20 z-[2] bg-gradient-to-b from-black to-transparent pointer-events-none" />
+      {/* Bottom fade */}
+      <div className="absolute inset-x-0 bottom-0 h-20 z-[2] bg-gradient-to-t from-black to-transparent pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative" style={{ zIndex: 2 }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -393,6 +312,7 @@ function ServicesBento() {
     </section>
   );
 }
+
 /* ==========================================================================
    5. PORTFOLIO SHOWCASE (CRITICAL TIMING LOCKED SCROLLER BLOCK)
    ========================================================================== */
