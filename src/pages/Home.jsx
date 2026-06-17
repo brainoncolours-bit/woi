@@ -1,4 +1,4 @@
-import React, { useRef , useEffect } from 'react';
+import React, { useRef , useEffect , useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { Menu, MessageSquare, ArrowRight, ArrowLeft, Layers, Compass, Cpu, TrendingUp, Globe, ArrowUpRight } from 'lucide-react';
@@ -54,6 +54,8 @@ export default function CorporateLanding({ isDarkMode }) {
    ========================================================================== */
 function HeroSection({ isDarkMode }) {
   const containerRef = useRef(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -61,6 +63,8 @@ function HeroSection({ isDarkMode }) {
 
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+
+  const fullText = "WOI is a global ecosystem development company headquartered in Dubai, building entrepreneurial, innovation, investment, and industry ecosystems for the future of economies, cities, and communities. We bring together founders, investors, institutions, corporates, governments, talent, infrastructure, and capital to build environments where innovation can thrive.";
 
   return (
     <section ref={containerRef} className="relative h-screen flex items-center justify-between px-6 md:px-16 lg:px-24 overflow-hidden bg-[#070708]">
@@ -72,7 +76,7 @@ function HeroSection({ isDarkMode }) {
         }}
       />
 
-    <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/60 to-black/10" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/60 to-black/10" />
 
       <motion.div 
         variants={staggerContainer}
@@ -92,8 +96,27 @@ function HeroSection({ isDarkMode }) {
           <motion.span initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, ease: EASE_CUBIC }} className="block">Through Better Ecosystems</motion.span>
         </h1>
 
-        <motion.p variants={fadeInUpVariant} className="text-sm md:text-base text-white/60 font-light leading-relaxed max-w-lg pt-4">
-          WOI is a global ecosystem development company headquartered in Dubai, building entrepreneurial, innovation, investment, and industry ecosystems for the future of economies, cities, and communities. We bring together founders, investors, institutions, corporates, governments, talent, infrastructure, and capital to build environments where innovation can thrive.
+        {/* Mobile: truncated with Read More toggle */}
+        <motion.p variants={fadeInUpVariant} className="md:hidden text-sm text-white/60 font-light leading-relaxed max-w-lg pt-4">
+          {isExpanded
+            ? fullText
+            : "WOI is a global ecosystem development company headquartered in Dubai, building entrepreneurial,"}
+          {!isExpanded && (
+            <>
+              {"... "}
+              <button
+                onClick={() => setIsExpanded(true)}
+                className="text-white/90 underline underline-offset-2 font-medium"
+              >
+                read more
+              </button>
+            </>
+          )}
+        </motion.p>
+
+        {/* Desktop: full text, unchanged */}
+        <motion.p variants={fadeInUpVariant} className="hidden md:block text-base text-white/60 font-light leading-relaxed max-w-lg pt-4">
+          {fullText}
         </motion.p>
 
         <div className="mt-6 flex items-center space-x-4">
@@ -103,10 +126,9 @@ function HeroSection({ isDarkMode }) {
 
       </motion.div>
 
-         </section>
+    </section>
   );
 }
-
 /* ==========================================================================
    3. PARALLAX PHILOSOPHY SECTION (STAYS DARK)
    ========================================================================== */
