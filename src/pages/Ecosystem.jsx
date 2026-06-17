@@ -93,7 +93,7 @@ export default function MinimalPortfolio() {
   >
     {/* Zoom background */}
     <div
-      className="absolute inset-0 rounded-[24px] md:rounded-[40px]"
+      className="hero-bg absolute inset-0 rounded-[24px] md:rounded-[40px]"
       style={{
         backgroundImage: "url(/banner4.png)",
         backgroundSize: "cover",
@@ -107,6 +107,11 @@ export default function MinimalPortfolio() {
       @keyframes heroZoom {
         from { transform: scale(1); }
         to   { transform: scale(1.08); }
+      }
+      @media (max-width: 767px) {
+        .hero-bg {
+          background-position: right center !important;
+        }
       }
     `}</style>
 
@@ -125,7 +130,6 @@ export default function MinimalPortfolio() {
     </div>
   </div>
 </motion.header>
-
 
       {/* SECTION 2: PARALLAX WORK GALLERY */}
       <section className="max-w-7xl mx-auto px-6 py-12">

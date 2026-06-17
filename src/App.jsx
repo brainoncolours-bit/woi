@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Courses from './pages/Courses';
 import Contact from './pages/Contact';
-import Blog from './pages/Blog';
+import Ecosystem from './pages/Ecosystem';
 
 function AppContent() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -24,8 +24,7 @@ function AppContent() {
             <Route path="/about" element={<About isDarkMode={isDarkMode} />} />
             <Route path="/courses" element={<Courses isDarkMode={isDarkMode} />} />
             <Route path="/contact" element={<Contact isDarkMode={isDarkMode} />} />
-            <Route path="/work" element={<Blog isDarkMode={isDarkMode} />} />
-            <Route path="/blog" element={<Navigate to="/work" replace />} />
+            <Route path="/ecosystem" element={<Ecosystem isDarkMode={isDarkMode} />} />
             <Route path="/partner" element={<Navigate to="/contact" replace />} />
           </Routes>
         </main>

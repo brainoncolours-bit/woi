@@ -5,7 +5,7 @@ import { Home, User, Layers, Mail, Sun, Moon, Menu, X, ArrowUpRight } from 'luci
 
 const navItems = [
   { name: 'Home', path: '/', icon: Home},
-  { name: 'Ecosystem', path: '/work', icon: Layers },
+  { name: 'Ecosystem', path: '/ecosystem', icon: Layers },
   { name: 'About', path: '/about', icon: User},
   { name: 'Contact', path: '/contact', icon: Mail},
 ];
