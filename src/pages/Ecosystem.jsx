@@ -155,35 +155,34 @@ export default function MinimalPortfolio() {
       </section>
 
       {/* WOI INDIA: PILOT ECOSYSTEM TEASER */}
-      <FadeInSection>
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">WOI India — Pilot Ecosystem</h2>
-          <p className="text-neutral-400 text-sm mt-3">WOI India brings together entrepreneurs, investors, innovators, institutions and ecosystem partners through interconnected platforms and initiatives designed to be a replicable model.</p>
-        </div>
+<FadeInSection>
+  <div className="text-center mb-10">
+    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">WOI India — Pilot Ecosystem</h2>
+    <p className="text-neutral-400 text-sm mt-3">WOI India brings together entrepreneurs, investors, innovators, institutions and ecosystem partners through interconnected platforms and initiatives designed to be a replicable model.</p>
+  </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { id: 'PARK',   title: 'Startup Park Bengaluru',  status: 'Building' },
-            { id: 'SCHOOL', title: 'Startup School',          status: 'Active'   },
-            { id: 'CEO',    title: 'CEO Square',              status: 'Active'   },
-            { id: 'VC',     title: 'VC Circle',               status: 'Active'   },
-            { id: 'ANGELS', title: 'WOI Angels',              status: 'Building' },
-            { id: 'X9',     title: 'X9 Club',                 status: 'Upcoming' },
-            { id: 'STUDIO', title: 'DayOne Venture Studio',   status: 'Active'   },
-            { id: 'INC',    title: 'Incubenation',            status: 'Building' },
-            { id: 'QX',     title: 'QuantumX',                status: 'Upcoming' }
-          ].map((it) => (
-            <div key={it.id} className="p-6 rounded-xl bg-neutral-900 border border-neutral-800">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="font-semibold text-lg">{it.title}</h4>
-                <span className={`text-xs font-mono px-2 py-1 rounded ${it.status === 'Active' ? 'bg-emerald-500 text-black' : it.status === 'Building' ? 'bg-amber-500 text-black' : 'bg-stone-700 text-white'}`}>{it.status}</span>
-              </div>
-              <p className="text-sm text-neutral-400">{it.title} — part of the WOI India pilot initiative.</p>
-            </div>
-          ))}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {[
+      { id: 'PARK',   title: 'Startup Park Bengaluru',  status: 'Active'   },
+      { id: 'SCHOOL', title: 'Startup School',          status: 'Active'   },
+      { id: 'CEO',    title: 'CEO Square',              status: 'Active'   },
+      { id: 'VC',     title: 'VC Circle',               status: 'Active'   },
+      { id: 'ANGELS', title: 'WOI Angels',              status: 'Building' },
+      { id: 'X9',     title: 'X9 Club',                 status: 'Active'   },
+      { id: 'STUDIO', title: 'DayOne Venture Studio',   status: 'Active'   },
+      { id: 'INC',    title: 'Incubenation',            status: 'Active'   },
+      { id: 'QX',     title: 'QuantumX',                status: 'Active'   }
+    ].map((it) => (
+      <div key={it.id} className="p-6 rounded-xl bg-neutral-900 border border-neutral-800">
+        <div className="flex items-center justify-between mb-3">
+          <h4 className="font-semibold text-lg">{it.title}</h4>
+          <span className={`text-xs font-mono px-2 py-1 rounded ${it.status === 'Active' ? 'bg-emerald-500 text-black' : it.status === 'Building' ? 'bg-amber-500 text-black' : 'bg-stone-700 text-white'}`}>{it.status}</span>
         </div>
-      </FadeInSection>
-
+        <p className="text-sm text-neutral-400">{it.title} — part of the WOI India pilot initiative.</p>
+      </div>
+    ))}
+  </div>
+</FadeInSection>
       {/* SECTION 3: PILLARS */}
       <FadeInSection className="border-t border-neutral-900">
         <div className="mb-8">

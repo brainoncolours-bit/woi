@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, Sun, Moon, ArrowRight, Globe, Eye, Landmark } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AboutUsPage = ({ isDarkMode }) => {
   const [scrollY, setScrollY] = useState(0);
@@ -217,7 +218,7 @@ const AboutUsPage = ({ isDarkMode }) => {
   </div>
 </section>
 
-   {/* ============================================================
+  {/* ============================================================
     SECTION 5: GLOBAL EXPANSION
     ============================================================ */}
 <section className={`py-32 px-6 md:px-12 border-t relative z-20 transition-colors duration-500 ${isDarkMode ? 'border-white/5 bg-stone-950' : 'border-black/5 bg-stone-100/50'}`}>
@@ -244,21 +245,21 @@ const AboutUsPage = ({ isDarkMode }) => {
           name: "WOI UAE",
           desc: "A regional innovation and entrepreneurship ecosystem serving the Middle East.",
           countryCode: "ae",
-          status: "Active"
+          status: "Active in Process"
         },
         {
           region: "Southeast Asia",
           name: "WOI Singapore",
           desc: "A gateway ecosystem connecting Southeast Asia's startup, investment, and technology communities.",
           countryCode: "sg",
-          status: "Active"
+          status: "Active in Process"
         },
         {
           region: "Southeast Asia",
           name: "WOI Malaysia",
           desc: "An ecosystem focused on innovation, entrepreneurship, and industry development.",
           countryCode: "my",
-          status: "Active"
+          status: "Active in Process"
         },
         {
           region: "Africa & Indian Ocean",
@@ -279,7 +280,7 @@ const AboutUsPage = ({ isDarkMode }) => {
           name: "WOI India",
           desc: "A pilot ecosystem model bringing together founders, investors, institutions, and corporates across India's innovation landscape.",
           countryCode: "in",
-          status: "Active"
+          status: "Active in Process"
         }
       ].map((country, idx) => (
         <div
@@ -294,32 +295,32 @@ const AboutUsPage = ({ isDarkMode }) => {
           <div className={`absolute bottom-0 left-0 right-0 h-[2px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${isDarkMode ? 'bg-amber-400/50' : 'bg-indigo-600/50'}`} />
 
           {/* Top row: flag + status badge */}
-          <div className="flex items-start justify-between mb-6">
+          <div className="flex items-start justify-between mb-6 gap-3">
             <img
               src={`https://flagcdn.com/w40/${country.countryCode}.png`}
               srcSet={`https://flagcdn.com/w80/${country.countryCode}.png 2x`}
               width="36"
               height="auto"
               alt={country.name}
-              className="rounded-sm object-cover"
+              className="rounded-sm object-cover flex-shrink-0"
             />
 
-            {country.status === 'Active' ? (
-              <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${
+            {country.status === 'Active in Process' ? (
+              <span className={`inline-flex items-center gap-1.5 text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-full text-center leading-tight ${
                 isDarkMode
                   ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 shadow-[0_0_14px_rgba(251,191,36,0.5)]'
                   : 'bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-[0_0_14px_rgba(99,102,241,0.45)]'
               }`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${isDarkMode ? 'bg-amber-900' : 'bg-white/70'}`} />
+                <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isDarkMode ? 'bg-amber-900' : 'bg-white/70'}`} />
                 {country.status}
               </span>
             ) : (
-              <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full border border-dashed ${
+              <span className={`inline-flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-wider px-2.5 py-1.5 rounded-full border border-dashed leading-tight ${
                 isDarkMode
                   ? 'text-stone-400 border-stone-600 bg-stone-800/40'
                   : 'text-stone-400 border-stone-300 bg-stone-100'
               }`}>
-                <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${isDarkMode ? 'bg-stone-400' : 'bg-stone-400'}`} />
+                <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse ${isDarkMode ? 'bg-stone-400' : 'bg-stone-400'}`} />
                 {country.status}
               </span>
             )}
@@ -346,28 +347,30 @@ const AboutUsPage = ({ isDarkMode }) => {
   </div>
 </section>
 
-      {/* 6. CALL TO ACTION ACCELERATOR AREA */}
-      <section className={`py-16 text-center relative overflow-hidden border-t ${isDarkMode ? 'border-white/5 bg-stone-900/30' : 'border-black/5 bg-stone-200/40'}`}>
-        <div className="max-w-3xl mx-auto px-6 space-y-6 relative z-10">
-          <h2 className="text-3xl md:text-6xl font-light tracking-tight">
-            Connect with our <span className="font-serif italic block mt-1">Management Core</span>
-          </h2>
-          <p className={`text-sm md:text-base max-w-xl mx-auto leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-            Review strategic architecture documents, asset pooling arrangements, and international ecosystem expansion blueprints.
-          </p>
-          <div className="pt-2">
-            <button className={`inline-flex items-center space-x-3 text-xs uppercase tracking-[0.2em] font-medium px-8 py-4 rounded-full border transition-all duration-300 transform hover:scale-105 active:scale-95 group ${
-              isDarkMode 
-                ? 'bg-white text-stone-950 border-white hover:bg-transparent hover:text-white' 
-                : 'bg-stone-950 text-white border-stone-950 hover:bg-transparent hover:text-stone-900'
-            }`}>
-              <span>Apply for Ecosystem Entry</span>
-              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" />
-            </button>
-          </div>
-        </div>
-      </section>
-
+     {/* 6. CALL TO ACTION ACCELERATOR AREA */}
+<section className={`py-16 text-center relative overflow-hidden border-t ${isDarkMode ? 'border-white/5 bg-stone-900/30' : 'border-black/5 bg-stone-200/40'}`}>
+  <div className="max-w-3xl mx-auto px-6 space-y-6 relative z-10">
+    <h2 className="text-3xl md:text-6xl font-light tracking-tight">
+      Connect with our <span className="font-serif italic block mt-1">Management Core</span>
+    </h2>
+    <p className={`text-sm md:text-base max-w-xl mx-auto leading-relaxed ${isDarkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+      Review strategic architecture documents, asset pooling arrangements, and international ecosystem expansion blueprints.
+    </p>
+    <div className="pt-2">
+      <Link
+        to="/contact"
+        className={`inline-flex items-center space-x-3 text-xs uppercase tracking-[0.2em] font-medium px-8 py-4 rounded-full border transition-all duration-300 transform hover:scale-105 active:scale-95 group ${
+          isDarkMode
+            ? 'bg-white text-stone-950 border-white hover:bg-transparent hover:text-white'
+            : 'bg-stone-950 text-white border-stone-950 hover:bg-transparent hover:text-stone-900'
+        }`}
+      >
+        <span>Apply for Ecosystem Entry</span>
+        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" />
+      </Link>
+    </div>
+  </div>
+</section>
      
 
     </div>

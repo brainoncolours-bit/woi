@@ -116,7 +116,7 @@ const MobileMenu = ({ isOpen, onClose, isDarkMode }) => {
             </nav>
 
             {/* CTA + Footer */}
-            <div className={`px-6 py-6 border-t space-y-4 ${
+            {/* <div className={`px-6 py-6 border-t space-y-4 ${
               isDarkMode ? 'border-white/8' : 'border-black/8'
             }`}>
               <Link
@@ -128,7 +128,7 @@ const MobileMenu = ({ isOpen, onClose, isDarkMode }) => {
                     : 'bg-indigo-600 text-white hover:bg-indigo-700'
                 }`}
               >
-                Build With WOI
+            h
                 <ArrowUpRight className="w-3 h-3" />
               </Link>
               <p className={`text-center font-mono text-[9px] tracking-widest uppercase ${
@@ -136,7 +136,7 @@ const MobileMenu = ({ isOpen, onClose, isDarkMode }) => {
               }`}>
                 World of Ique · Global Ecosystems
               </p>
-            </div>
+            </div> */}
           </motion.div>
         </>
       )}
@@ -208,34 +208,18 @@ const Navbar = ({ isDarkMode, toggleTheme }) => {
         </nav>
 
         {/* Right: Controls */}
-        <div className="flex items-center space-x-4">
-          {/* Desktop CTA */}
-          <Link
-            to="/partner"
-            className={`hidden md:inline-flex items-center px-4 py-2 rounded-md text-sm font-medium tracking-wider transition-all ${
-              isDarkMode
-                ? 'bg-amber-400 text-black'
-                : 'bg-indigo-600 text-white'
-            }`}
-          >
-            Build With WOI
-          </Link>
-
-          
-
-         
-
-          {/* Hamburger — visible on all screens below lg */}
-          <button
-            onClick={() => setMenuOpen(true)}
-            className={`lg:hidden p-1 opacity-80 hover:opacity-100 transition-opacity ${
-              isDarkMode ? 'text-white' : 'text-stone-900'
-            }`}
-            aria-label="Open Menu"
-          >
-            <Menu className="w-6 h-6 stroke-[1.5]" />
-          </button>
-        </div>
+       <div className="flex items-center space-x-4">
+  {/* Hamburger — visible on all screens below lg */}
+  <button
+    onClick={() => setMenuOpen(true)}
+    className={`lg:hidden p-1 opacity-80 hover:opacity-100 transition-opacity ${
+      isDarkMode ? 'text-white' : 'text-stone-900'
+    }`}
+    aria-label="Open Menu"
+  >
+    <Menu className="w-6 h-6 stroke-[1.5]" />
+  </button>
+</div>
       </header>
 
       {/* Mobile Drawer */}
