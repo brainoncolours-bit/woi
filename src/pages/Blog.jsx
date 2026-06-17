@@ -70,7 +70,7 @@ export default function MinimalPortfolio() {
   { title: "Startup Park", imgUrl: "/StartUp-park.jpg" },
   { title: "Incubenation",  imgUrl: "/Incubenation-2.png" },
   { title: "VC Circle",     imgUrl: "/VC-Circle.jpeg" },
-  { title: "Startup School", imgUrl: "/banner9.png" }
+  { title: "Startup School", imgUrl: "/StartUp-School.png" }
 ];
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen font-sans selection:bg-orange-500 selection:text-white antialiased overflow-x-hidden">
