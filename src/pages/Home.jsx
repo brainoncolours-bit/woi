@@ -120,7 +120,7 @@ function HeroSection({ isDarkMode }) {
         </motion.p>
 
         <div className="mt-6 flex items-center space-x-4">
-          <Link to="/blog" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-xs">Explore WOI</Link>
+          <Link to="/ecosystem" className="inline-flex items-center bg-white text-black px-6 py-3 rounded-md font-medium tracking-widest text-xs">Explore WOI</Link>
           <Link to="/contact" className="inline-flex items-center border border-white text-white px-6 py-3 rounded-md font-medium tracking-widest text-xs">Partner With Us</Link>
         </div>
 
@@ -129,7 +129,6 @@ function HeroSection({ isDarkMode }) {
     </section>
   );
 }
-
 /* ==========================================================================
    3. PARALLAX PHILOSOPHY SECTION (STAYS DARK)
    ========================================================================== */
