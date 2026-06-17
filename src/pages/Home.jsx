@@ -140,7 +140,7 @@ function ParallaxPhilosophy() {
   });
 
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.92, 1]);
-  const textLeft = useTransform(scrollYProgress, [0, 1], ["-100%", "60%"]);
+  const textLeft = useTransform(scrollYProgress, [0, 1], ["-60%", "10%"]);
 
   return (
     <section ref={containerRef} className="py-40 md:py-56 bg-[#0f0f11] relative overflow-hidden">
@@ -167,7 +167,7 @@ function ParallaxPhilosophy() {
 
       <motion.div
         style={{ x: textLeft }}
-        className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.04] select-none pointer-events-none whitespace-nowrap"
+        className="absolute -bottom-4 md:-bottom-10 left-0 text-[20vw] md:text-[12vw] font-serif font-bold text-white/[0.04] select-none pointer-events-none whitespace-nowrap"
       >
         WORLD OF IQUE — WOI
       </motion.div>
