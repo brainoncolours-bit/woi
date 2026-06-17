@@ -129,21 +129,22 @@ const AboutUsPage = ({ isDarkMode }) => {
       </section>
 
       {/* 3. PARALLAX HORIZON INTERSTITIAL (Image Splendor Split) */}
-      <section className="relative h-[60vh] w-full overflow-hidden flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center scale-110"
-          style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')`,
-            transform: `translate3d(0, ${(scrollY - (coreRef.current?.offsetTop || 0)) * 0.15}px, 0)`,
-            filter: 'grayscale(1)'
-          }}
-        />
-        <div className={`absolute inset-0 opacity-80 ${isDarkMode ? 'bg-stone-950' : 'bg-stone-50'}`} />
-        <div className="relative z-10 max-w-3xl mx-auto text-center px-6 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight font-serif italic">"We don't just <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>support</span> startups. We build the <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>ecosystems</span> where startups, industries, and 
-            economies can <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>grow</span>."</h2>
-        </div>
-      </section>
+<section className="relative h-[60vh] w-full overflow-hidden flex items-center justify-center">
+  <div 
+    className="absolute inset-0 bg-cover bg-center scale-110"
+    style={{ 
+      backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')`,
+      filter: 'grayscale(1)'
+    }}
+  />
+  <div className={`absolute inset-0 opacity-80 ${isDarkMode ? 'bg-stone-950' : 'bg-stone-50'}`} />
+  <div className="relative z-10 w-full flex items-center justify-center px-6">
+    <h2 className="text-3xl md:text-5xl font-light tracking-tight font-serif italic text-center max-w-3xl">
+      "We don't just <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>support</span> startups. We build the <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>ecosystems</span> where startups, industries, and economies can <span className={`${isDarkMode ? 'text-amber-400' : 'text-amber-600'}`}>grow</span>."
+    </h2>
+  </div>
+</section>
+
 
       {/* 4. EVOLUTION ROADMAP (Interactive Scrolling Track Lines) */}
 <section ref={trackRef} className="py-32 px-6 md:px-12 max-w-5xl mx-auto relative z-10">
@@ -216,11 +217,8 @@ const AboutUsPage = ({ isDarkMode }) => {
   </div>
 </section>
 
-      {/* ============================================================
+   {/* ============================================================
     SECTION 5: GLOBAL EXPANSION
-    Insert this block before the CTA section (section 6).
-    Requires: isDarkMode prop, scrollY state — both already in
-    your AboutUsPage component.
     ============================================================ */}
 <section className={`py-32 px-6 md:px-12 border-t relative z-20 transition-colors duration-500 ${isDarkMode ? 'border-white/5 bg-stone-950' : 'border-black/5 bg-stone-100/50'}`}>
   <div className="max-w-7xl mx-auto">
@@ -245,42 +243,42 @@ const AboutUsPage = ({ isDarkMode }) => {
           region: "Middle East",
           name: "WOI UAE",
           desc: "A regional innovation and entrepreneurship ecosystem serving the Middle East.",
-          flag: "🇦🇪",
+          countryCode: "ae",
           status: "Active"
         },
         {
           region: "Southeast Asia",
           name: "WOI Singapore",
           desc: "A gateway ecosystem connecting Southeast Asia's startup, investment, and technology communities.",
-          flag: "🇸🇬",
+          countryCode: "sg",
           status: "Active"
         },
         {
           region: "Southeast Asia",
           name: "WOI Malaysia",
           desc: "An ecosystem focused on innovation, entrepreneurship, and industry development.",
-          flag: "🇲🇾",
+          countryCode: "my",
           status: "Active"
         },
         {
           region: "Africa & Indian Ocean",
           name: "WOI Mauritius",
           desc: "A strategic ecosystem connecting Africa, the Middle East, and Asia through entrepreneurship, investment, innovation, and global business collaboration.",
-          flag: "🇲🇺",
+          countryCode: "mu",
           status: "Building"
         },
         {
           region: "Africa",
           name: "WOI Rwanda",
           desc: "Supporting the growth of Africa's emerging innovation and startup economy.",
-          flag: "🇷🇼",
+          countryCode: "rw",
           status: "Building"
         },
         {
           region: "South Asia",
           name: "WOI India",
           desc: "A pilot ecosystem model bringing together founders, investors, institutions, and corporates across India's innovation landscape.",
-          flag: "🇮🇳",
+          countryCode: "in",
           status: "Active"
         }
       ].map((country, idx) => (
@@ -297,7 +295,14 @@ const AboutUsPage = ({ isDarkMode }) => {
 
           {/* Top row: flag + status badge */}
           <div className="flex items-start justify-between mb-6">
-            <span className="text-3xl leading-none">{country.flag}</span>
+            <img
+              src={`https://flagcdn.com/w40/${country.countryCode}.png`}
+              srcSet={`https://flagcdn.com/w80/${country.countryCode}.png 2x`}
+              width="36"
+              height="auto"
+              alt={country.name}
+              className="rounded-sm object-cover"
+            />
 
             {country.status === 'Active' ? (
               <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${
