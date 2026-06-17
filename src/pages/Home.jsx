@@ -460,7 +460,7 @@ function HorizontalPortfolio() {
 function MetricsSection() {
   const metrics = [
     { rate: "1000+", label: "Startups" },
-    { rate: "10,000", label: "HWI" },
+    { rate: "10,000", label: "HNI" },
     { rate: "3+", label: "Countries" }
   ];
 
