@@ -92,7 +92,7 @@ function HeroSection({ isDarkMode }) {
         </motion.div>
         
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal font-serif text-white leading-tight tracking-tight overflow-hidden">
-          <motion.span initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: EASE_CUBIC }} className="block">Building Better Worlds</motion.span>
+          <motion.span initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: EASE_CUBIC }} className="block">Building Better World</motion.span>
           <motion.span initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, ease: EASE_CUBIC }} className="block">Through Better Ecosystems</motion.span>
         </h1>
 
@@ -129,6 +129,7 @@ function HeroSection({ isDarkMode }) {
     </section>
   );
 }
+
 /* ==========================================================================
    3. PARALLAX PHILOSOPHY SECTION (STAYS DARK)
    ========================================================================== */
@@ -140,7 +141,7 @@ function ParallaxPhilosophy() {
   });
 
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.92, 1]);
-  const textLeft = useTransform(scrollYProgress, [0, 1], ["-15%", "10%"]);
+  const textLeft = useTransform(scrollYProgress, [0, 1], ["-100%", "60%"]);
 
   return (
     <section ref={containerRef} className="py-40 md:py-56 bg-[#0f0f11] relative overflow-hidden">
@@ -167,9 +168,9 @@ function ParallaxPhilosophy() {
 
       <motion.div
         style={{ x: textLeft }}
-        className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.02] select-none pointer-events-none whitespace-nowrap"
+        className="absolute -bottom-10 left-0 text-[12vw] font-serif font-bold text-white/[0.04] select-none pointer-events-none whitespace-nowrap"
       >
-        WORLD OF IQUE
+        WORLD OF IQUE — WOI
       </motion.div>
 
       <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -178,9 +179,7 @@ function ParallaxPhilosophy() {
   );
 }
 
-/* ==========================================================================
-   4. SERVICES BENTO GRID
-   ========================================================================== */
+
 
 /* ==========================================================================
    4. SERVICES BENTO GRID
