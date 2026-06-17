@@ -182,6 +182,10 @@ function ParallaxPhilosophy() {
    4. SERVICES BENTO GRID
    ========================================================================== */
 
+/* ==========================================================================
+   4. SERVICES BENTO GRID
+   ========================================================================== */
+
 function ServicesBento() {
   const serviceItems = [
     { icon: <Layers size={20} />, title: "Ecosystem Development", desc: "Designing and building startup, innovation, investment, and industry ecosystems.", image: "/Ecosystem development card image.png" },
@@ -207,24 +211,20 @@ function ServicesBento() {
             -55deg,
             transparent,
             transparent 38px,
-            rgba(255,185,0,0.20) 38px,
-            rgba(255,185,0,0.20) 39px,
+            rgba(255,185,0,0.18) 38px,
+            rgba(255,185,0,0.18) 39px,
             transparent 39px,
             transparent 76px,
-            rgba(255,185,0,0.08) 76px,
-            rgba(255,185,0,0.08) 77px
+            rgba(255,185,0,0.10) 76px,
+            rgba(255,185,0,0.10) 77px
           )`
         }}
       />
 
-      {/* ── Bold left accent bar ── */}
-      <div className="absolute left-0 top-0 bottom-0 z-[2] w-1 bg-[#ffb900] pointer-events-none" />
+
 
       {/* ── Gold corner marks — top-left & bottom-right ── */}
-      <div className="absolute top-8 left-6 z-[2] pointer-events-none flex flex-col gap-1">
-        <div className="w-8 h-[2px] bg-[#ffb900]" />
-        <div className="w-4 h-[2px] bg-[#ffb900]/50" />
-      </div>
+      
       <div className="absolute bottom-8 right-6 z-[2] pointer-events-none flex flex-col gap-1 items-end">
         <div className="w-4 h-[2px] bg-[#ffb900]/50" />
         <div className="w-8 h-[2px] bg-[#ffb900]" />
