@@ -4,13 +4,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { image } from 'framer-motion/client';
 
 // Reusable Scroll-In Wrapper for clean section entrances
+// MOBILE FIX: changed px-6 → px-4 sm:px-6, py-14 → py-10 sm:py-14
 const FadeInSection = ({ children, className = "" }) => (
   <motion.section 
     initial={{ opacity: 0, y: 60 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     viewport={{ once: true, margin: "-100px" }}
-    className={`max-w-7xl mx-auto px-6 py-14 md:py-20 ${className}`}
+    className={`max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 ${className}`}
   >
     {children}
   </motion.section>
@@ -27,9 +28,10 @@ const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
   const yBg = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
+    // MOBILE FIX: h-[320px] on small screens → h-[400px] sm → h-[480px] md → h-[600px]
     <div
       ref={targetRef}
-      className="h-[480px] md:h-[600px] rounded-[32px] overflow-hidden relative group cursor-pointer"
+      className="h-[320px] sm:h-[400px] md:h-[480px] lg:h-[600px] rounded-[24px] md:rounded-[32px] overflow-hidden relative group cursor-pointer"
     >
       {/* Parallax Background */}
       <motion.div
@@ -49,8 +51,10 @@ const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
 
       {/* Content */}
-      <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end z-10">
-        <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-1">
+      {/* MOBILE FIX: p-5 on small screens → p-8 md → p-12 */}
+      <div className="absolute inset-0 p-5 sm:p-8 md:p-12 flex flex-col justify-end z-10">
+        {/* MOBILE FIX: text-2xl on small screens → text-3xl sm → text-4xl md */}
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-1">
           {title}
         </h3>
         {tags && (
@@ -87,14 +91,16 @@ export default function MinimalPortfolio() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8 md:py-14"
+        // MOBILE FIX: px-4 on small screens → sm:px-6, pt-4 pb-6 on small screens
+        className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-6 sm:pt-6 sm:pb-8 md:py-14"
       >
         <div
-          className="rounded-[24px] md:rounded-[40px] p-6 sm:p-10 md:p-20 h-[75vh] sm:h-[80vh] min-h-[480px] flex flex-col justify-end border border-neutral-900/40 relative overflow-hidden"
+          // MOBILE FIX: min-h reduced to 400px on small, h-[65vh] on small screens, inner padding p-5 sm:p-8
+          className="rounded-[20px] sm:rounded-[24px] md:rounded-[40px] p-5 sm:p-8 md:p-20 h-[65vh] sm:h-[75vh] sm:h-[80vh] min-h-[400px] sm:min-h-[480px] flex flex-col justify-end border border-neutral-900/40 relative overflow-hidden"
         >
           {/* Zoom background */}
           <div
-            className="hero-bg absolute inset-0 rounded-[24px] md:rounded-[40px]"
+            className="hero-bg absolute inset-0 rounded-[20px] sm:rounded-[24px] md:rounded-[40px]"
             style={{
               backgroundImage: "url(/banner4.png)",
               backgroundSize: "cover",
@@ -117,15 +123,16 @@ export default function MinimalPortfolio() {
           `}</style>
 
           {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/55 rounded-[24px] md:rounded-[40px]" />
+          <div className="absolute inset-0 bg-black/55 rounded-[20px] sm:rounded-[24px] md:rounded-[40px]" />
 
           {/* Content anchored to bottom */}
           <div className="relative z-10 max-w-3xl">
-            <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] md:text-7xl lg:text-[90px] font-light tracking-tighter leading-[0.95] mb-4 md:mb-8 text-white">
+            <h1 className="text-[clamp(2.2rem,8vw,5.5rem)] md:text-7xl lg:text-[90px] font-light tracking-tighter leading-[0.95] mb-3 sm:mb-4 md:mb-8 text-white">
               The Pilot<br />
               <span className="font-serif italic font-normal">Ecosystem</span>
             </h1>
-            <p className="max-w-lg text-sm sm:text-base md:text-lg text-white/60 font-light leading-relaxed">
+            {/* MOBILE FIX: text-sm on all small screens, tighter leading */}
+            <p className="max-w-lg text-sm md:text-lg text-white/60 font-light leading-relaxed">
               WOI India is where WOI's global vision begins — bringing together founders, investors, institutions, and ecosystem partners to build a replicable model for entrepreneurship and innovation.
             </p>
           </div>
@@ -133,15 +140,18 @@ export default function MinimalPortfolio() {
       </motion.header>
 
       {/* SECTION 2: PARALLAX WORK GALLERY */}
-      <section className="max-w-7xl mx-auto px-6 py-8 md:py-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      {/* MOBILE FIX: px-4 on small screens, py-6 sm:py-8 */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <p className="text-3xl md:text-5xl font-bold tracking-tight">WOI India Initiatives</p>
+            {/* MOBILE FIX: text-2xl on small → text-3xl sm → text-5xl md */}
+            <p className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight">WOI India Initiatives</p>
           </div>
         </div>
 
         {/* Dynamic 2-Column Responsive Layout */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        {/* MOBILE FIX: gap-5 on small screens → gap-8 md */}
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-8 md:gap-12">
           {explicitProjects.map((project, i) => (
             <ParallaxProjectCard 
               key={i}
@@ -155,41 +165,49 @@ export default function MinimalPortfolio() {
       </section>
 
       {/* WOI INDIA: PILOT ECOSYSTEM TEASER */}
-<FadeInSection>
-  <div className="text-center mb-10">
-    <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">WOI India — Pilot Ecosystem</h2>
-    <p className="text-neutral-400 text-sm mt-3">WOI India brings together entrepreneurs, investors, innovators, institutions and ecosystem partners through interconnected platforms and initiatives designed to be a replicable model.</p>
-  </div>
-
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {[
-      { id: 'PARK',   title: 'Startup Park Bengaluru',  status: 'Active'   },
-      { id: 'SCHOOL', title: 'Startup School',          status: 'Active'   },
-      { id: 'CEO',    title: 'CEO Square',              status: 'Active'   },
-      { id: 'VC',     title: 'VC Circle',               status: 'Active'   },
-      { id: 'ANGELS', title: 'WOI Angels',              status: 'Building' },
-      { id: 'X9',     title: 'X9 Club',                 status: 'Active'   },
-      { id: 'STUDIO', title: 'DayOne Venture Studio',   status: 'Active'   },
-      { id: 'INC',    title: 'Incubenation',            status: 'Active'   },
-      { id: 'QX',     title: 'QuantumX',                status: 'Active'   }
-    ].map((it) => (
-      <div key={it.id} className="p-6 rounded-xl bg-neutral-900 border border-neutral-800">
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="font-semibold text-lg">{it.title}</h4>
-          <span className={`text-xs font-mono px-2 py-1 rounded ${it.status === 'Active' ? 'bg-emerald-500 text-black' : it.status === 'Building' ? 'bg-amber-500 text-black' : 'bg-stone-700 text-white'}`}>{it.status}</span>
+      <FadeInSection>
+        <div className="text-center mb-8 sm:mb-10">
+          {/* MOBILE FIX: text-2xl sm:text-3xl md:text-4xl */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">WOI India — Pilot Ecosystem</h2>
+          {/* MOBILE FIX: text-xs sm:text-sm, px-2 for narrow screens */}
+          <p className="text-neutral-400 text-xs sm:text-sm mt-3 px-2 sm:px-0">WOI India brings together entrepreneurs, investors, innovators, institutions and ecosystem partners through interconnected platforms and initiatives designed to be a replicable model.</p>
         </div>
-        <p className="text-sm text-neutral-400">{it.title} — part of the WOI India pilot initiative.</p>
-      </div>
-    ))}
-  </div>
-</FadeInSection>
+
+        {/* MOBILE FIX: grid-cols-1 → sm:grid-cols-2 → md:grid-cols-3, gap-4 on mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+          {[
+            { id: 'PARK',   title: 'Startup Park Bengaluru',  status: 'Active'   },
+            { id: 'SCHOOL', title: 'Startup School',          status: 'Active'   },
+            { id: 'CEO',    title: 'CEO Square',              status: 'Active'   },
+            { id: 'VC',     title: 'VC Circle',               status: 'Active'   },
+            { id: 'ANGELS', title: 'WOI Angels',              status: 'Building' },
+            { id: 'X9',     title: 'X9 Club',                 status: 'Active'   },
+            { id: 'STUDIO', title: 'DayOne Venture Studio',   status: 'Active'   },
+            { id: 'INC',    title: 'Incubenation',            status: 'Active'   },
+            { id: 'QX',     title: 'QuantumX',                status: 'Active'   }
+          ].map((it) => (
+            // MOBILE FIX: p-4 sm:p-6, rounded-lg sm:rounded-xl
+            <div key={it.id} className="p-4 sm:p-6 rounded-lg sm:rounded-xl bg-neutral-900 border border-neutral-800">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                {/* MOBILE FIX: text-base sm:text-lg */}
+                <h4 className="font-semibold text-base sm:text-lg leading-snug pr-2">{it.title}</h4>
+                <span className={`text-xs font-mono px-2 py-1 rounded flex-shrink-0 ${it.status === 'Active' ? 'bg-emerald-500 text-black' : it.status === 'Building' ? 'bg-amber-500 text-black' : 'bg-stone-700 text-white'}`}>{it.status}</span>
+              </div>
+              <p className="text-xs sm:text-sm text-neutral-400">{it.title} — part of the WOI India pilot initiative.</p>
+            </div>
+          ))}
+        </div>
+      </FadeInSection>
+
       {/* SECTION 3: PILLARS */}
       <FadeInSection className="border-t border-neutral-900">
-        <div className="mb-8">
-          <p className="text-3xl md:text-5xl font-bold tracking-tight">Pillars</p>
+        <div className="mb-6 sm:mb-8">
+          {/* MOBILE FIX: text-2xl sm:text-3xl md:text-5xl */}
+          <p className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight">Pillars</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* MOBILE FIX: gap-4 sm:gap-6 */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {[
             {
               title: 'Infrastructure',
@@ -224,12 +242,13 @@ export default function MinimalPortfolio() {
           ].map((item, i) => (
             <div
               key={i}
-              className="group relative bg-black border border-neutral-800 p-8 hover:border-[#ffb900] transition-all duration-500 overflow-hidden"
+              // MOBILE FIX: p-5 sm:p-8 (desktop stays p-8 since md:p-8 already set via p-8)
+              className="group relative bg-black border border-neutral-800 p-5 sm:p-8 hover:border-[#ffb900] transition-all duration-500 overflow-hidden"
             >
               {/* Accent corner */}
               <div className="absolute top-0 left-0 w-8 h-[2px] bg-[#ffb900]" />
 
-              <h4 className="text-lg font-bold text-white tracking-tight mb-3 group-hover:text-[#ffb900] transition-colors duration-300">
+              <h4 className="text-base sm:text-lg font-bold text-white tracking-tight mb-2 sm:mb-3 group-hover:text-[#ffb900] transition-colors duration-300">
                 {item.title}
               </h4>
               <p className="text-neutral-500 text-sm leading-relaxed font-light group-hover:text-neutral-400 transition-colors duration-300">
@@ -251,26 +270,30 @@ export default function MinimalPortfolio() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         viewport={{ once: true, margin: "-100px" }}
-        className="max-w-7xl mx-auto px-6 py-14 md:py-20 border-t border-neutral-900"
+        // MOBILE FIX: px-4 sm:px-6, py-10 sm:py-14 md:py-20
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 border-t border-neutral-900"
       >
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 md:mb-14 gap-4">
           <div>
             <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#ffb900] mb-3">
               Future Vision
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+            {/* MOBILE FIX: text-2xl sm:text-3xl md:text-5xl */}
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight">
               Building the Future of<br className="hidden md:block" /> Ecosystem Cities
             </h2>
           </div>
-          <p className="text-neutral-500 text-sm max-w-xs leading-relaxed font-light md:text-right">
+          {/* MOBILE FIX: text-xs sm:text-sm, max-w-none sm:max-w-xs on mobile */}
+          <p className="text-neutral-500 text-xs sm:text-sm max-w-none sm:max-w-xs leading-relaxed font-light md:text-right">
             WOI's future initiatives are designed to create focused, industry-led ecosystems that bring together talent, infrastructure, capital, and global partnerships.
           </p>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        {/* MOBILE FIX: gap-3 sm:gap-4 md:gap-5 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
           {[
             {
               num: '01',
@@ -313,13 +336,14 @@ export default function MinimalPortfolio() {
               key={i}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative bg-neutral-950 border border-neutral-800 hover:border-[#ffb900]/50 rounded-xl p-6 md:p-7 overflow-hidden transition-colors duration-300 cursor-default flex flex-col justify-between min-h-[180px]"
+              // MOBILE FIX: p-5 sm:p-6 md:p-7, min-h-[160px] sm:min-h-[180px]
+              className="group relative bg-neutral-950 border border-neutral-800 hover:border-[#ffb900]/50 rounded-xl p-5 sm:p-6 md:p-7 overflow-hidden transition-colors duration-300 cursor-default flex flex-col justify-between min-h-[160px] sm:min-h-[180px]"
             >
               {/* Top accent line */}
               <div className="absolute top-0 left-0 w-0 group-hover:w-full h-[1px] bg-[#ffb900] transition-all duration-500" />
 
               {/* Top row: num + tag */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
                 <span className="text-[10px] font-mono text-neutral-600 group-hover:text-[#ffb900] transition-colors duration-300">
                   {item.num}
                 </span>
@@ -329,8 +353,9 @@ export default function MinimalPortfolio() {
               </div>
 
               {/* Title + desc */}
-              <div className="space-y-2.5">
-                <h4 className="text-lg md:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-[#ffb900] transition-colors duration-300">
+              <div className="space-y-2 sm:space-y-2.5">
+                {/* MOBILE FIX: text-base sm:text-lg md:text-xl */}
+                <h4 className="text-base sm:text-lg md:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-[#ffb900] transition-colors duration-300">
                   {item.title}
                 </h4>
                 <p className="text-sm text-neutral-500 font-light leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">
@@ -339,7 +364,7 @@ export default function MinimalPortfolio() {
               </div>
 
               {/* Bottom arrow */}
-              <div className="mt-6 flex justify-end">
+              <div className="mt-4 sm:mt-6 flex justify-end">
                 <svg
                   width="16" height="16" viewBox="0 0 18 18" fill="none"
                   className="text-neutral-700 group-hover:text-[#ffb900] group-hover:translate-x-1 group-hover:-translate-y-1 transform transition-all duration-300"
@@ -362,8 +387,9 @@ export default function MinimalPortfolio() {
       <FadeInSection className="border-t border-neutral-900">
 
         {/* Header row */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-3">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 md:mb-12 gap-3">
           <div>
+            {/* Already has sm:text-3xl md:text-5xl — adding text-2xl base (was text-2xl, unchanged) */}
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white">
               Who We Work With
             </h2>
@@ -462,9 +488,10 @@ export default function MinimalPortfolio() {
               </div>
 
               {/* ── Mobile card (< md): always shows desc, no hover needed ── */}
-              <div className="flex md:hidden items-start gap-4 py-5">
-                {/* Index pill */}
-                <div className="flex-shrink-0 w-9 h-9 rounded-full border border-neutral-800 flex items-center justify-center mt-0.5">
+              {/* MOBILE FIX: gap-3 sm:gap-4, py-4 sm:py-5 */}
+              <div className="flex md:hidden items-start gap-3 sm:gap-4 py-4 sm:py-5">
+                {/* Index pill — MOBILE FIX: w-8 h-8 sm:w-9 sm:h-9 */}
+                <div className="flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-neutral-800 flex items-center justify-center mt-0.5">
                   <span className="text-[10px] font-black text-neutral-500 tracking-wide">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -472,20 +499,22 @@ export default function MinimalPortfolio() {
 
                 {/* Text — always visible */}
                 <div className="flex-1 min-w-0 space-y-1">
-                  <h4 className="text-base font-bold text-white tracking-tight leading-snug">
+                  {/* MOBILE FIX: text-sm sm:text-base for label */}
+                  <h4 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
                     {item.label}
                   </h4>
-                  <p className="text-xs text-neutral-500 font-mono uppercase tracking-widest leading-relaxed">
+                  {/* MOBILE FIX: hide 'short' subtitle on very small screens to reduce clutter */}
+                  <p className="hidden xs:block text-xs text-neutral-500 font-mono uppercase tracking-widest leading-relaxed">
                     {item.short}
                   </p>
-                  <p className="text-sm text-neutral-400 font-light leading-relaxed pt-1">
+                  <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed pt-1">
                     {item.desc}
                   </p>
                 </div>
 
                 {/* Static arrow */}
                 <div className="flex-shrink-0 self-start mt-1 text-[#fe9a00] opacity-40">
-                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
                     <path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
