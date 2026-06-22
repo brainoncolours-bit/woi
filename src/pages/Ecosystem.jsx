@@ -1,48 +1,78 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { image } from 'framer-motion/client';
 
-// Reusable Scroll-In Wrapper for clean section entrances
-// MOBILE FIX: changed px-6 → px-4 sm:px-6, py-14 → py-10 sm:py-14
+// ─── Mobile detection hook ────────────────────────────────────────────────────
+const useMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+};
+
+// ─── FadeInSection ────────────────────────────────────────────────────────────
+// FIXED: Removed motion + initial/whileInView animations entirely.
+// These were the root cause of the scrollbar bug — framer-motion's y:60
+// offset made the browser calculate a shorter page height at load,
+// showing a full-height scrollbar thumb until animations settled.
+// Now a plain <section> — no entrance animation, correct height from paint.
 const FadeInSection = ({ children, className = "" }) => (
-  <motion.section 
-    initial={{ opacity: 0, y: 60 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-    viewport={{ once: true, margin: "-100px" }}
+  <section
     className={`max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 ${className}`}
   >
     {children}
-  </motion.section>
+  </section>
 );
 
+// ─── ParallaxProjectCard ──────────────────────────────────────────────────────
 const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
   const targetRef = useRef(null);
+  const isMobile = useMobile();
 
+  // Always call hooks unconditionally (Rules of Hooks).
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"]
   });
-
   const yBg = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    // MOBILE FIX: h-[320px] on small screens → h-[400px] sm → h-[480px] md → h-[600px]
     <div
       ref={targetRef}
+      style={isMobile ? { touchAction: "pan-y" } : undefined}
       className="h-[320px] sm:h-[400px] md:h-[480px] lg:h-[600px] rounded-[24px] md:rounded-[32px] overflow-hidden relative group cursor-pointer"
     >
-      {/* Parallax Background */}
-      <motion.div
-        style={{
-          y: yBg,
-          backgroundImage: `url(${imgUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="absolute -inset-y-24 inset-x-0 transition-transform duration-500"
-      />
+      {/*
+        MOBILE:  plain static <div> — no y-transform, no scroll listener impact,
+                 no -inset-y-24 overflow bleed. Fixes scroll blocking + image animation.
+        DESKTOP: motion.div with parallax y-transform. Unchanged from original.
+      */}
+      {isMobile ? (
+        <div
+          style={{
+            backgroundImage: `url(${imgUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="absolute inset-0"
+        />
+      ) : (
+        <motion.div
+          style={{
+            y: yBg,
+            backgroundImage: `url(${imgUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          className="absolute -inset-y-24 inset-x-0 transition-transform duration-500"
+        />
+      )}
 
       {/* Bottom gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
@@ -51,9 +81,7 @@ const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
 
       {/* Content */}
-      {/* MOBILE FIX: p-5 on small screens → p-8 md → p-12 */}
       <div className="absolute inset-0 p-5 sm:p-8 md:p-12 flex flex-col justify-end z-10">
-        {/* MOBILE FIX: text-2xl on small screens → text-3xl sm → text-4xl md */}
         <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-1">
           {title}
         </h3>
@@ -66,7 +94,7 @@ const ParallaxProjectCard = ({ index, title, tags, imgUrl }) => {
 };
 
 export default function MinimalPortfolio() {
-  // Global reading progress bar calculation
+  // Global reading progress bar — fixed positioned, does not affect layout height
   const { scrollYProgress: globalProgress } = useScroll();
   const scaleX = useTransform(globalProgress, [0, 1], [0, 1]);
 
@@ -79,26 +107,23 @@ export default function MinimalPortfolio() {
 
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen font-sans selection:bg-orange-500 selection:text-white antialiased overflow-x-hidden">
-      
-      {/* Top Interface Accent Progress Line */}
-      <motion.div 
+
+      {/* Top progress bar — fixed, does not affect document height */}
+      <motion.div
         className="fixed top-0 left-0 right-0 h-[2px] bg-orange-500 origin-left z-50"
         style={{ scaleX }}
       />
 
-      {/* SECTION 1: HERO */}
-      <motion.header
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        // MOBILE FIX: px-4 on small screens → sm:px-6, pt-4 pb-6 on small screens
-        className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-6 sm:pt-6 sm:pb-8 md:py-14"
-      >
+      {/* ── SECTION 1: HERO ──────────────────────────────────────────────────
+          FIXED: was motion.header with initial={{ opacity:0, y:20 }}.
+          That y:20 made the browser measure a wrong page height on load.
+          Now a plain <header> — renders at full height immediately.
+      ─────────────────────────────────────────────────────────────────── */}
+      <header className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-6 sm:pt-6 sm:pb-8 md:py-14">
         <div
-          // MOBILE FIX: min-h reduced to 400px on small, h-[65vh] on small screens, inner padding p-5 sm:p-8
-          className="rounded-[20px] sm:rounded-[24px] md:rounded-[40px] p-5 sm:p-8 md:p-20 h-[65vh] sm:h-[75vh] sm:h-[80vh] min-h-[400px] sm:min-h-[480px] flex flex-col justify-end border border-neutral-900/40 relative overflow-hidden"
+          className="rounded-[20px] sm:rounded-[24px] md:rounded-[40px] p-5 sm:p-8 md:p-20 h-[65vh] sm:h-[75vh] min-h-[400px] sm:min-h-[480px] flex flex-col justify-end border border-neutral-900/40 relative overflow-hidden"
         >
-          {/* Zoom background */}
+          {/* Hero background with zoom animation — contained inside overflow:hidden, no layout impact */}
           <div
             className="hero-bg absolute inset-0 rounded-[20px] sm:rounded-[24px] md:rounded-[40px]"
             style={{
@@ -131,29 +156,24 @@ export default function MinimalPortfolio() {
               The Pilot<br />
               <span className="font-serif italic font-normal">Ecosystem</span>
             </h1>
-            {/* MOBILE FIX: text-sm on all small screens, tighter leading */}
             <p className="max-w-lg text-sm md:text-lg text-white/60 font-light leading-relaxed">
               WOI India is where WOI's global vision begins — bringing together founders, investors, institutions, and ecosystem partners to build a replicable model for entrepreneurship and innovation.
             </p>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* SECTION 2: PARALLAX WORK GALLERY */}
-      {/* MOBILE FIX: px-4 on small screens, py-6 sm:py-8 */}
+      {/* ── SECTION 2: PARALLAX WORK GALLERY ─────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            {/* MOBILE FIX: text-2xl on small → text-3xl sm → text-5xl md */}
             <p className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight">WOI India Initiatives</p>
           </div>
         </div>
 
-        {/* Dynamic 2-Column Responsive Layout */}
-        {/* MOBILE FIX: gap-5 on small screens → gap-8 md */}
         <div className="grid md:grid-cols-2 gap-5 sm:gap-8 md:gap-12">
           {explicitProjects.map((project, i) => (
-            <ParallaxProjectCard 
+            <ParallaxProjectCard
               key={i}
               index={i + 1}
               title={project.title}
@@ -164,16 +184,13 @@ export default function MinimalPortfolio() {
         </div>
       </section>
 
-      {/* WOI INDIA: PILOT ECOSYSTEM TEASER */}
+      {/* ── WOI INDIA: PILOT ECOSYSTEM TEASER ───────────────────────────── */}
       <FadeInSection>
         <div className="text-center mb-8 sm:mb-10">
-          {/* MOBILE FIX: text-2xl sm:text-3xl md:text-4xl */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">WOI India — Pilot Ecosystem</h2>
-          {/* MOBILE FIX: text-xs sm:text-sm, px-2 for narrow screens */}
           <p className="text-neutral-400 text-xs sm:text-sm mt-3 px-2 sm:px-0">WOI India brings together entrepreneurs, investors, innovators, institutions and ecosystem partners through interconnected platforms and initiatives designed to be a replicable model.</p>
         </div>
 
-        {/* MOBILE FIX: grid-cols-1 → sm:grid-cols-2 → md:grid-cols-3, gap-4 on mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {[
             { id: 'PARK',   title: 'Startup Park Bengaluru',  status: 'Active'   },
@@ -186,10 +203,8 @@ export default function MinimalPortfolio() {
             { id: 'INC',    title: 'Incubenation',            status: 'Active'   },
             { id: 'QX',     title: 'QuantumX',                status: 'Active'   }
           ].map((it) => (
-            // MOBILE FIX: p-4 sm:p-6, rounded-lg sm:rounded-xl
             <div key={it.id} className="p-4 sm:p-6 rounded-lg sm:rounded-xl bg-neutral-900 border border-neutral-800">
               <div className="flex items-center justify-between mb-2 sm:mb-3">
-                {/* MOBILE FIX: text-base sm:text-lg */}
                 <h4 className="font-semibold text-base sm:text-lg leading-snug pr-2">{it.title}</h4>
                 <span className={`text-xs font-mono px-2 py-1 rounded flex-shrink-0 ${it.status === 'Active' ? 'bg-emerald-500 text-black' : it.status === 'Building' ? 'bg-amber-500 text-black' : 'bg-stone-700 text-white'}`}>{it.status}</span>
               </div>
@@ -199,14 +214,12 @@ export default function MinimalPortfolio() {
         </div>
       </FadeInSection>
 
-      {/* SECTION 3: PILLARS */}
+      {/* ── SECTION 3: PILLARS ───────────────────────────────────────────── */}
       <FadeInSection className="border-t border-neutral-900">
         <div className="mb-6 sm:mb-8">
-          {/* MOBILE FIX: text-2xl sm:text-3xl md:text-5xl */}
           <p className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight">Pillars</p>
         </div>
 
-        {/* MOBILE FIX: gap-4 sm:gap-6 */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {[
             {
@@ -242,7 +255,6 @@ export default function MinimalPortfolio() {
           ].map((item, i) => (
             <div
               key={i}
-              // MOBILE FIX: p-5 sm:p-8 (desktop stays p-8 since md:p-8 already set via p-8)
               className="group relative bg-black border border-neutral-800 p-5 sm:p-8 hover:border-[#ffb900] transition-all duration-500 overflow-hidden"
             >
               {/* Accent corner */}
@@ -262,17 +274,11 @@ export default function MinimalPortfolio() {
         </div>
       </FadeInSection>
 
-      {/* ========================================================
-          FUTURE ECOSYSTEM CITIES SECTION
-          ======================================================== */}
-      <motion.section
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        viewport={{ once: true, margin: "-100px" }}
-        // MOBILE FIX: px-4 sm:px-6, py-10 sm:py-14 md:py-20
-        className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 border-t border-neutral-900"
-      >
+      {/* ── FUTURE ECOSYSTEM CITIES ──────────────────────────────────────────
+          FIXED: was motion.section with initial={{ opacity:0, y:60 }}.
+          Now a plain <section>. No entrance animation, correct height at load.
+      ─────────────────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-20 border-t border-neutral-900">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 md:mb-14 gap-4">
@@ -280,19 +286,16 @@ export default function MinimalPortfolio() {
             <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#ffb900] mb-3">
               Future Vision
             </p>
-            {/* MOBILE FIX: text-2xl sm:text-3xl md:text-5xl */}
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight">
               Building the Future of<br className="hidden md:block" /> Ecosystem Cities
             </h2>
           </div>
-          {/* MOBILE FIX: text-xs sm:text-sm, max-w-none sm:max-w-xs on mobile */}
           <p className="text-neutral-500 text-xs sm:text-sm max-w-none sm:max-w-xs leading-relaxed font-light md:text-right">
             WOI's future initiatives are designed to create focused, industry-led ecosystems that bring together talent, infrastructure, capital, and global partnerships.
           </p>
         </div>
 
         {/* Cards Grid */}
-        {/* MOBILE FIX: gap-3 sm:gap-4 md:gap-5 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
           {[
             {
@@ -336,7 +339,6 @@ export default function MinimalPortfolio() {
               key={i}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              // MOBILE FIX: p-5 sm:p-6 md:p-7, min-h-[160px] sm:min-h-[180px]
               className="group relative bg-neutral-950 border border-neutral-800 hover:border-[#ffb900]/50 rounded-xl p-5 sm:p-6 md:p-7 overflow-hidden transition-colors duration-300 cursor-default flex flex-col justify-between min-h-[160px] sm:min-h-[180px]"
             >
               {/* Top accent line */}
@@ -354,7 +356,6 @@ export default function MinimalPortfolio() {
 
               {/* Title + desc */}
               <div className="space-y-2 sm:space-y-2.5">
-                {/* MOBILE FIX: text-base sm:text-lg md:text-xl */}
                 <h4 className="text-base sm:text-lg md:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-[#ffb900] transition-colors duration-300">
                   {item.title}
                 </h4>
@@ -379,17 +380,14 @@ export default function MinimalPortfolio() {
           ))}
         </div>
 
-      </motion.section>
+      </section>
 
-      {/* =================
-          SECTION 4: WHO WE WORK WITH
-          ============== */}
+      {/* ── SECTION 4: WHO WE WORK WITH ──────────────────────────────────── */}
       <FadeInSection className="border-t border-neutral-900">
 
         {/* Header row */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 md:mb-12 gap-3">
           <div>
-            {/* Already has sm:text-3xl md:text-5xl — adding text-2xl base (was text-2xl, unchanged) */}
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white">
               Who We Work With
             </h2>
@@ -439,7 +437,7 @@ export default function MinimalPortfolio() {
               className="group cursor-default"
               whileHover="hovered"
             >
-              {/* ── Desktop row (md+): icon | label + short | arrow ── */}
+              {/* ── Desktop row (md+) ── */}
               <div className="hidden md:flex items-start gap-6 py-7 overflow-hidden">
                 {/* Index pill */}
                 <div className="flex-shrink-0 w-10 h-10 rounded-full border border-neutral-800 group-hover:border-[#fe9a00] group-hover:bg-[#fe9a00] transition-all duration-300 flex items-center justify-center">
@@ -487,10 +485,9 @@ export default function MinimalPortfolio() {
                 </div>
               </div>
 
-              {/* ── Mobile card (< md): always shows desc, no hover needed ── */}
-              {/* MOBILE FIX: gap-3 sm:gap-4, py-4 sm:py-5 */}
+              {/* ── Mobile card (< md) ── */}
               <div className="flex md:hidden items-start gap-3 sm:gap-4 py-4 sm:py-5">
-                {/* Index pill — MOBILE FIX: w-8 h-8 sm:w-9 sm:h-9 */}
+                {/* Index pill */}
                 <div className="flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-neutral-800 flex items-center justify-center mt-0.5">
                   <span className="text-[10px] font-black text-neutral-500 tracking-wide">
                     {String(i + 1).padStart(2, "0")}
@@ -499,11 +496,9 @@ export default function MinimalPortfolio() {
 
                 {/* Text — always visible */}
                 <div className="flex-1 min-w-0 space-y-1">
-                  {/* MOBILE FIX: text-sm sm:text-base for label */}
                   <h4 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
                     {item.label}
                   </h4>
-                  {/* MOBILE FIX: hide 'short' subtitle on very small screens to reduce clutter */}
                   <p className="hidden xs:block text-xs text-neutral-500 font-mono uppercase tracking-widest leading-relaxed">
                     {item.short}
                   </p>
