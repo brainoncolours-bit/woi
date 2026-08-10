@@ -168,7 +168,7 @@ export default function Footer() {
       <div className="relative border-t border-white/[0.06] bg-[#050505]">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/40 font-light">
-            © {year} World of Ique. All rights reserved.
+            © {year} WOI. All rights reserved.
           </p>
 
 
